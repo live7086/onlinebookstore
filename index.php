@@ -224,7 +224,7 @@
                         <div class='text-center'>
 
                             <!--彈跳連結-->
-                            <a class='btn btn-outline-dark mt-auto' href='#' data-bs-toggle='modal' data-bs-target='#popinv'>購買邀請</a>
+                            <a class='btn btn-outline-dark mt-auto' href='#' data-bs-toggle='modal' data-bs-target='#popinv'>購買邀請外</a>
                              <!--彈出來的視窗 弘軒改這邊-->
                              <div class='modal fade' id='popinv'>
                                 <div class='modal-dialog'>

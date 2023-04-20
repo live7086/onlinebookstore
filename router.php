@@ -6,13 +6,13 @@
             
             use PHPMailer\PHPMailer\PHPMailer;
             use PHPMailer\PHPMailer\Exception;
-    session_start();
-    $router=$_GET['router'];
-    //先暫存創建資料
-    $test="546";
-    $user_email=$_GET['user_email'];
 
-    $link = mysqli_connect('localhost','root','12345678','sa');
+            session_start();
+            $router=$_GET['router'];
+            $user_email=$_GET['user_email'];
+
+            $link = mysqli_connect('localhost','root','12345678','sa');
+
     if($router=="register"){
         //用戶資料
         $_SESSION['user_email']=$_GET['user_email'];
@@ -33,7 +33,7 @@
         
 
 
-        }else{
+    }else{
             $_SESSION['otp']=rand(10000,99999);
             // 創建 PHPMailer 實例
             $mail = new PHPMailer(true);
@@ -77,7 +77,19 @@
                 echo "錯誤";
             }
 
-        }   
+    }else if($router=="remove"){
+        $item_id=$_GET['item_id'];
+        //依序進行刪除
+        $sqllocation="DELETE FROM iloc WHERE item_id='".$item_id."'";
+        $sqltime="DELETE FROM itime WHERE item_id='".$item_id."'";
+        $sqlphoto="DELETE FROM iphoto WHERE item_id='".$item_id."'";
+        $sqlinfo="DELETE FROM item_info WHERE item_id='".$item_id."'";
+        $result=mysqli_query($link,$sqllocation);
+        $result=mysqli_query($link,$sqltime);
+        $result=mysqli_query($link,$sqlphoto);
+        $result=mysqli_query($link,$sqlinfo);
+        header("Location:pinfo.php");
+    }   
 
 
 

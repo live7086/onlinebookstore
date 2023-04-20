@@ -79,60 +79,31 @@
                               <h3>通知</h3>
                               <button class="btn btn-outline-secondary" data-bs-dismiss="modal">返回</button>
                             </div>
-                            <div class="card">
-                                <div class="card-header">阿緯對你發出了邀請</div>
-                                <div class="card-body">
-                                  <div class="row">
-                                    <div class="col-md-6">
+                            <?php
+                            $link = mysqli_connect('localhost','root','12345678','sa');
+                            $sql="SELECT * FROM bid_info, item_info, acccount where user_email='$user_email'";
+                            $result= mysqli_query($link,$sql);
+                            $row=mysqli_fetch_assoc($result);
+                            echo "<div class=\"card\">
+                                <div class=\"card-header\">阿緯對你發出了邀請</div>
+                                <div class=\"card-body\">
+                                  <div class=\"row\">
+                                    <div class=\"col-md-6\">
                                       <label>商品：Principles of FINANCIAL ACCOUNTING(3E)</label><br>
                                       <label>時間：04:00</label><br>
-                                      <label>地點：濟時嘍</label><br>
+                                      <label>地點：濟時樓</label><br>
                                       <label>價格：800$</label>
                                     </div>
-                                    <div class="col-md-12">
+                                    <div class=\"col-md-12\">
                                       <div>
-                                        <button type="button" class="btn btn-primary">接受</button>
-                                        <button type="button" class="btn btn-secondary">拒絕</button>
+                                        <button type=\"button\" class=\"btn btn-primary\">接受</button>
+                                        <button type=\"button\" class=\"btn btn-secondary\">拒絕</button>
                                       </div>
                                     </div>
                                   </div>
                                 </div>
-                                
-                            </div>
-                            <div class="card">
-                              <div class="card-header">可41對你發出了邀請</div>
-                              <div class="card-body">
-                                <div class="row">
-                                  <div class="col-md-12">
-                                    <label>商品：大學國文選（生命教育篇）</label><br>
-                                    <label>時間：04:00</label><br>
-                                    <label>地點：濟時嘍</label><br>
-                                    <label>價格：300$</label>
-                                  </div>
-                                  <div class="col-md-12">
-                                    <button type="button" class="btn btn-primary">接受</button>
-                                    <button type="button" class="btn btn-secondary">拒絕</button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="card">
-                              <div class="card-header">老蟹老闆對你發出了邀請</div>
-                              <div class="card-body">
-                                <div class="row">
-                                  <div class="col-md-12">
-                                    <label>商品：大學國文選（生命教育篇）</label><br>
-                                    <label>時間：04:00</label><br>
-                                    <label>地點：濟時嘍</label><br>
-                                    <label>價格：300$</label>
-                                  </div>
-                                  <div class="col-md-12">
-                                    <button type="button" class="btn btn-primary">接受</button>
-                                    <button type="button" class="btn btn-secondary">拒絕</button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
+                            </div>";
+                            ?>
                           </div>
                         </div>
                       </div>
@@ -289,13 +260,13 @@
                         <div class='text-center'>
                             <h4 class='fw-bolder'>價格:", $row['item_price'],"元</h4>
                         </div>
-                        <div class='text-center'><a class='btn btn-outline-dark mt-auto' href='#'>加入最愛</a></div>
+                        <div class='text-center'><a class='btn btn-outline-dark mt-auto' href='router.php?router=remove&item_id=".$row['item_id']."'>下架商品</a></div>
                     </div>
                     <div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>
                         <div class='text-center'>
 
                             <!--彈跳連結-->
-                            <a class='btn btn-outline-dark mt-auto' href='#' data-bs-toggle='modal' data-bs-target='#popinv'>購買邀請</a>
+                            <a class='btn btn-outline-dark mt-auto' href='#' data-bs-toggle='modal' data-bs-target='#popinv'>修改</a>
                              <!--彈出來的視窗 弘軒改這邊-->
                              <div class='modal fade' id='popinv'>
                                 <div class='modal-dialog'>

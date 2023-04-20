@@ -57,7 +57,7 @@ function generateItemId($conn, $item_info) {
 	  }
 	else
 	  {
-	    header("Location:index.php?message=新增失敗$iloc_name,$item_info,$item_price");
+	    header("Location:pinfo.php?message=新增失敗$iloc_name,$item_info,$item_price");
 	  }
   }
   else
