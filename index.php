@@ -244,8 +244,8 @@
                                                             $name = 'time_'.$count;
                                                             $count=$count+1;
                                                         echo "
-                                                        <label class='checkbox-inline'>
-                                                        <input type='checkbox' name='".$name."' value='".$row2['itime_name']."'>".$row2['itime_name']."
+                                                        <label class='radio-inline'> <!--阿兵改成radio button 讓直覺看起來就只能選一時段，但還須修改-->
+                                                        <input type='radio' name='".$name."' value='".$row2['itime_name']."'>".$row2['itime_name']."
                                                     </label>";}
                                                 echo"    </div>
                                                 </div>
