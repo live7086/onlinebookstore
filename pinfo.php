@@ -21,6 +21,9 @@
          <script src="js/scripts.js"></script>
           
     </head>
+    <?php
+    $searchtxt = $_GET['searchtxt'];
+    ?>
     <body>
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -35,16 +38,18 @@
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">雜誌</a></li>-->
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">二手書</a></li>
                         <li class="nav-item">
+                            <form method=get action="pinfo.php">
                             <table>
                                 <tr>
                                     <td>
-                                        <input class="input-group-text" placeholder="請輸入關鍵字..." >
+                                        <input class="input-group-text" placeholder="請輸入關鍵字..." name="searchtxt">
                                     </td>
                                     <td>
                                         <button class="btn btn-outline-primary">搜尋</button>
                                     </td>
                                 </tr> 
                             </table>
+                                </form>
                         </li>
                     
                       
@@ -84,6 +89,16 @@
                             $sql="SELECT * FROM bid_info, item_info, acccount where user_email='$user_email'";
                             $result= mysqli_query($link,$sql);
                             $row=mysqli_fetch_assoc($result);
+
+                            if(empty($searchtxt))
+                            {
+                                $sql  = "SELECT * FROM item_info,iphoto, iloc WHERE item_info.item_id=iphoto.item_id and item_info.item_id=iloc.item_id and item_info.user_id= ".$_SESSION['user_id']." group by item_info.item_id";
+                            }
+                            else
+                            {
+                                $sql  = "SELECT * FROM item_info, iphoto, iloc WHERE iphoto.item_id=item_info.item_id and item_info.item_id=iloc.item_id and item_info.user_id= ".$_SESSION['user_id']." and item_name LIKE '%". $searchtxt. "%'group by item_info.item_id";
+                            }
+
                             echo "<div class=\"card\">
                                 <div class=\"card-header\">阿緯對你發出了邀請</div>
                                 <div class=\"card-body\">
@@ -154,7 +169,7 @@
                                     <button class="btn btn-outline-secondary" data-bs-dismiss="modal">返回</button>
                                 </div>
                                 <div class="modal-body">
-                                    <form enctype="multipart/form-data" method='post' action="itemlink.php" onsubmit="return onSubmitForm()">
+                                    <form id="itemlink.php" enctype="multipart/form-data" method='post' action="itemlink.php" onsubmit="return onSubmitForm()">
                                     <input type=hidden name='dbaction' value='insert'>
                                         <div class="form-group">
                                             <input class="form-control" type="text" placeholder="書名" name="title">
@@ -174,7 +189,6 @@
 
 
                                         <div class="form-group">
-
                                             <input class="form-control" type="text" id="time-period-1" placeholder="面交時間段(星期幾 小時:分鐘)"name="time-1">
                                             <input class="form-control" type="text" id="time-period-2" placeholder="面交時間段(星期幾 小時:分鐘)"name="time-2">
                                             <input class="form-control" type="text" id="time-period-3" placeholder="面交時間段(星期幾 小時:分鐘)"name="time-3">
@@ -220,25 +234,23 @@
                 </div>
             </div>
         </header>
+                                    </form>
         
         <!-- Section-->
+        <form action="itemlink.php" method="post">
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-1 row-cols-xl-2 justify-content-center">
                 <?php
                     $link = mysqli_connect('localhost','root','12345678','sa');
-                    if(empty($searchtxt))
-                    {
-                        $sql  = "SELECT * FROM item_info,iphoto WHERE item_info.item_id=iphoto.item_id AND item_info.user_id=".$_SESSION['user_id']." group by item_info.item_id";
-                    }
-                    else
-                    {
-                        $sql  = "SELECT * FROM item_info, iphoto WHERE iphoto.item_id=item_info.item_id and item_name LIKE '%". $searchtxt. "%'group by item_info.item_id";
-                    }
+
+
                     
                     $result = mysqli_query($link,$sql);
+
                     While($row=mysqli_fetch_assoc($result))
                     {
+                                
                     echo "
                     <div class='col mb-5'>
                     <div class='card h-100'>
@@ -264,72 +276,91 @@
                     </div>
                     <div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>
                         <div class='text-center'>
-
                             <!--彈跳連結-->
-                            <a class='btn btn-outline-dark mt-auto' href='#' data-bs-toggle='modal' data-bs-target='#popinv'>修改</a>
-                             <!--彈出來的視窗 弘軒改這邊-->
-                             <div class='modal fade' id='popinv'>
+                            <a class='btn btn-outline-dark mt-auto' href='router.php?router=itemupdate&item_id=".$row['item_id']."' data-bs-toggle='modal' data-bs-target='#popinv-{$row['item_id']}'>修改</a>
+                            <!--彈出來的視窗 弘軒改這邊-->
+                            <div class='modal fade' id='popinv-{$row['item_id']}'>
                                 <div class='modal-dialog'>
                                     <div class='modal-content'>
                                         <div class='modal-header'>
-                                            <h3 class='modal-title'>購買邀請</h3>
+                                            <h3 class='modal-title'>修改</h3>
                                             <button class='btn btn-outline-secondary' data-bs-dismiss='modal'>返回</button>
                                         </div>
-                                        <div class='modal-body'>
-                                            <form enctype='multipart/form-data'>
-                                                <div class='form-group'>
-                                                    <input class='form-control' type='text' value='書名：", $row['item_name'],"' readonly='true' placeholder='書名' name='title'>
-                                                </div>
-                                                <div class='form-group'>
-                                                    <input class='form-control' type='text' value='ISBN：", $row['item_isbn'],"' readonly='true' placeholder='ISBN' name='isbn'>
-                                                </div>
-                                                <div class='form-group'>
-                                                    <input class='form-control' type='text' value='價格：", $row['item_price'],"元' readonly='true' placeholder='價格' name='money'>
-                                                </div>
-                                                <div class='form-group'>
-                                                    <label>請選擇交易時間</label><br>
-                                                    <div>
-                                                        <label class='checkbox-inline'>
-                                                            <input type='checkbox' name='time[]' value='morning'>06:00
-                                                        </label>
-                                                        <label class='checkbox-inline'>
-                                                            <input type='checkbox' name='time[]' value='afternoon'>05:00
-                                                        </label>
-                                                        <label class='checkbox-inline'>
-                                                            <input type='checkbox' name='time[]' value='evening'>04:00
-                                                        </label>
-                                                        <br>
-                                                        <label class='checkbox-inline'>
-                                                            <input type='checkbox' name='time[]' value='morning'>17:00
-                                                        </label>
-                                                        <label class='checkbox-inline'>
-                                                            <input type='checkbox' name='time[]' value='afternoon'>16:00
-                                                        </label>
-                                                        <label class='checkbox-inline'>
-                                                            <input type='checkbox' name='time[]' value='evening'>18:00
-                                                        </label>
-                                                        <br>
-                                                    </div>
-                                                </div>
-                                                <div class='form-group'>
-                                                    <label>請選擇交易地點</label><br>
-                                                    <label class='checkbox-inline'>
-                                                        <input type='checkbox' name='location[]' value='BS'>BS
-                                                    </label>
-                                                    <label class='checkbox-inline'>
-                                                        <input type='checkbox' name='location[]' value='SF'>SF
-                                                    </label>
-                                                    <label class='checkbox-inline'>
-                                                        <input type='checkbox' name='location[]' value='LM'>LM
-                                                    </label>
-                                                </div>
-                                                <div align='center'>
-                                                    <div>
-                                                        <button type='button' class='btn btn-primary'>送出購買邀請</button>
-                                                    </div>
-                                                </div> 
-                                            </form>
+                                        <div class=\"modal-body\">
+                                    <form enctype=\"multipart/form-data\" method='post' action=\"itemlink.php\" onsubmit=\"return onSubmitForm()\">
+                                    <input type=hidden name='dbaction' value='itemupdate'>
+                                    <input type=hidden name='item_id' value='".$row['item_id']."'>
+                                    <div class='form-inline'>
+                                        <input class='form-control-sm mb-2 mr-sm-2' type='text' value='書名' readonly='true' placeholder='書名'>
+                                        <input class='form-control-sm mb-2 mr-sm-2' value='", $row['item_name'],"' placeholder='書名' name='title'>
+                                    </div>
+                                    <div class='form-group'>
+                                        <input class='form-control-sm mb-2 mr-sm-2' type='text' value='ISBN' readonly='true' placeholder='IBSN'>
+                                        <input class='form-control-sm mb-2 mr-sm-2' type='text' value='", $row['item_isbn'],"'  placeholder='ISBN' name='isbn'>
+                                    </div>
+                                    <div class='form-group'>
+                                        <input class='form-control-sm mb-2 mr-sm-2' type='text' value='價格：' readonly='true' placeholder='IBSN'>
+                                        <input class='form-control-sm mb-2 mr-sm-2' type='text' value='", $row['item_price'],"' placeholder='價格' name='price'>
+                                    </div>
+                                    <div class=form-group>
+                                        <input class='form-control mb-2 mr-sm-2' type='text' value='書本介紹：'readonly='true' placeholder=\"書本介紹\" >
+                                        <textarea name='info' cols='30' rows='10' class= 'form-control mb-2 mr-sm-2'>". $row['item_info']."</textarea>
+                                        
+                                    </div>
+                                    <div class=form-group>
+                                        <input class='form-control-sm mb-2 mr-sm-2' type='text' value='面交地點：'readonly='true'id=\"time-period-1\" placeholder=\"詳細面交地點\">
+                                        <input class='form-control-sm mb-2 mr-sm-2' type='text' value='", $row['iloc_name'],"'  placeholder='詳細面交地點' name='place'>
+                                    </div>
+                                    ";
+                                    $item_id = $row['item_id'];
+                                    $link = mysqli_connect('localhost','root','12345678','sa');
+                                    $sql2 = "SELECT * FROM itime WHERE item_id='$item_id'";
+                                    $result2 = mysqli_query($link, $sql2);
+                                    $itime = array();
+                                    $count=1;
+
+                                    while($row2 = mysqli_fetch_assoc($result2))
+                                    {
+                                    $name = 'time-'.$count;
+                                    $count=$count+1;
+                                    echo "
+                                    <input class='form-control-sm mb-2 mr-sm-2' type='text' id=\"time-period-1\" readonly='true' value=\"面交時間段".($count-1)."\">
+                                    <input class='form-control-sm mb-2 mr-sm-2' type='text' id=\"time-period-1\" name=".$name." value='".$row2['itime_name']."'>
+                                    ";
+                                    
+                                    }
+                                    echo "
+                                        <div class=\"form-group\">
+                                            <label for=\"imageUpload\">
+                                                <img src=\"https://www.lifewire.com/thmb/eCn_BQgPpd0l-6FhgYCA8ebbOn0=/650x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/cloud-upload-a30f385a928e44e199a62210d578375a.jpg\" width=\"10%\" height=\"10%\" alt=\"Upload Image\" id=\"imagePreview\">
+                                            </label>
+                                            <input type=\"file\" class=\"form-control-file\" id=\"imageUpload\" name=\"image\" >
+                                            <p id=\"noImageMsg\">尚未上傳檔案</p>
                                         </div>
+                                        <input class=\"btn btn-primary\" type=\"submit\" value=\"送出修改\" >
+                                        <script>
+                                        
+
+                                        function previewImage() {
+                                            var preview = document.getElementById(\"imagePreview\");
+                                            var file = document.getElementById(\"imageUpload\").files[0];
+                                            var noImageMsg = document.getElementById(\"noImageMsg\");
+                                        
+                                            if (file) {
+                                                var reader = new FileReader();
+                                                reader.onloadend = function () {
+                                                    preview.src = reader.result;
+                                                };
+                                                reader.readAsDataURL(file);
+                                                noImageMsg.style.display = \"none\";
+                                            } else {
+                                                preview.src = \"\";
+                                                noImageMsg.style.display = \"block\";
+                                            }
+                                        }
+                                        </script>
+                                    </form>
+                                </div>
                                         <div class='modal-footer'>
                                         </div>
                                     </div>
@@ -346,9 +377,7 @@
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p></div>
         </footer>
-        <script>
-            
-
-        </script>
+        <script></script>
+        </form>
     </body>
 </html>

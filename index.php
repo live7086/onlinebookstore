@@ -80,60 +80,42 @@
                               <h3>通知</h3>
                                 <button class="btn btn-outline-secondary" data-bs-dismiss="modal">返回</button>
                             </div>
-                            <div class="card">
-                                <div class="card-header">阿緯對你發出了邀請</div>
-                                <div class="card-body">
-                                  <div class="row">
-                                    <div class="col-md-6">
-                                      <label>商品：Principles of FINANCIAL ACCOUNTING(3E)</label><br>
-                                      <label>時間：04:00</label><br>
+                            
+                            <?php
+                            session_start();
+                            $user_id=$_SESSION['user_id'];
+                            $link = mysqli_connect('localhost','root','12345678','sa');
+                            $sql = "SELECT * FROM bid_info, item_info, account, btime, iloc where iloc.item_id=bid_info.item_id and btime.bid_id=bid_info.bid_id and account.user_id=item_info.user_id and bid_info.item_id=item_info.item_id and item_info.user_id like ". $user_id. "";
+                            $result = mysqli_query($link, $sql);
+                            while($row = mysqli_fetch_assoc($result)) {
+                            echo "
+                            <div class='card'>";
+                            $bid_id = $row['bid_id'];
+                            $sql2 = "SELECT * FROM bid_info, account WHERE bid_info.user_id=account.user_id and bid_id='$bid_id'";
+                            $result2 = mysqli_query($link, $sql2);
+                            while($row2 = mysqli_fetch_assoc($result2)) {
+                            echo "<div class='card-header'>", $row2['user_name'],"對你發出了邀請</div>
+                            ";}
+                            echo"
+                                <div class='card-body'>
+                                  <div class='row'>
+                                    <div class='col-md-6'>
+                                      <label>商品：", $row['item_name'],"</label><br>
+                                      <label>時間：", $row['btime_name'],"</label><br>
                                       <label>地點：濟時嘍</label><br>
-                                      <label>價格：800$</label>
+                                      <label>價格:", $row['item_price'],"</label>
                                     </div>
-                                    <div class="col-md-12">
+                                    <div class='col-md-12'>
                                       <div>
-                                        <button type="button" class="btn btn-primary">接受</button>
-                                        <button type="button" class="btn btn-secondary">拒絕</button>
+                                        <button type='button' class='btn btn-primary'>接受</button>
+                                        <button type='button' class='btn btn-secondary'>拒絕</button>
                                       </div>
                                     </div>
                                   </div>
                                 </div>
                                 
-                            </div>
-                            <div class="card">
-                              <div class="card-header">可41對你發出了邀請</div>
-                              <div class="card-body">
-                                <div class="row">
-                                  <div class="col-md-12">
-                                    <label>商品：大學國文選（生命教育篇）</label><br>
-                                    <label>時間：04:00</label><br>
-                                    <label>地點：濟時嘍</label><br>
-                                    <label>價格：300$</label>
-                                  </div>
-                                  <div class="col-md-12">
-                                    <button type="button" class="btn btn-primary">接受</button>
-                                    <button type="button" class="btn btn-secondary">拒絕</button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="card">
-                              <div class="card-header">老蟹老闆對你發出了邀請</div>
-                              <div class="card-body">
-                                <div class="row">
-                                  <div class="col-md-12">
-                                    <label>商品：大學國文選（生命教育篇）</label><br>
-                                    <label>時間：04:00</label><br>
-                                    <label>地點：濟時嘍</label><br>
-                                    <label>價格：300$</label>
-                                  </div>
-                                  <div class="col-md-12">
-                                    <button type="button" class="btn btn-primary">接受</button>
-                                    <button type="button" class="btn btn-secondary">拒絕</button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
+                            </div>";}
+                            ?>
                           </div>
                         </div>
                       </div>
@@ -149,7 +131,7 @@
                                 我的賣場
                                 </a>
                                 <a class=\"btn btn-dangerous mt-2\" href=\"logout.php\">
-                                登出
+                                登出    
                                 </a>";
                             }else{
                                 echo
@@ -184,14 +166,16 @@
                     
 
                     <?php
+                    session_start();
+                    $user_id=$_SESSION['user_id'];
                     $link = mysqli_connect('localhost','root','12345678','sa');
                     if(empty($searchtxt))
                     {
-                        $sql  = "SELECT * FROM item_info,iphoto WHERE item_info.item_id=iphoto.item_id group by item_info.item_id";
+                        $sql  = "SELECT * FROM item_info,iphoto, iloc WHERE item_info.item_id=iphoto.item_id and item_info.item_id=iloc.item_id group by item_info.item_id";
                     }
                     else
                     {
-                        $sql  = "SELECT * FROM item_info, iphoto WHERE iphoto.item_id=item_info.item_id and item_name LIKE '%". $searchtxt. "%'group by item_info.item_id";
+                        $sql  = "SELECT * FROM item_info, iphoto, iloc WHERE iphoto.item_id=item_info.item_id and item_info.item_id=iloc.item_id and item_name LIKE '%". $searchtxt. "%'group by item_info.item_id";
                     }
                     
                     $result = mysqli_query($link,$sql);
@@ -224,9 +208,9 @@
                         <div class='text-center'>
 
                             <!--彈跳連結-->
-                            <a class='btn btn-outline-dark mt-auto' href='#' data-bs-toggle='modal' data-bs-target='#popinv'>購買邀請外</a>
-                             <!--彈出來的視窗 弘軒改這邊-->
-                             <div class='modal fade' id='popinv'>
+                            <a class='btn btn-outline-dark mt-auto' href='#' data-bs-toggle='modal' data-bs-target='#popinv-{$row['item_id']}'>購買邀請</a>
+                             <!--彈出來的視窗-->
+                             <div class='modal fade' id='popinv-{$row['item_id']}'>
                                 <div class='modal-dialog'>
                                     <div class='modal-content'>
                                         <div class='modal-header'>
@@ -234,7 +218,8 @@
                                             <button class='btn btn-outline-secondary' data-bs-dismiss='modal'>返回</button>
                                         </div>
                                         <div class='modal-body'>
-                                            <form enctype='multipart/form-data'>
+                                            <form enctype='multipart/form-data' method='POST' action='bidlink.php'>
+                                            <input type=hidden name='item_id' value='", $row['item_id'],"'>
                                                 <div class='form-group'>
                                                     <input class='form-control' type='text' value='書名：", $row['item_name'],"' readonly='true' placeholder='書名' name='title'>
                                                 </div>
@@ -242,48 +227,31 @@
                                                     <input class='form-control' type='text' value='ISBN：", $row['item_isbn'],"' readonly='true' placeholder='ISBN' name='isbn'>
                                                 </div>
                                                 <div class='form-group'>
-                                                    <input class='form-control' type='text' value='價格：", $row['item_price'],"元' readonly='true' placeholder='價格' name='money'>
+                                                    <input class='form-control' type='text' value='價格：", $row['item_price'],"元' readonly='true' placeholder='價格' name='price'>
+                                                </div>
+                                                <div class='form-group'>
+                                                    <input class='form-control' type='text' value='地點：", $row['iloc_name'],"' readonly='true' placeholder='地點' name='place'>
                                                 </div>
                                                 <div class='form-group'>
                                                     <label>請選擇交易時間</label><br>
-                                                    <div>
+                                                    <div>";
+                                                        $item_id = $row['item_id'];
+                                                        $sql2 = "SELECT * FROM itime WHERE item_id='$item_id'";
+                                                        $result2 = mysqli_query($link, $sql2);
+                                                        $itime = array();
+                                                        $count=1;
+                                                        while($row2 = mysqli_fetch_assoc($result2)) {
+                                                            $name = 'time_'.$count;
+                                                            $count=$count+1;
+                                                        echo "
                                                         <label class='checkbox-inline'>
-                                                            <input type='checkbox' name='time[]' value='morning'>06:00
-                                                        </label>
-                                                        <label class='checkbox-inline'>
-                                                            <input type='checkbox' name='time[]' value='afternoon'>05:00
-                                                        </label>
-                                                        <label class='checkbox-inline'>
-                                                            <input type='checkbox' name='time[]' value='evening'>04:00
-                                                        </label>
-                                                        <br>
-                                                        <label class='checkbox-inline'>
-                                                            <input type='checkbox' name='time[]' value='morning'>17:00
-                                                        </label>
-                                                        <label class='checkbox-inline'>
-                                                            <input type='checkbox' name='time[]' value='afternoon'>16:00
-                                                        </label>
-                                                        <label class='checkbox-inline'>
-                                                            <input type='checkbox' name='time[]' value='evening'>18:00
-                                                        </label>
-                                                        <br>
-                                                    </div>
-                                                </div>
-                                                <div class='form-group'>
-                                                    <label>請選擇交易地點</label><br>
-                                                    <label class='checkbox-inline'>
-                                                        <input type='checkbox' name='location[]' value='BS'>BS
-                                                    </label>
-                                                    <label class='checkbox-inline'>
-                                                        <input type='checkbox' name='location[]' value='SF'>SF
-                                                    </label>
-                                                    <label class='checkbox-inline'>
-                                                        <input type='checkbox' name='location[]' value='LM'>LM
-                                                    </label>
+                                                        <input type='checkbox' name='".$name."' value='".$row2['itime_name']."'>".$row2['itime_name']."
+                                                    </label>";}
+                                                echo"    </div>
                                                 </div>
                                                 <div align='center'>
                                                     <div>
-                                                        <button type='button' class='btn btn-primary'>送出購買邀請</button>
+                                                        <input type='submit' value='Submit' class='btn btn-primary'>
                                                     </div>
                                                 </div> 
                                             </form>

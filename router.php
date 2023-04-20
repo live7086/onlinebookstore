@@ -89,7 +89,10 @@
         $result=mysqli_query($link,$sqlphoto);
         $result=mysqli_query($link,$sqlinfo);
         header("Location:pinfo.php");
-    }   
+    }else if($router=="itemupdate"){
+        $item_id=$_GET['item_id'];
+        echo $item_id;
+    }
 
 
 
