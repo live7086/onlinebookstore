@@ -36,17 +36,83 @@
                         
                         <!--<li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">書籍</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">雜誌</a></li>-->
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">二手書</a></li>
+                        
                         <li class="nav-item">
                             <div style="display: flex;">
                                 <form method=get action="index.php">
                                     <div class="input-group">
-                                        <input class="form-control" placeholder="請輸入關鍵字..." type="text" name="searchtxt" value="<?php echo $searchtxt; ?>">
+                                        <input class="form-control" placeholder="請輸入書名..." type="text" name="searchtxt" value="<?php echo $searchtxt; ?>">
                                         <button class="btn btn-outline-primary" type="submit">搜尋</button>
                                     </div>
                                 </form>
+
                             </div>
                         </li>
+                        <!--彈跳連結-->
+                     <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#popinfo2"><img src="image/TAG.png" height="40" width="40"></a>
+                    
+                    <!--彈出來的視窗-->
+                    <div class="modal fade" id="popinfo2">
+                       <div class="modal-dialog">
+                         <div class="modal-content">
+                           <div class="modal-header">
+                             <h3>標籤搜尋</h3>
+                               <button class="btn btn-outline-secondary" data-bs-dismiss="modal">返回</button>
+                           </div>
+                           <li class="nav-item">
+                                <div style="display: flex; flex-wrap: wrap;">
+                                    <form method=get action="index.php">
+                                    <div class="input-group">
+                                        <div>
+                                        <div><input class="form-control" placeholder="請輸入書名..." type="text" name="searchtxt" value="<?php echo $searchtxt; ?>"></div>
+                                        <br>
+                                        </div>
+                                        <div>
+                                        <div>
+                                            <select class="form-select" id="user_dept1" name="user_dept1" required>
+                                            <option value="" disabled selected>請選擇標籤</option>
+                                            <option value="im">資訊管理學系</option>
+                                            <option value="ib">金融與國際企業學系</option>
+                                            <option value="ba">企業管理學系</option>
+                                            <option value="stat">統計資訊學系</option>
+                                            <option value="acc">會計學系</option>
+                                            </select>
+                                        </div>
+                                        <br>
+                                        </div>
+                                        <div>
+                                        <div>
+                                            <select class="form-select" id="user_dept2" name="user_dept2" required>
+                                            <option value="" disabled selected>請選擇標籤</option>
+                                            <option value="im">資訊管理學系</option>
+                                            <option value="ib">金融與國際企業學系</option>
+                                            <option value="ba">企業管理學系</option>
+                                            <option value="stat">統計資訊學系</option>
+                                            <option value="acc">會計學系</option>
+                                            </select>
+                                        </div>
+                                        <br>
+                                        </div>
+                                        <div>
+                                        <div>
+                                            <select class="form-select" id="user_dept3" name="user_dept3" required>
+                                            <option value="" disabled selected>請選擇標籤</option>
+                                            <option value="im">資訊管理學系</option>
+                                            <option value="ib">金融與國際企業學系</option>
+                                            <option value="ba">企業管理學系</option>
+                                            <option value="stat">統計資訊學系</option>
+                                            <option value="acc">會計學系</option>
+                                            </select>
+                                        </div>
+                                        <br>
+                                        </div>
+                                        <div>
+                                        <button class="btn btn-outline-primary" type="submit">搜尋</button>
+                                        </div>
+                                    </div>
+                                    </form>
+                                </div>
+                                </li>
 
                       
                     
@@ -197,13 +263,23 @@
                                             <span class='sr-only'>Next</span>
                                         </a>
                                     </div>
-                                        <div class='col-md-5'>
-                                        <br/>
-                                        <br/>
-                                          <h5 class='card-subtitle mb-3'>書名：", $row['item_name'],"</h5>
-                                          <p class='card-text'>ISBN碼:", $row['item_isbn'],"</p>
-                                          <p class='card-text'>", $row['item_info'],"</p>
-                                        </div>
+                                    <div class='col-md-5'>
+                                    <br/>
+                                    <br/>
+                                    <h5 class='card-subtitle mb-3'>書名：", $row['item_name'],"</h5>
+                                    <p class='card-text'>ISBN碼:", $row['item_isbn'],"</p>
+                                    <p class='card-text'>", $row['item_info'],"</p>
+                                    
+                                    <!-- 標籤 -->
+                                    <div class='card-text'style='font-size: 40px;'>
+                                        <ul class='list-unstyled'>
+                                            <li><span class='badge bg-primary'>標籤1</span></li> <!--連結直接<a href=就可以了-->
+                                            <li><span class='badge bg-secondary'>標籤2</span></li>
+                                            <li><span class='badge bg-success'>標籤3</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
                                       </div>
                                     </div>
                                   </div>
@@ -235,7 +311,7 @@
                                                               <input class='form-control' type='text' value='ISBN：9789814962605' readonly='true' placeholder='ISBN' name='isbn'>
                                                           </div>
                                                           <div class='form-group'>
-                                                              <input class='form-control' type='text' value='價格：1400元' readonly='true' placeholder='價格' name='money'>
+                                                          <label>欲付價格：<input type='number' name='price' step='5' min='0' max='9999.99' value='" . $row['item_price'] . "'></label>
                                                           </div>
                                                           <div class='form-group'>
                                                               <label>請選擇交易時間</label><br>
