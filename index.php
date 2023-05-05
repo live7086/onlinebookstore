@@ -41,12 +41,14 @@
                             <div style="display: flex;">
                                 <form method=get action="index.php">
                                     <div class="input-group">
-                                        <input class="form-control" placeholder="請輸入關鍵字..." type="text" name="searchtxt" value="<?php echo $searchtxt; ?>">
+                                        <input class="form-control" placeholder="請輸入書名..." type="text" name="searchtxt" value="<?php echo $searchtxt; ?>">
                                         <button class="btn btn-outline-primary" type="submit">搜尋</button>
                                     </div>
                                 </form>
+
                             </div>
                         </li>
+                        
 
                       
                     
@@ -64,6 +66,7 @@
                             </ul>
                         </li>-->
                     </ul>
+                   
                     
                     
             
@@ -80,6 +83,7 @@
                               <h3>通知</h3>
                                 <button class="btn btn-outline-secondary" data-bs-dismiss="modal">返回</button>
                             </div>
+                           
                             
                             <?php
                             session_start();
@@ -119,7 +123,7 @@
                           </div>
                         </div>
                       </div>
-                      
+                    
                     <form class="d-flex">
                     <?php
                             session_start();
@@ -127,10 +131,11 @@
                             if(!empty($user_id)){
                                 echo
                                 "
-                                <a class=\"btn btn-success mt-2\" href=\"pinfo.php\">
-                                我的賣場
+                                
+                                <a class=\"btn mt-2\"  href=\"pinfo.php\">
+                                $user_id
                                 </a>
-                                <a class=\"btn btn-dangerous mt-2\" href=\"logout.php\">
+                                <a class=\"btn mt-2\" href=\"logout.php\">
                                 登出    
                                 </a>";
                             }else{
@@ -244,8 +249,8 @@
                                                             $name = 'time_'.$count;
                                                             $count=$count+1;
                                                         echo "
-                                                        <label class='radio-inline'> <!--阿兵改成radio button 讓直覺看起來就只能選一時段，但還須修改-->
-                                                        <input type='radio' name='".$name."' value='".$row2['itime_name']."'>".$row2['itime_name']."
+                                                        <label class='checkbox-inline'> 
+                                                        <input type='checkbox' name='".$name."' value='".$row2['itime_name']."'>".$row2['itime_name']."
                                                     </label>";}
                                                 echo"    </div>
                                                 </div>

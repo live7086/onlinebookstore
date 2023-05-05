@@ -41,8 +41,8 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         
-                        <!--<li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">書籍</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">雜誌</a></li>-->
+                        <!--<li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">書籍</a></li>-->
+                        
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="pinfo.php">我的賣場</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">我的最愛</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">面交紀錄</a></li>
@@ -126,10 +126,10 @@
                             if(!empty($user_id)){
                                 echo
                                 "
-                                <a class=\"btn btn-success mt-2\" href=\"pinfo.php\">
-                                我的賣場
+                                <a class=\"btn mt-2\" href=\"pinfo.php\">
+                                $user_id
                                 </a>
-                                <a class=\"btn btn-dangerous mt-2\" href=\"logout.php\">
+                                <a class=\"btn mt-2\" href=\"logout.php\">
                                 登出
                                 </a>";
                             }else{
@@ -192,6 +192,8 @@
                                             <th>地點</th>
                                             <th>價錢</th>
                                             <th>商品編號</th>
+                                            <th>退貨</th>
+                                        
                                         
                                         </tr>
                                     </thead>
@@ -204,21 +206,183 @@
                                             <th>地點</th>
                                             <th>價錢</th>
                                             <th>商品編號</th>
+                                            <th>退貨</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         <tr>
                                             <td>1</td>
-                                            <td>R WE</td>
-                                            <td>Alvis</td>
+                                            <td><a href="#" type="button" data-bs-toggle="modal" data-bs-target="#binfo">R WE</a></td>
+                                            <td><a href="#" type="button" data-bs-toggle="modal" data-bs-target="#sinfo">Alvis</a></td>
                                             <td>2022/1/21</td>
                                             <td>濟時樓</td>
                                             <td>$799</td>
-                                            <td>5</td>
+                                            <td>
+                                                <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#iinfo">ITEM1781</a>
+                                            </td>
+                                            <td><a href="#" type="button" data-bs-toggle="modal" data-bs-target="#return">我想退貨</a></td>
                                         </tr>
+
+
+                                        <div class="modal fade" id="iinfo">
+                                        <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h3>商品資訊</h3>
+                                                <button class="btn btn-outline-secondary" data-bs-dismiss="modal">返回</button>
+                                            </div>
+
+                                            <div class="card h-100">                                                            
+                                                        <div class="modal-header">
+                                                        <img src=https://dummyimage.com/450x300/dee2e6/6c757d.jpg> 
+                                                        </div>
+                                                        <div class='modal-body'>
+                                                        <h4>書名：</h5>
+                                                        <h5>ISBN碼：</h5>
+                                                        <h5>商品資訊：</h5>
+                                                        </div>
+                                                        <div class='modal-body'>
+                                                        <div class='text-center'>
+                                                                <h4 class='fw-bolder'>最終價格：</h4>
+                                                        </div>
+                                                        </div>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            </div>
+
+
+
+                                                
+
+
+
+
+
+                                        <div class="modal fade" id="binfo">
+                                        <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h3>買家資訊</h3>
+                                                <button class="btn btn-outline-secondary" data-bs-dismiss="modal">返回</button>
+                                            </div>
+
+                                            <div class="card">
+                                        
+                                            <div class="card-body">
+                                                <div class="row">
+                                                <div class="col-md-12">
+                                                    
+                                                    <h5 class="fw-bolder">姓名：</h5>
+                                                    <h5 class="fw-bolder">系所：</h5>
+                                                    <h5 class="fw-bolder">電話：</h5>
+                                                    <h5 class="fw-bolder">Email：</h5>
+                                                    
+
+                                                </div>
+                                                
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        </div>
+
+
+
+
+
+                                        <div class="modal fade" id="sinfo">
+                                        <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h3>賣家資訊</h3>
+                                                <button class="btn btn-outline-secondary" data-bs-dismiss="modal">返回</button>
+                                            </div>
+
+                                            <div class="card">
+                                        
+                                            <div class="card-body">
+                                                <div class="row">
+                                                <div class="col-md-12">
+                                                    
+                                                    <h5 class="fw-bolder">姓名：</h5>
+                                                    <h5 class="fw-bolder">系所：</h5>
+                                                    <h5 class="fw-bolder">電話：</h5>
+                                                    <h5 class="fw-bolder">Email：</h5>
+                                                    
+
+                                                </div>
+                                                
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        </div>
+
+
+
+
+                                        <div class="modal fade" id="return">
+                                        <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h3>退貨表單</h3>
+                                                <button class="btn btn-outline-secondary" data-bs-dismiss="modal">返回</button>
+                                            </div>
+                                            <div class="modal-body" align="center">
+                                            <form>
+                                                <div class="form-group"> 
+                                                    <input class="form-control" type="textarea" placeholder="退貨原因" style="width:400px;height:120px;">
+                                                </div>
+                                                
+
+
+                                                
+                                                
+                                                <div class="form-group">
+                                                    <h5>退貨商品圖片</h5>
+                                                    <label for="imageUpload">
+                                                        <img src="https://www.lifewire.com/thmb/eCn_BQgPpd0l-6FhgYCA8ebbOn0=/650x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/cloud-upload-a30f385a928e44e199a62210d578375a.jpg" width="10%" height="10%" alt="Upload Image" id="imagePreview">
+                                                    </label>
+                                                    <input type="file" class="form-control-file" id="imageUpload" name="image" >
+                                                    <p id="noImageMsg">尚未上傳檔案</p>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">送出</button>
+                                                <script>
+                                                
+
+                                                function previewImage() {
+                                                    var preview = document.getElementById("imagePreview");
+                                                    var file = document.getElementById("imageUpload").files[0];
+                                                    var noImageMsg = document.getElementById("noImageMsg");
+                                                
+                                                    if (file) {
+                                                        var reader = new FileReader();
+                                                        reader.onloadend = function () {
+                                                            preview.src = reader.result;
+                                                        };
+                                                        reader.readAsDataURL(file);
+                                                        noImageMsg.style.display = "none";
+                                                    } else {
+                                                        preview.src = "";
+                                                        noImageMsg.style.display = "block";
+                                                    }
+                                                }
+                                                </script>
+                                            </form>
+                                            </div>
+
+                                            
+                                        </div>
+                                        </div>
+                                        </div>
+
                                         
                                     </tbody>
                                 </table>
+                                
                             </div>
                         </div>
                     </div>

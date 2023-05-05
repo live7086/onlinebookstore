@@ -35,7 +35,7 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         
                         <!--<li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">書籍</a></li>-->
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!"></a></li>
+                        
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="pinfo.php">我的賣場</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">我的最愛</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="table.php">面交紀錄</a></li>
@@ -157,11 +157,19 @@
         </div>
         </div>
        -->
+       
         <header class="bg-secondary py-5">
             <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-black">
+                <div class="text-left text-black">
                     <!--彈跳連結-->
-                    <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#popul"><img src="image/upload.png"  width="30%" height="30%"alt="Shop Image"></a>
+                    <h3 class="fw-bolder">個人資訊</h3>
+                    <hr>
+                    <h4 class="fw-bolder">姓名：</h4>
+                    <h4 class="fw-bolder">系所：</h4>
+                    <h4 class="fw-bolder">電話：</h4>
+                    <h4 class="fw-bolder">Email：</h4>
+                    <h4 class="fw-bolder">自介：</h4>
+
                     <!--彈出來的視窗-->
                     <div class="modal fade" id="popul">
                         <div class="modal-dialog">
@@ -232,7 +240,7 @@
                             </div>
                         </div>
                     </div>
-                    <h2 class="fw-bolder">上傳商品</h2>
+                    
                 </div>
             </div>
         </header>
@@ -243,6 +251,29 @@
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-1 row-cols-xl-2 justify-content-center">
+
+
+                <div class="col mb-5">
+                        <div class="card h-100" align="center">
+                            
+                        <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#popul"><img src="image/upload.png"  width="70%" height="100%"></a>
+                            <!-- Product details-->
+                            
+                                <div class="text-center">
+                                    
+                                    <h4 class="fw-bolder">上傳商品</h4>
+                                    
+                                </div>
+                            
+                           
+                        </div>
+                    </div>
+
+
+
+
+
+
                 <?php
                     $link = mysqli_connect('localhost','root','12345678','sa');
 

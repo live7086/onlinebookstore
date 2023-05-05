@@ -37,7 +37,7 @@
                             <div style="display: flex;">
                                 <form method=get action="index.php">
                                     <div class="input-group">
-                                        <input class="form-control" placeholder="請輸入關鍵字..." type="text" name="searchtxt" value="<?php echo $searchtxt; ?>">
+                                        <input class="form-control" placeholder="請輸入書名..." type="text" name="searchtxt" value="<?php echo $searchtxt; ?>">
                                         <button class="btn btn-outline-primary" type="submit">搜尋</button>
                                     </div>
                                 </form>

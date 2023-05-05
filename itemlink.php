@@ -47,7 +47,7 @@ function generateItemId($link, $item_info) {
     $sql2 = "INSERT INTO itime (item_id, itime_name) VALUES ('$item_id', '$itime_2')";
     $sql3 = "INSERT INTO itime (item_id, itime_name) VALUES ('$item_id', '$itime_3')";
     $sql4 = "INSERT INTO iloc (item_id, iloc_name) VALUES ('$item_id', '$iloc_name')";
-    $sql5 = "INSERT INTO iphoto (item_id, iphoto_name) VALUES ('$item_id', 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg')";
+    $sql5 = "INSERT INTO iphoto (item_id, iphoto_name) VALUES ('$item_id', 'https://verse-static-1.azureedge.net/storage/app/media/uploaded-files/taiwan-textbook01.jpg')";
         if(mysqli_query($link,$sql) && mysqli_query($link,$sql1) && mysqli_query($link,$sql2) && mysqli_query($link,$sql3) && mysqli_query($link,$sql4) && mysqli_query($link,$sql5)
 
         )
