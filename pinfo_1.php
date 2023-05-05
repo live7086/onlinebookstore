@@ -36,8 +36,9 @@
                         
                         <!--<li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">書籍</a></li>-->
                         
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="pinfo.php">我的賣場</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">我的最愛</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="pinfo_1.php">我的賣場</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="myfav.php">我的最愛</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="invite.php">我的訂單</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="table.php">面交紀錄</a></li>
                         <li class="nav-item">
                             <form method=get action="pinfo.php">
@@ -203,7 +204,34 @@
                                             <input class="form-control" type="text" id="time-period-2" placeholder="面交時間段(星期幾 小時:分鐘)"name="time-2">
                                             <input class="form-control" type="text" id="time-period-3" placeholder="面交時間段(星期幾 小時:分鐘)"name="time-3">
                                         </div>
-                                          
+                                        
+                                        <select class="form-select" id="user_dept" name="user_dept" required>
+                                            <option value="" disabled selected >請選擇標籤</option>
+                                            <option value="im">資訊管理學系</option>
+                                            <option value="ib">金融與國際企業學系</option>
+                                            <option value="ba">企業管理學系</option>
+                                            <option value="stat">統計資訊學系</option>
+                                            <option value="acc">會計學系</option>
+                                        </select>
+
+                                        <select class="form-select" id="user_dept" name="user_dept" required>
+                                            <option value="" disabled selected >請選擇標籤</option>
+                                            <option value="im">資訊管理學系</option>
+                                            <option value="ib">金融與國際企業學系</option>
+                                            <option value="ba">企業管理學系</option>
+                                            <option value="stat">統計資訊學系</option>
+                                            <option value="acc">會計學系</option>
+                                        </select>
+
+                                        <select class="form-select" id="user_dept" name="user_dept" required>
+                                            <option value="" disabled selected >請選擇標籤</option>
+                                            <option value="im">資訊管理學系</option>
+                                            <option value="ib">金融與國際企業學系</option>
+                                            <option value="ba">企業管理學系</option>
+                                            <option value="stat">統計資訊學系</option>
+                                            <option value="acc">會計學系</option>
+                                        </select>
+
                                         <div class="form-group">
                                             <label for="imageUpload">
                                                 <img src="https://www.lifewire.com/thmb/eCn_BQgPpd0l-6FhgYCA8ebbOn0=/650x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/cloud-upload-a30f385a928e44e199a62210d578375a.jpg" width="10%" height="10%" alt="Upload Image" id="imagePreview">
@@ -373,7 +401,6 @@
                                         <input class=\"btn btn-primary\" type=\"submit\" value=\"送出修改\" >
                                         <script>
                                         
-
                                         function previewImage() {
                                             var preview = document.getElementById(\"imagePreview\");
                                             var file = document.getElementById(\"imageUpload\").files[0];
