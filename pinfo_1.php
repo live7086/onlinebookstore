@@ -41,7 +41,7 @@
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="invite.php">我的訂單</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="table.php">面交紀錄</a></li>
                         <li class="nav-item">
-                            <form method=get action="pinfo.php">
+                            <form method=get action="pinfo_1.php">
                             <table>
                                 <tr>
                                     <td>
@@ -133,7 +133,7 @@
                             if(!empty($user_id)){
                                 echo
                                 "
-                                <a class=\"btn mt-2\" href=\"pinfo.php\">
+                                <a class=\"btn mt-2\" href=\"pinfo_1.php\">
                                 $user_id
                                 </a>
                                 <a class=\"btn mt-2\" href=\"logout.php\">
@@ -165,11 +165,18 @@
                     <!--彈跳連結-->
                     <h3 class="fw-bolder">個人資訊</h3>
                     <hr>
-                    <h4 class="fw-bolder">姓名：</h4>
-                    <h4 class="fw-bolder">系所：</h4>
-                    <h4 class="fw-bolder">電話：</h4>
-                    <h4 class="fw-bolder">Email：</h4>
-                    <h4 class="fw-bolder">自介：</h4>
+                    <?php
+                        $link = mysqli_connect('localhost','root','12345678','sa');
+                        $sql = "SELECT * FROM account where user_id LIKE '". $user_id. "'";
+                        $result = mysqli_query($link, $sql);
+                        while($row = mysqli_fetch_assoc($result)) {
+                        echo "<h4 class='fw-bolder'>姓名：", $row['user_name'],"</h4>
+                    <h4 class='fw-bolder'>系所：", $row['user_dept'],"</h4>
+                    <h4 class='fw-bolder'>電話：", $row['user_phone'],"</h4>
+                    <h4 class='fw-bolder'>Email：", $row['user_email'],"</h4>
+                    <h4 class='fw-bolder'>自介：", $row['user_intro'],"</h4>";}
+                    ?>
+                    
 
                     <!--彈出來的視窗-->
                     <div class="modal fade" id="popul">
@@ -205,31 +212,37 @@
                                             <input class="form-control" type="text" id="time-period-3" placeholder="面交時間段(星期幾 小時:分鐘)"name="time-3">
                                         </div>
                                         
-                                        <select class="form-select" id="user_dept" name="user_dept" required>
+                                        <select class="form-select" id="user_dept" name="tag_1" required>
                                             <option value="" disabled selected >請選擇標籤</option>
-                                            <option value="im">資訊管理學系</option>
-                                            <option value="ib">金融與國際企業學系</option>
-                                            <option value="ba">企業管理學系</option>
-                                            <option value="stat">統計資訊學系</option>
-                                            <option value="acc">會計學系</option>
+                                            <?php
+                                                $link = mysqli_connect('localhost','root','12345678','sa');
+                                                $sql = "SELECT * FROM tagop ";
+                                                $result = mysqli_query($link, $sql);
+                                                while($row = mysqli_fetch_assoc($result)) {
+                                                echo "<option value='", $row['tagop_id'],"'>", $row['tagop_name'],"</option>";}
+                                            ?>
                                         </select>
 
-                                        <select class="form-select" id="user_dept" name="user_dept" required>
+                                        <select class="form-select" id="user_dept" name="tag_2" required>
                                             <option value="" disabled selected >請選擇標籤</option>
-                                            <option value="im">資訊管理學系</option>
-                                            <option value="ib">金融與國際企業學系</option>
-                                            <option value="ba">企業管理學系</option>
-                                            <option value="stat">統計資訊學系</option>
-                                            <option value="acc">會計學系</option>
+                                            <?php
+                                                $link = mysqli_connect('localhost','root','12345678','sa');
+                                                $sql = "SELECT * FROM tagop ";
+                                                $result = mysqli_query($link, $sql);
+                                                while($row = mysqli_fetch_assoc($result)) {
+                                                echo "<option value='", $row['tagop_id'],"'>", $row['tagop_name'],"</option>";}
+                                            ?>
                                         </select>
 
-                                        <select class="form-select" id="user_dept" name="user_dept" required>
+                                        <select class="form-select" id="user_dept" name="tag_3" required>
                                             <option value="" disabled selected >請選擇標籤</option>
-                                            <option value="im">資訊管理學系</option>
-                                            <option value="ib">金融與國際企業學系</option>
-                                            <option value="ba">企業管理學系</option>
-                                            <option value="stat">統計資訊學系</option>
-                                            <option value="acc">會計學系</option>
+                                            <?php
+                                                $link = mysqli_connect('localhost','root','12345678','sa');
+                                                $sql = "SELECT * FROM tagop ";
+                                                $result = mysqli_query($link, $sql);
+                                                while($row = mysqli_fetch_assoc($result)) {
+                                                echo "<option value='", $row['tagop_id'],"'>", $row['tagop_name'],"</option>";}
+                                            ?>
                                         </select>
 
                                         <div class="form-group">
@@ -306,7 +319,7 @@
                     $link = mysqli_connect('localhost','root','12345678','sa');
 
 
-                    
+                    $sql  = "SELECT * FROM item_info,iphoto, iloc WHERE item_info.item_id=iphoto.item_id and item_info.item_id=iloc.item_id group by item_info.item_id";
                     $result = mysqli_query($link,$sql);
 
                     While($row=mysqli_fetch_assoc($result))
@@ -399,26 +412,6 @@
                                             <p id=\"noImageMsg\">尚未上傳檔案</p>
                                         </div>
                                         <input class=\"btn btn-primary\" type=\"submit\" value=\"送出修改\" >
-                                        <script>
-                                        
-                                        function previewImage() {
-                                            var preview = document.getElementById(\"imagePreview\");
-                                            var file = document.getElementById(\"imageUpload\").files[0];
-                                            var noImageMsg = document.getElementById(\"noImageMsg\");
-                                        
-                                            if (file) {
-                                                var reader = new FileReader();
-                                                reader.onloadend = function () {
-                                                    preview.src = reader.result;
-                                                };
-                                                reader.readAsDataURL(file);
-                                                noImageMsg.style.display = \"none\";
-                                            } else {
-                                                preview.src = \"\";
-                                                noImageMsg.style.display = \"block\";
-                                            }
-                                        }
-                                        </script>
                                     </form>
                                 </div>
                                         <div class='modal-footer'>

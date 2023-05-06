@@ -37,6 +37,9 @@ function generateItemId($link, $item_info) {
     $itime_1 = $_POST['time-1'];
     $itime_2 = $_POST['time-2'];
     $itime_3 = $_POST['time-3'];
+    $tag_1 = $_POST['tag_1'];
+    $tag_2 = $_POST['tag_2'];
+    $tag_3 = $_POST['tag_3'];
     $iloc_name = $_POST['place'];
     $user_id=$_SESSION['user_id'];
   if($dbaction=="insert")
@@ -48,7 +51,10 @@ function generateItemId($link, $item_info) {
     $sql3 = "INSERT INTO itime (item_id, itime_name) VALUES ('$item_id', '$itime_3')";
     $sql4 = "INSERT INTO iloc (item_id, iloc_name) VALUES ('$item_id', '$iloc_name')";
     $sql5 = "INSERT INTO iphoto (item_id, iphoto_name) VALUES ('$item_id', 'https://verse-static-1.azureedge.net/storage/app/media/uploaded-files/taiwan-textbook01.jpg')";
-        if(mysqli_query($link,$sql) && mysqli_query($link,$sql1) && mysqli_query($link,$sql2) && mysqli_query($link,$sql3) && mysqli_query($link,$sql4) && mysqli_query($link,$sql5)
+    $sql6 = "INSERT INTO tag (item_id, tag_name) VALUES ('$item_id', '$tag_1')";
+    $sql7 = "INSERT INTO tag (item_id, tag_name) VALUES ('$item_id', '$tag_2')";
+    $sql8 = "INSERT INTO tag (item_id, tag_name) VALUES ('$item_id', '$tag_3')";
+        if(mysqli_query($link,$sql) && mysqli_query($link,$sql1) && mysqli_query($link,$sql2) && mysqli_query($link,$sql3) && mysqli_query($link,$sql4) && mysqli_query($link,$sql5) && mysqli_query($link,$sql6) && mysqli_query($link,$sql7) && mysqli_query($link,$sql8)
 
         )
         {
@@ -57,7 +63,7 @@ function generateItemId($link, $item_info) {
         }
       else
         {
-          header("Location:pinfo.php?message=新增失敗$iloc_name,$item_info,$item_price");
+          header("Location:pinfo_1.php?message=新增失敗$iloc_name,$item_info,$item_price");
         }
   }
   else
@@ -84,7 +90,7 @@ function generateItemId($link, $item_info) {
   $sql4 = "UPDATE iloc  SET  iloc_name='$iloc_name' where item_id='$item_id'";
     if(mysqli_query($link,$sql) && mysqli_query($link,$sql4))
 	  {
-	    header("Location:pinfo.php?message=修改完成");
+	    header("Location:pinfo_1.php?message=修改完成");
 	  }
 	else
 	  {

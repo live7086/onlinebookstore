@@ -36,11 +36,11 @@
                         
                         <!--<li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">書籍</a></li>-->
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!"></a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="pinfo.php">我的賣場</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="pinfo_1.php">我的賣場</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">我的最愛</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="table.php">面交紀錄</a></li>
                         <li class="nav-item">
-                            <form method=get action="pinfo.php">
+                            <form method=get action="pinfo_1.php">
                             <table>
                                 <tr>
                                     <td>
@@ -132,7 +132,7 @@
                             if(!empty($user_id)){
                                 echo
                                 "
-                                <a class=\"btn mt-2\" href=\"pinfo.php\">
+                                <a class=\"btn mt-2\" href=\"pinfo_1.php\">
                                 $user_id
                                 </a>
                                 <a class=\"btn mt-2\" href=\"logout.php\">

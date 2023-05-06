@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Shop Homepage - Start Bootstrap Template</title>
+        <title>賊書服</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Bootstrap icons-->
@@ -199,7 +199,7 @@
                                 echo
                                 "
                                 
-                                <a class=\"btn mt-2\"  href=\"pinfo.php\">
+                                <a class=\"btn mt-2\"  href=\"pinfo_1.php\">
                                 $user_id
                                 </a>
                                 <a class=\"btn mt-2\" href=\"logout.php\">

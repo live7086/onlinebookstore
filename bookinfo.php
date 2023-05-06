@@ -193,7 +193,7 @@
                             if(!empty($user_id)){
                                 echo
                                 "
-                                <a class=\"btn btn-success mt-2\" href=\"pinfo.php\">
+                                <a class=\"btn btn-success mt-2\" href=\"pinfo_1.php\">
                                 我的賣場
                                 </a>
                                 <a class=\"btn btn-dangerous mt-2\" href=\"logout.php\">
@@ -273,9 +273,23 @@
                                     <!-- 標籤 -->
                                     <div class='card-text'style='font-size: 40px;'>
                                         <ul class='list-unstyled'>
-                                            <li><span class='badge bg-primary'>標籤1</span></li> <!--連結直接<a href=就可以了-->
-                                            <li><span class='badge bg-secondary'>標籤2</span></li>
-                                            <li><span class='badge bg-success'>標籤3</span></li>
+                                            ";
+                                                $item_id = $row['item_id'];
+                                                $link = mysqli_connect('localhost','root','12345678','sa');
+                                                $sql2 = "SELECT * FROM tag, tagop WHERE tagop_id=tag_name and tag.item_id='$item_id'";
+                                                $result2 = mysqli_query($link, $sql2);
+                                                $count=1;
+
+                                                while($row2 = mysqli_fetch_assoc($result2))
+                                                {
+                                                $name = 'time-'.$count;
+                                                $count=$count+1;
+                                                echo "
+                                                <li><span class='badge bg-primary'>".$row2['tagop_name']."</span></li>
+                                                ";
+                                                
+                                                }
+                                                echo "
                                         </ul>
                                     </div>
                                 </div>

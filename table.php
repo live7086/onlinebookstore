@@ -126,7 +126,7 @@
                             if(!empty($user_id)){
                                 echo
                                 "
-                                <a class=\"btn mt-2\" href=\"pinfo.php\">
+                                <a class=\"btn mt-2\" href=\"pinfo_1.php\">
                                 $user_id
                                 </a>
                                 <a class=\"btn mt-2\" href=\"logout.php\">
@@ -159,7 +159,7 @@
            
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4" justify-content:center>
                 <li class="nav-item dropdown">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="pinfo.php">我的賣場</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="pinfo_1.php">我的賣場</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">我的最愛</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">面交紀錄</a></li>
                         
