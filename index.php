@@ -24,6 +24,7 @@
     <body>
     <?php
     $searchtxt = $_GET['searchtxt'];
+    $tag = $_GET['tag'];
     ?>
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -69,43 +70,20 @@
                                         </div>
                                         <div>
                                         <div>
-                                            <select class="form-select" id="user_dept1" name="user_dept1" required>
+                                            <select class="form-select" id="user_dept1" name="tag" required>
                                             <option value="" disabled selected>請選擇標籤</option>
-                                            <option value="im">資訊管理學系</option>
-                                            <option value="ib">金融與國際企業學系</option>
-                                            <option value="ba">企業管理學系</option>
-                                            <option value="stat">統計資訊學系</option>
-                                            <option value="acc">會計學系</option>
+                                            <?php
+                                                $link = mysqli_connect('localhost','root','12345678','sa');
+                                                $sql = "SELECT * FROM tagop ";
+                                                $result = mysqli_query($link, $sql);
+                                                while($row = mysqli_fetch_assoc($result)) {
+                                                echo "<option value='", $row['tagop_id'],"'>", $row['tagop_name'],"</option>";}
+                                            ?>
                                             </select>
                                         </div>
                                         <br>
                                         </div>
-                                        <div>
-                                        <div>
-                                            <select class="form-select" id="user_dept2" name="user_dept2" required>
-                                            <option value="" disabled selected>請選擇標籤</option>
-                                            <option value="im">資訊管理學系</option>
-                                            <option value="ib">金融與國際企業學系</option>
-                                            <option value="ba">企業管理學系</option>
-                                            <option value="stat">統計資訊學系</option>
-                                            <option value="acc">會計學系</option>
-                                            </select>
-                                        </div>
-                                        <br>
-                                        </div>
-                                        <div>
-                                        <div>
-                                            <select class="form-select" id="user_dept3" name="user_dept3" required>
-                                            <option value="" disabled selected>請選擇標籤</option>
-                                            <option value="im">資訊管理學系</option>
-                                            <option value="ib">金融與國際企業學系</option>
-                                            <option value="ba">企業管理學系</option>
-                                            <option value="stat">統計資訊學系</option>
-                                            <option value="acc">會計學系</option>
-                                            </select>
-                                        </div>
-                                        <br>
-                                        </div>
+                                        
                                         <div>
                                         <button class="btn btn-outline-primary" type="submit">搜尋</button>
                                         </div>
@@ -168,13 +146,14 @@
                             echo "<div class='card-header'>", $row2['user_name'],"對你發出了邀請</div>
                             ";}
                             echo"
+                            
                                 <div class='card-body'>
                                   <div class='row'>
                                     <div class='col-md-6'>
                                       <label>商品：", $row['item_name'],"</label><br>
                                       <label>時間：", $row['btime_name'],"</label><br>
                                       <label>地點：濟時嘍</label><br>
-                                      <label>價格:", $row['item_price'],"</label>
+                                      <label>價格:", $row['bid_price'],"</label>
                                     </div>
                                     <div class='col-md-12'>
                                       <div>
@@ -241,15 +220,18 @@
                     session_start();
                     $user_id=$_SESSION['user_id'];
                     $link = mysqli_connect('localhost','root','12345678','sa');
-                    if(empty($searchtxt))
+                    if(empty($searchtxt) && empty($tag))
                     {
                         $sql  = "SELECT * FROM item_info,iphoto, iloc WHERE item_info.item_id=iphoto.item_id and item_info.item_id=iloc.item_id group by item_info.item_id";
                     }
-                    else
+                    else if(empty($tag))
                     {
                         $sql  = "SELECT * FROM item_info, iphoto, iloc WHERE iphoto.item_id=item_info.item_id and item_info.item_id=iloc.item_id and item_name LIKE '%". $searchtxt. "%'group by item_info.item_id";
                     }
-                    
+                    else
+                    {
+                        $sql  = "SELECT * FROM item_info, iphoto, iloc, tag WHERE tag.item_id=item_info.item_id and iphoto.item_id=item_info.item_id and item_info.item_id=iloc.item_id and item_name LIKE '%". $searchtxt. "%' and  tag_name LIKE '". $tag. "' group by item_info.item_id";
+                    }
                     $result = mysqli_query($link,$sql);
                     While($row=mysqli_fetch_assoc($result))
                     {

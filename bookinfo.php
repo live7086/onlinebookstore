@@ -69,39 +69,15 @@
                                         </div>
                                         <div>
                                         <div>
-                                            <select class="form-select" id="user_dept1" name="user_dept1" required>
+                                            <select class="form-select" id="user_dept1" name="tag" required>
                                             <option value="" disabled selected>請選擇標籤</option>
-                                            <option value="im">資訊管理學系</option>
-                                            <option value="ib">金融與國際企業學系</option>
-                                            <option value="ba">企業管理學系</option>
-                                            <option value="stat">統計資訊學系</option>
-                                            <option value="acc">會計學系</option>
-                                            </select>
-                                        </div>
-                                        <br>
-                                        </div>
-                                        <div>
-                                        <div>
-                                            <select class="form-select" id="user_dept2" name="user_dept2" required>
-                                            <option value="" disabled selected>請選擇標籤</option>
-                                            <option value="im">資訊管理學系</option>
-                                            <option value="ib">金融與國際企業學系</option>
-                                            <option value="ba">企業管理學系</option>
-                                            <option value="stat">統計資訊學系</option>
-                                            <option value="acc">會計學系</option>
-                                            </select>
-                                        </div>
-                                        <br>
-                                        </div>
-                                        <div>
-                                        <div>
-                                            <select class="form-select" id="user_dept3" name="user_dept3" required>
-                                            <option value="" disabled selected>請選擇標籤</option>
-                                            <option value="im">資訊管理學系</option>
-                                            <option value="ib">金融與國際企業學系</option>
-                                            <option value="ba">企業管理學系</option>
-                                            <option value="stat">統計資訊學系</option>
-                                            <option value="acc">會計學系</option>
+                                            <?php
+                                                $link = mysqli_connect('localhost','root','12345678','sa');
+                                                $sql = "SELECT * FROM tagop ";
+                                                $result = mysqli_query($link, $sql);
+                                                while($row = mysqli_fetch_assoc($result)) {
+                                                echo "<option value='", $row['tagop_id'],"'>", $row['tagop_name'],"</option>";}
+                                            ?>
                                             </select>
                                         </div>
                                         <br>
@@ -396,157 +372,221 @@
             <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-1 gx-lg-1 row-cols-1 row-cols-md-1 row-cols-xl-1 justify-content-center">
-                <div class='col mb-1'>       
-                                <div class='card-header text-center'>
-                                    <h4 class='fw-bolder'><a href='bookinfo.php'>書名</a></h4>
-                                </div>
-                                <div class='card'>
-                                    <div class='card-body'>
-                                        <div class='row'>
-                                        <div id="myCarouse3" class="carousel slide" data-ride="carousel" >
-                                            <ol class="carousel-indicators">
-                                            <li data-target="#myCarouse3" data-slide-to="0" class="active"></li>
-                                            <li data-target="#myCarouse3" data-slide-to="1"></li>
-                                            <li data-target="#myCarouse3" data-slide-to="2"></li>
-                                        </ol>
-                                        <div class="carousel-inner">
-                                            <div class="carousel-item active">
-                                            <img class="d-block w-100" src="image/001.jpeg"  alt="Slide 1">
-                                            <div class="carousel-caption">
-                                                <h3></h3>
-                                                <p></p> <!--福利-->
-                                            </div>
-                                            </div>
-                                            <div class="carousel-item">
-                                            <img class="d-block w-100" src="image/008.jpg"  alt="Slide 2">
-                                            <div class="carousel-caption">
-                                                <h3></h3>
-                                                <p></p><!--福利-->
-                                            </div>
-                                            </div>
-                                            <div class="carousel-item">
-                                            <img class="d-block w-100" src="image/007.jpg"  alt="Slide 3">
-                                            <div class="carousel-caption">
-                                                <h3></h3>
-                                                <p></p><!--福利-->
-                                            </div>
-                                            </div>
-                                        </div>
-                                        <a class="carousel-control-prev" href="#myCarouse3" role="button" data-slide="prev">
-                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
-                                        <a class="carousel-control-next" href="#myCarouse3" role="button" data-slide="next">
-                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                            <span class="sr-only">Next</span>
-                                        </a>
-                                        </div>
-                                        
+                <?php
+
+
+                $link = mysqli_connect('localhost','root','12345678','sa');
+
+                // 檢查連線是否成功
+                if (!$link) {
+                    die("Connection failed: " . mysqli_connect_error());
+                }
+
+
+
+                $sql = "SELECT t2.item_id, i.item_name
+                FROM tag t1
+                JOIN tag t2 ON t1.tag_name = t2.tag_name AND t1.item_id <> t2.item_id
+                JOIN item_info i ON t2.item_id = i.item_id
+                WHERE t1.item_id = '$item_id' 
+                GROUP BY t2.item_id
+                HAVING COUNT(DISTINCT t1.tag_name) = 3
+                LIMIT 3
+                ";
+
+                $result = mysqli_query($link, $sql);
+
+                if (mysqli_num_rows($result) > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo  "<div class='col mb-1'>       
+                        <div class='card-header text-center'>
+                            <h4 class='fw-bolder'><a href='bookinfo.php?item_id=", $row['item_id'],"'>", $row['item_name'],"</a></h4>
+                        </div>
+                        <div class='card'>
+                            <div class='card-body'>
+                                <div class='row'>
+                                <div id='myCarouse3' class='carousel slide' data-ride='carousel' >
+                                    <ol class='carousel-indicators'>
+                                    <li data-target='#myCarouse3' data-slide-to='0' class='active'></li>
+                                    <li data-target='#myCarouse3' data-slide-to='1'></li>
+                                    <li data-target='#myCarouse3' data-slide-to='2'></li>
+                                </ol>
+                                <div class='carousel-inner'>
+                                    <div class='carousel-item active'>
+                                    <img class='d-block w-100' src='image/001.jpeg'  alt='Slide 1'>
+                                    <div class='carousel-caption'>
+                                        <h3></h3>
+                                        <p></p> <!--福利-->
+                                    </div>
+                                    </div>
+                                    <div class='carousel-item'>
+                                    <img class='d-block w-100' src='image/008.jpg'  alt='Slide 2'>
+                                    <div class='carousel-caption'>
+                                        <h3></h3>
+                                        <p></p><!--福利-->
+                                    </div>
+                                    </div>
+                                    <div class='carousel-item'>
+                                    <img class='d-block w-100' src='image/007.jpg'  alt='Slide 3'>
+                                    <div class='carousel-caption'>
+                                        <h3></h3>
+                                        <p></p><!--福利-->
+                                    </div>
                                     </div>
                                 </div>
+                                <a class='carousel-control-prev' href='#myCarouse3' role='button' data-slide='prev'>
+                                    <span class='carousel-control-prev-icon' aria-hidden='true'></span>
+                                    <span class='sr-only'>Previous</span>
+                                </a>
+                                <a class='carousel-control-next' href='#myCarouse3' role='button' data-slide='next'>
+                                    <span class='carousel-control-next-icon' aria-hidden='true'></span>
+                                    <span class='sr-only'>Next</span>
+                                </a>
+                                </div>
+                                
                             </div>
                         </div>
-                    <div class='col mb-1'>
-                                <div class='card-header text-center'>
-                                    <h4 class='fw-bolder'><a href='bookinfo.php'>書名</a></h4>
-                                </div>
-                                <div class='card'>
-                                    <div class='card-body'>
-                                        <div class='row'>
-                                        <div id="myCarouse4" class="carousel slide" data-ride="carousel" >
-                                            <ol class="carousel-indicators">
-                                            <li data-target="#myCarouse4" data-slide-to="0" class="active"></li>
-                                            <li data-target="#myCarouse4" data-slide-to="1"></li>
-                                            <li data-target="#myCarouse4" data-slide-to="2"></li>
-                                        </ol>
-                                        <div class="carousel-inner">
-                                            <div class="carousel-item active">
-                                            <img class="d-block w-100" src="image/001.jpeg"  alt="Slide 1">
-                                            <div class="carousel-caption">
-                                                <h3></h3>
-                                                <p></p> <!--福利-->
-                                            </div>
-                                            </div>
-                                            <div class="carousel-item">
-                                            <img class="d-block w-100" src="image/008.jpg"  alt="Slide 2">
-                                            <div class="carousel-caption">
-                                                <h3></h3>
-                                                <p></p><!--福利-->
-                                            </div>
-                                            </div>
-                                            <div class="carousel-item">
-                                            <img class="d-block w-100" src="image/007.jpg"  alt="Slide 3">
-                                            <div class="carousel-caption">
-                                                <h3></h3>
-                                                <p></p><!--福利-->
-                                            </div>
-                                            </div>
-                                        </div>
-                                        <a class="carousel-control-prev" href="#myCarouse4" role="button" data-slide="prev">
-                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
-                                        <a class="carousel-control-next" href="#myCarouse4" role="button" data-slide="next">
-                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                            <span class="sr-only">Next</span>
-                                        </a>
-                                        </div>
-                                        
+                    </div>
+                </div>";
+                    }
+                }
+
+                if (count($recommended_item_ids) < 3) {
+                    $sql = "SELECT t2.item_id, i.item_name
+                    FROM tag t1
+                    JOIN tag t2 ON t1.tag_name = t2.tag_name AND t1.item_id <> t2.item_id
+                    JOIN item_info i ON t2.item_id = i.item_id
+                    WHERE t1.item_id = '$item_id' 
+                    GROUP BY t2.item_id
+                    HAVING COUNT(DISTINCT t1.tag_name) = 2
+                    LIMIT " . (3 - count($recommended_item_ids));
+
+                    $result = mysqli_query($link, $sql);
+
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo  "<div class='col mb-1'>       
+                        <div class='card-header text-center'>
+                            <h4 class='fw-bolder'><a href='bookinfo.php?item_id=", $row['item_id'],"'>", $row['item_name'],"</a></h4>
+                        </div>
+                        <div class='card'>
+                            <div class='card-body'>
+                                <div class='row'>
+                                <div id='myCarouse3' class='carousel slide' data-ride='carousel' >
+                                    <ol class='carousel-indicators'>
+                                    <li data-target='#myCarouse3' data-slide-to='0' class='active'></li>
+                                    <li data-target='#myCarouse3' data-slide-to='1'></li>
+                                    <li data-target='#myCarouse3' data-slide-to='2'></li>
+                                </ol>
+                                <div class='carousel-inner'>
+                                    <div class='carousel-item active'>
+                                    <img class='d-block w-100' src='image/001.jpeg'  alt='Slide 1'>
+                                    <div class='carousel-caption'>
+                                        <h3></h3>
+                                        <p></p> <!--福利-->
+                                    </div>
+                                    </div>
+                                    <div class='carousel-item'>
+                                    <img class='d-block w-100' src='image/008.jpg'  alt='Slide 2'>
+                                    <div class='carousel-caption'>
+                                        <h3></h3>
+                                        <p></p><!--福利-->
+                                    </div>
+                                    </div>
+                                    <div class='carousel-item'>
+                                    <img class='d-block w-100' src='image/007.jpg'  alt='Slide 3'>
+                                    <div class='carousel-caption'>
+                                        <h3></h3>
+                                        <p></p><!--福利-->
+                                    </div>
                                     </div>
                                 </div>
+                                <a class='carousel-control-prev' href='#myCarouse3' role='button' data-slide='prev'>
+                                    <span class='carousel-control-prev-icon' aria-hidden='true'></span>
+                                    <span class='sr-only'>Previous</span>
+                                </a>
+                                <a class='carousel-control-next' href='#myCarouse3' role='button' data-slide='next'>
+                                    <span class='carousel-control-next-icon' aria-hidden='true'></span>
+                                    <span class='sr-only'>Next</span>
+                                </a>
+                                </div>
+                                
                             </div>
                         </div>
-                        <div class='col mb-1'>
-                                <div class='card-header text-center'>
-                                    <h4 class='fw-bolder'><a href='bookinfo.php'>書名</a></h4>
-                                </div>
-                                <div class='card'>
-                                    <div class='card-body'>
-                                        <div class='row'>
-                                        <div id="myCarousel" class="carousel slide" data-ride="carousel" >
-                                            <ol class="carousel-indicators">
-                                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                                            <li data-target="#myCarousel" data-slide-to="1"></li>
-                                            <li data-target="#myCarousel" data-slide-to="2"></li>
-                                        </ol>
-                                        <div class="carousel-inner">
-                                            <div class="carousel-item active">
-                                            <img class="d-block w-100" src="image/001.jpeg"  alt="Slide 1">
-                                            <div class="carousel-caption">
-                                                <h3></h3>
-                                                <p></p> <!--福利-->
-                                            </div>
-                                            </div>
-                                            <div class="carousel-item">
-                                            <img class="d-block w-100" src="image/008.jpg"  alt="Slide 2">
-                                            <div class="carousel-caption">
-                                                <h3></h3>
-                                                <p></p><!--福利-->
-                                            </div>
-                                            </div>
-                                            <div class="carousel-item">
-                                            <img class="d-block w-100" src="image/007.jpg"  alt="Slide 3">
-                                            <div class="carousel-caption">
-                                                <h3></h3>
-                                                <p></p><!--福利-->
-                                            </div>
-                                            </div>
-                                        </div>
-                                        <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
-                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
-                                        <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
-                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                            <span class="sr-only">Next</span>
-                                        </a>
-                                        </div>
-                                        
+                    </div>
+                </div>";
+                    }
+                }
+
+
+                if (count($recommended_item_ids) < 3) {
+                    $sql = "SELECT t2.item_id, i.item_name
+                    FROM tag t1
+                    JOIN tag t2 ON t1.tag_name = t2.tag_name AND t1.item_id <> t2.item_id
+                    JOIN item_info i ON t2.item_id = i.item_id
+                    WHERE t1.item_id = '$item_id' 
+                    GROUP BY t2.item_id
+                    HAVING COUNT(DISTINCT t1.tag_name) = 1
+                    LIMIT  " . (3 - count($recommended_item_ids));
+
+                    $result = mysqli_query($link, $sql);
+
+
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo  "<div class='col mb-1'>       
+                        <div class='card-header text-center'>
+                            <h4 class='fw-bolder'><a href='bookinfo.php?item_id=", $row['item_id'],"'>", $row['item_name'],"</a></h4>
+                        </div>
+                        <div class='card'>
+                            <div class='card-body'>
+                                <div class='row'>
+                                <div id='myCarouse3' class='carousel slide' data-ride='carousel' >
+                                    <ol class='carousel-indicators'>
+                                    <li data-target='#myCarouse3' data-slide-to='0' class='active'></li>
+                                    <li data-target='#myCarouse3' data-slide-to='1'></li>
+                                    <li data-target='#myCarouse3' data-slide-to='2'></li>
+                                </ol>
+                                <div class='carousel-inner'>
+                                    <div class='carousel-item active'>
+                                    <img class='d-block w-100' src='image/001.jpeg'  alt='Slide 1'>
+                                    <div class='carousel-caption'>
+                                        <h3></h3>
+                                        <p></p> <!--福利-->
+                                    </div>
+                                    </div>
+                                    <div class='carousel-item'>
+                                    <img class='d-block w-100' src='image/008.jpg'  alt='Slide 2'>
+                                    <div class='carousel-caption'>
+                                        <h3></h3>
+                                        <p></p><!--福利-->
+                                    </div>
+                                    </div>
+                                    <div class='carousel-item'>
+                                    <img class='d-block w-100' src='image/007.jpg'  alt='Slide 3'>
+                                    <div class='carousel-caption'>
+                                        <h3></h3>
+                                        <p></p><!--福利-->
+                                    </div>
                                     </div>
                                 </div>
+                                <a class='carousel-control-prev' href='#myCarouse3' role='button' data-slide='prev'>
+                                    <span class='carousel-control-prev-icon' aria-hidden='true'></span>
+                                    <span class='sr-only'>Previous</span>
+                                </a>
+                                <a class='carousel-control-next' href='#myCarouse3' role='button' data-slide='next'>
+                                    <span class='carousel-control-next-icon' aria-hidden='true'></span>
+                                    <span class='sr-only'>Next</span>
+                                </a>
+                                </div>
+                                
                             </div>
                         </div>
-                                <!-- Product actions-->
+                    </div>
+                </div>";
+                    }
+                }
+                mysqli_close($link);
+
+                ?>
                                 
         </section>                        
         <!-- Footer-->
