@@ -144,8 +144,8 @@
                                     <div class='col-md-6'>
                                       <label>商品：", $row['item_name'],"</label><br>
                                       <label>時間：", $row['btime_name'],"</label><br>
-                                      <label>地點：濟時嘍</label><br>
-                                      <label>價格:", $row['item_price'],"</label>
+                                      <label>地點：", $row['iloc_name'],"</label><br>
+                                      <label>價格：", $row['item_price'],"</label>
                                     </div>
                                     <div class='col-md-12'>
                                       <div>
@@ -193,6 +193,7 @@
                     <?php
                           $item_id = $_GET['item_id'];
                           $link = mysqli_connect('localhost','root','12345678','sa');
+                          
                           $sql="SELECT * FROM item_info ,iphoto WHERE iphoto.item_id=item_info.item_id and item_info.item_id LIKE '". $item_id. "'";
                           $result = mysqli_query($link,$sql);
                           if ($row=mysqli_fetch_assoc($result))
@@ -209,6 +210,7 @@
                                       <div id='myCarouse2' class='carousel slide' data-ride='carousel'>
                                       <div class='carousel-inner'>"?>
                                       <?php
+                                      
                                       $sql = "SELECT * FROM iphoto WHERE iphoto.item_id = '$item_id'";
                                       $result = mysqli_query($link, $sql);
                                       $i = 0;

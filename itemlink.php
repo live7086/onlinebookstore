@@ -83,7 +83,7 @@ function generateItemId($link, $item_info) {
               }
           
               // 將文件保存到目標路徑
-              $name = $_SESSION["item_id"]."_".$i.".jpg";
+              $name = $item_id."_".$i.".jpg";
               $destination = "C:\\AppServ\\www\\onlinebookstore\\imageUpload\\$name";
               $sql5 = "INSERT INTO iphoto (item_id, iphoto_name) VALUES ('$item_id', '$name')";
               mysqli_query($link,$sql5);
