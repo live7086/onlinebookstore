@@ -318,7 +318,7 @@
                 <?php
                     $link = mysqli_connect('localhost','root','12345678','sa');
                     
-                    
+                    //$sql = "SELECT * FROM item_info,iphoto, iloc WHERE iphoto.item_id = "
                     $sql  = "SELECT * FROM item_info,iphoto, iloc WHERE item_info.item_id=iphoto.item_id and item_info.item_id=iloc.item_id group by item_info.item_id";
                     $result = mysqli_query($link,$sql);
 
