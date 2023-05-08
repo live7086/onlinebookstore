@@ -239,31 +239,41 @@
                                             <label for="imageUpload">
                                                 <img src="https://www.lifewire.com/thmb/eCn_BQgPpd0l-6FhgYCA8ebbOn0=/650x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/cloud-upload-a30f385a928e44e199a62210d578375a.jpg" width="10%" height="10%" alt="Upload Image" id="imagePreview">
                                             </label>
-                                            <input type="file" class="form-control-file" id="imageUpload" name="image" >
+                                            <input type="file" onchange="previewImage();" name="images[]" multiple class="form-control-file" id="imageUpload" />
                                             <p id="noImageMsg">尚未上傳檔案</p>
                                         </div>
                                         <button type="submit" class="btn btn-primary">送出</button>
                                         <script>
-                                        
+                                                function previewImage() {
+                                                // 取得顯示圖片的 <img> 標籤元素
+                                                var preview = document.getElementById("imagePreview");
+                                                // 取得選取的檔案
+                                                var file = document.getElementById("imageUpload").files[0];
+                                                // 取得顯示「無圖片」訊息的元素
+                                                var noImageMsg = document.getElementById("noImageMsg");
 
-                                        function previewImage() {
-                                            var preview = document.getElementById("imagePreview");
-                                            var file = document.getElementById("imageUpload").files[0];
-                                            var noImageMsg = document.getElementById("noImageMsg");
-                                        
-                                            if (file) {
-                                                var reader = new FileReader();
-                                                reader.onloadend = function () {
+                                                // 如果有選取檔案
+                                                if (file) {
+                                                    // 建立一個 FileReader 物件
+                                                    var reader = new FileReader();
+                                                    // 設定當讀取完成時要執行的函式
+                                                    reader.onloadend = function () {
+                                                    // 將讀取的圖片資料放進 <img> 標籤的 src 屬性中，即可預覽圖片
                                                     preview.src = reader.result;
-                                                };
-                                                reader.readAsDataURL(file);
-                                                noImageMsg.style.display = "none";
-                                            } else {
-                                                preview.src = "";
-                                                noImageMsg.style.display = "block";
-                                            }
-                                        }
-                                        </script>
+                                                    };
+                                                    // 開始讀取檔案內容，內容讀取完成時會執行上面的 onloadend 函式
+                                                    reader.readAsDataURL(file);
+                                                    // 隱藏「無圖片」訊息
+                                                    noImageMsg.style.display = "none";
+                                                } else {
+                                                    // 如果沒有選取檔案，將預覽圖片的 <img> 標籤的 src 屬性清空
+                                                    preview.src = "";
+                                                    // 顯示「無圖片」訊息
+                                                    noImageMsg.style.display = "block";
+                                                }
+                                                }
+
+                                            </script>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
@@ -314,7 +324,7 @@
 
                     While($row=mysqli_fetch_assoc($result))
                     {
-                                
+                    $iphoto_name = '.\imageUpload\\'. $row['iphoto_name']. '';
                     echo "
                     <div class='col mb-5'>
                     <div class='card h-100'>
@@ -323,7 +333,7 @@
                         <h4 class='fw-bolder'><a href='bookinfo.php?item_id=", $row['item_id'],"'>", $row['item_name'],"</a></h4>
                     </div>
                     <!-- Product image-->
-                    <img class='card-img-top' src='", $row['iphoto_name'],"'  width='50%'  height='50%' alt='...' />
+                    <img class='card-img-top' src=".$iphoto_name."  width='50%'  height='50%' alt='...' />
                     <!-- Product details-->
                     <div class='card-body p-4'>
                         <div class='text-center'>

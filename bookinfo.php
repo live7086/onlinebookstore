@@ -207,28 +207,27 @@
                                     <div class='card-body'>
                                       <div class='row'>
                                       <div id='myCarouse2' class='carousel slide' data-ride='carousel'>
-                                      <div class='carousel-inner'>
-                                        <div class='carousel-item active'>
-                                          <img class='d-block w-100' src='https://via.placeholder.com/800x400?text=Slide+1' alt='Slide 1'>
-                                          <div class='carousel-caption'>
-                                            <h3>Slide 1</h3>
-                                            <p>This is a description for slide 1</p>
-                                          </div>
-                                        </div>
-                                        <div class='carousel-item'>
-                                          <img class='d-block w-100' src='https://via.placeholder.com/800x400?text=Slide+2' alt='Slide 2'>
-                                          <div class='carousel-caption'>
-                                            <h3>Slide 2</h3>
-                                            <p>This is a description for slide 2</p>
-                                          </div>
-                                        </div>
-                                        <div class='carousel-item'>
-                                          <img class='d-block w-100' src='https://via.placeholder.com/800x400?text=Slide+3' alt='Slide 3'>
-                                          <div class='carousel-caption'>
-                                            <h3>Slide 3</h3>
-                                            <p>This is a description for slide 3</p>
-                                          </div>
-                                        </div>
+                                      <div class='carousel-inner'>"?>
+                                      <?php
+                                      $sql = "SELECT * FROM iphoto WHERE iphoto.item_id = '$item_id'";
+                                      $result = mysqli_query($link, $sql);
+                                      $i = 0;
+                                      while($row = mysqli_fetch_assoc($result)){
+                                          if($i==0){
+                                              $active ="active";
+                                          }else{
+                                              $active = "";
+                                          }
+                                      $i++;
+                                      $iphoto_name = '.\imageUpload\\'. $row['iphoto_name']. '';
+                                      echo $iphoto_name;
+                                      echo"
+                                      <div class='carousel-item $active ''>
+                                        <img class='d-block w-100' src=".$iphoto_name." alt='Slide 2' width=800 height=483>
+                                      </div>";
+                                      }
+                                      ?>
+                                      <?php echo"
                                       </div>
                                       <a class='carousel-control-prev' href='#myCarouse2' role='button' data-slide='prev'>
                                             <span class='carousel-control-prev-icon' aria-hidden='true'></span>

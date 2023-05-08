@@ -236,6 +236,7 @@
                     $dbaction='insert';
                     While($row=mysqli_fetch_assoc($result))
                     {
+                    $iphoto_name = '.\imageUpload\\'. $row['iphoto_name']. '';
                     echo "
                     <div class='col mb-5'>
                     <div class='card h-100'>
@@ -244,7 +245,7 @@
                         <h4 class='fw-bolder'><a href='bookinfo.php?item_id=", $row['item_id'],"'>", $row['item_name'],"</a></h4>
                     </div>
                     <!-- Product image-->
-                    <img class='card-img-top' src='", $row['iphoto_name'],"'  width='50%'  height='50%' alt='...' />
+                    <img class='card-img-top' src=".$iphoto_name."  width='50%'  height='50%' alt='...' />
                     <!-- Product details-->
                     <div class='card-body p-4'>
                         <div class='text-center'>

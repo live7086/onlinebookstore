@@ -28,12 +28,12 @@
         $row=mysqli_fetch_assoc($result);
         if(!empty($row)){
             
-        echo "<script>alert('該帳號已註冊');
-        window.location.href = \"index.php\";</script>";
+            echo "<script>alert('該帳號已註冊');
+            window.location.href = \"index.php\";</script>";
         
 
 
-    }else{
+        }else{
             $_SESSION['otp']=rand(10000,99999);
             // 創建 PHPMailer 實例
             $mail = new PHPMailer(true);

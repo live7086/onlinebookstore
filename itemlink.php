@@ -50,14 +50,48 @@ function generateItemId($link, $item_info) {
     $sql2 = "INSERT INTO itime (item_id, itime_name) VALUES ('$item_id', '$itime_2')";
     $sql3 = "INSERT INTO itime (item_id, itime_name) VALUES ('$item_id', '$itime_3')";
     $sql4 = "INSERT INTO iloc (item_id, iloc_name) VALUES ('$item_id', '$iloc_name')";
-    $sql5 = "INSERT INTO iphoto (item_id, iphoto_name) VALUES ('$item_id', 'https://verse-static-1.azureedge.net/storage/app/media/uploaded-files/taiwan-textbook01.jpg')";
+    
     $sql6 = "INSERT INTO tag (item_id, tag_name) VALUES ('$item_id', '$tag_1')";
     $sql7 = "INSERT INTO tag (item_id, tag_name) VALUES ('$item_id', '$tag_2')";
     $sql8 = "INSERT INTO tag (item_id, tag_name) VALUES ('$item_id', '$tag_3')";
-        if(mysqli_query($link,$sql) && mysqli_query($link,$sql1) && mysqli_query($link,$sql2) && mysqli_query($link,$sql3) && mysqli_query($link,$sql4) && mysqli_query($link,$sql5) && mysqli_query($link,$sql6) && mysqli_query($link,$sql7) && mysqli_query($link,$sql8)
+        if(mysqli_query($link,$sql) && mysqli_query($link,$sql1) && mysqli_query($link,$sql2) && mysqli_query($link,$sql3) && mysqli_query($link,$sql4) && mysqli_query($link,$sql6) && mysqli_query($link,$sql7) && mysqli_query($link,$sql8)
 
         )
         {
+          if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // 獲取上傳文件的數量
+            $count = count($_FILES['images']['name']);
+          
+            // 循環處理每個上傳的文件
+            for ($i = 0; $i < $count; $i++) {
+              $name = $_FILES['images']['name'][$i];
+              $type = $_FILES['images']['type'][$i];
+              $tmp_name = $_FILES['images']['tmp_name'][$i];
+              $error = $_FILES['images']['error'][$i];
+              $size = $_FILES['images']['size'][$i];
+          
+              // 檢查是否有上傳錯誤
+              if ($error !== UPLOAD_ERR_OK) {
+                echo "Error uploading file $name: $error";
+                continue;
+              }
+          
+              // 檢查文件類型是否合法
+              if (!in_array($type, ['image/gif', 'image/jpeg', 'image/png'])) {
+                echo "Invalid file type for file $name: $type";
+                continue;
+              }
+          
+              // 將文件保存到目標路徑
+              $name = $_SESSION["item_id"]."_".$i.".jpg";
+              $destination = "C:\\AppServ\\www\\onlinebookstore\\imageUpload\\$name";
+              $sql5 = "INSERT INTO iphoto (item_id, iphoto_name) VALUES ('$item_id', '$name')";
+              mysqli_query($link,$sql5);
+              move_uploaded_file($tmp_name, $destination);
+            }
+            chmod("C:\\AppServ\\www\\onlinebookstore\\imageUpload\\", 0755);
+            
+          }
           //echo "新增成功";
         header("Location:index.php");
         }
