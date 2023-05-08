@@ -230,7 +230,7 @@
                                         $resultbuyer = mysqli_query($link,$sqlbuyer);
                                         $rowbuyer=mysqli_fetch_assoc($resultbuyer);
                                         //photo
-                                        $sqlphoto = "SELECT * FROM iphoto WHERE item_id = '$item_id'";
+                                        $sqlphoto = "SELECT * FROM iphoto WHERE item_id = '$row[item_id]'";
                                         $resultphoto = mysqli_query($link,$sqlphoto);
                                         $rowphoto=mysqli_fetch_assoc($resultphoto);
                                         $iphoto_name = '.\imageUpload\\'. $rowphoto['iphoto_name']. '';
@@ -245,7 +245,7 @@
                                             <td>
                                                 <a href=\"#\" type=\"button\" data-bs-toggle=\"modal\" data-bs-target=\"#iinfo\">".$row['item_id']."</a>
                                             </td>
-                                            <td>".$row['bid_id']."</td>
+                                            <td>還不能退貨</td>
                                             
                                             <div class=\"modal fade\" id=\"iinfo\">
                                         <div class=\"modal-dialog\">
@@ -258,7 +258,7 @@
                                             <div class=\"card h-100\">                                                            
                                                         <div class=\"modal-header\">";
                                                         echo"
-                                                        <img src=width=450 height=300>";
+                                                        <img src=$iphoto_name width =450 height=300>";
                                                         echo"
                                                         </div>
                                                         <div class='modal-body'>

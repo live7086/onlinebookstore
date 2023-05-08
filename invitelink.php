@@ -26,8 +26,7 @@
                 }
             } while (true);
         }
-        $bid_id = $_POST['bid_id'];
-        echo $bid_id;
+        $bid_id = $_GET['bid_id'];
         $link = mysqli_connect('localhost','root','12345678','sa');
         $sql  = "SELECT * FROM bid_info, item_info, iloc, btime WHERE bid_info.user_id = $_SESSION[user_id] AND item_info.item_id = bid_info.item_id AND bid_info.item_id = iloc.item_id AND btime.bid_id = '$bid_id' AND bid_info.bid_id = '$bid_id'";
         $result = mysqli_query($link,$sql);

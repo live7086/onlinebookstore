@@ -190,7 +190,6 @@
                                 <i class="fas fa-table me-1"></i>
                             </div>
                             <div class="card-body">
-                            <form action="invitelink.php" method="post">
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
@@ -232,9 +231,8 @@
 
                                             if($row['statement']=="accepted"){
                                                 echo "  <td>接受</td>
-                                                        <td>$row[bid_id]
-                                                        <input type=hidden name='bid_id' value='".$row['bid_id']."'>
-                                                            <input type='submit' name=\"submit\" class=\"btn-success\" value=\"完成面交\">
+                                                        <td>
+                                                            <a href =invitelink.php?bid_id=".$row['bid_id']." class=btn-dangerous >完成面交</a>
                                                         </td>
                                                         </tr>";
                                             }else if($row['statement']=="rejected"){
@@ -249,7 +247,6 @@
                                         
                                     </tbody>
                                 </table>
-                                </form>
                             </div>
                         </div>
                     </div>
