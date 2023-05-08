@@ -82,39 +82,40 @@
                               <button class="btn btn-outline-secondary" data-bs-dismiss="modal">返回</button>
                             </div>
                             <?php
+                            session_start();
+                            $user_id=$_SESSION['user_id'];
                             $link = mysqli_connect('localhost','root','12345678','sa');
-                            $sql="SELECT * FROM bid_info, item_info, acccount where user_email='$user_email'";
-                            $result= mysqli_query($link,$sql);
-                            $row=mysqli_fetch_assoc($result);
-
-                            if(empty($searchtxt))
-                            {
-                                $sql  = "SELECT * FROM item_info,iphoto, iloc WHERE item_info.item_id=iphoto.item_id and item_info.item_id=iloc.item_id and item_info.user_id= ".$_SESSION['user_id']." group by item_info.item_id";
-                            }
-                            else
-                            {
-                                $sql  = "SELECT * FROM item_info, iphoto, iloc WHERE iphoto.item_id=item_info.item_id and item_info.item_id=iloc.item_id and item_info.user_id= ".$_SESSION['user_id']." and item_name LIKE '%". $searchtxt. "%'group by item_info.item_id";
-                            }
-
-                            echo "<div class=\"card\">
-                                <div class=\"card-header\">阿緯對你發出了邀請</div>
-                                <div class=\"card-body\">
-                                  <div class=\"row\">
-                                    <div class=\"col-md-6\">
-                                      <label>商品：Principles of FINANCIAL ACCOUNTING(3E)</label><br>
-                                      <label>時間：04:00</label><br>
-                                      <label>地點：濟時樓</label><br>
-                                      <label>價格：800$</label>
+                            $sql = "SELECT * FROM bid_info, item_info, account, btime, iloc where iloc.item_id=bid_info.item_id and btime.bid_id=bid_info.bid_id and account.user_id=item_info.user_id and bid_info.item_id=item_info.item_id and item_info.user_id like ". $user_id. "";
+                            $result = mysqli_query($link, $sql);
+                            while($row = mysqli_fetch_assoc($result)) {
+                            echo "
+                            <div class='card'>";
+                            $bid_id = $row['bid_id'];
+                            $sql2 = "SELECT * FROM bid_info, account WHERE bid_info.user_id=account.user_id and bid_id='$bid_id'";
+                            $result2 = mysqli_query($link, $sql2);
+                            while($row2 = mysqli_fetch_assoc($result2)) {
+                            echo "<div class='card-header'>", $row2['user_name'],"對你發出了邀請</div>
+                            ";}
+                            echo"
+                            
+                                <div class='card-body'>
+                                  <div class='row'>
+                                    <div class='col-md-6'>
+                                      <label>商品：", $row['item_name'],"</label><br>
+                                      <label>時間：", $row['btime_name'],"</label><br>
+                                      <label>地點：濟時嘍</label><br>
+                                      <label>價格:", $row['bid_price'],"</label>
                                     </div>
-                                    <div class=\"col-md-12\">
+                                    <div class='col-md-12'>
                                       <div>
-                                        <button type=\"button\" class=\"btn btn-primary\">接受</button>
-                                        <button type=\"button\" class=\"btn btn-secondary\">拒絕</button>
+                                        <button type='button' class='btn btn-primary'>接受</button>
+                                        <button type='button' class='btn btn-secondary'>拒絕</button>
                                       </div>
                                     </div>
                                   </div>
                                 </div>
-                            </div>";
+                                
+                            </div>";}
                             ?>
                           </div>
                         </div>
@@ -180,236 +181,109 @@
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-1 row-cols-xl-2 justify-content-center">
-                    
+                <?php
 
-                    
-                    <div class="col mb-5">
-                    <div class="card h-100">
-                    <div class="text-center">
-                        <!-- Product name-->
-                        <h4 class="fw-bolder"><a href="bookinfo.php?item_id=001">harry potter and the half blood price</a></h4>
-                    </div>
-                    <!-- Product image-->
-                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                            <li data-target="#myCarousel" data-slide-to="1"></li>
-                            <li data-target="#myCarousel" data-slide-to="2"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                            <img class="d-block w-100" src="image/001.jpeg" alt="Slide 1">
-                            <div class="carousel-caption">
-                                <h3></h3>
-                                <p></p>
-                            </div>
-                            </div>
-                            <div class="carousel-item">
-                            <img class="d-block w-100" src="image/007.jpg" alt="Slide 2">
-                            <div class="carousel-caption">
-                                <h3></h3>
-                                <p></p>
-                            </div>
-                            </div>
-                            <div class="carousel-item">
-                            <img class="d-block w-100" src="image/008.jpg" alt="Slide 3">
-                            <div class="carousel-caption">
-                                <h3></h3>
-                                <p></p>
-                            </div>
-                            </div>
-                        </div>
-                        <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                        <div class="text-center">
+                session_start();
+                $user_id=$_SESSION['user_id'];
+                $link = mysqli_connect('localhost','root','12345678','sa');
+                $dbaction='delete';
+                $sql  = "SELECT * FROM item_info,iphoto, iloc, fav WHERE fav.user_id=$user_id and fav.item_id=item_info.item_id and item_info.item_id=iphoto.item_id and item_info.item_id=iloc.item_id group by item_info.item_id";
+                $result = mysqli_query($link,$sql);
+                    While($row=mysqli_fetch_assoc($result))
+                        {
+                        echo "
+                        <div class='col mb-5'>
+                        <div class='card h-100'>
+                        <div class='text-center'>
                             <!-- Product name-->
-                            <h5 class="card-subtitle mb-3">this is a book about snape</h5>
+                            <h4 class='fw-bolder'><a href='bookinfo.php?item_id=", $row['item_id'],"'>", $row['item_name'],"</a></h4>
                         </div>
-                    </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-1 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center">
-                            <h4 class="fw-bolder">價格:125元</h4>
+                        <!-- Product image-->
+                        <img class='card-img-top' src='", $row['iphoto_name'],"'  width='50%'  height='50%' alt='...' />
+                        <!-- Product details-->
+                        <div class='card-body p-4'>
+                            <div class='text-center'>
+                                <!-- Product name-->
+                                <h5 class='card-subtitle mb-3'>", $row['item_info'],"</h5>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center">
+                        <!-- Product actions-->
+                        <div class='card-footer p-1 pt-0 border-top-0 bg-transparent'>
+                            <div class='text-center'>
+                                <h4 class='fw-bolder'>價格:", $row['item_price'],"元</h4>
+                            </div>
+                            <div class='text-center'><a class='btn btn-outline-dark mt-auto' href='favlink.php?item_id=", $row['item_id'],"&user_id=".$user_id."&dbaction=".$dbaction."'>從我的最愛移除</a></div>
+                        </div>
+                        <div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>
+                            <div class='text-center'>
 
-                            <!--彈跳連結-->
-                            <a class="btn btn-outline-dark mt-auto" href="#" data-bs-toggle="modal" data-bs-target="#popinv-001">購買邀請</a>
-                             <!--彈出來的視窗-->
-                             <div class="modal fade" id="popinv-001">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h3 class="modal-title">購買邀請</h3>
-                                            <button class="btn btn-outline-secondary" data-bs-dismiss="modal">返回</button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form enctype="multipart/form-data" method="POST" action="bidlink.php">
-                                            <input type="hidden" name="item_id" value="001">
-                                                <div class="form-group">
-                                                    <input class="form-control" type="text" value="書名：harry potter and the half blood price" readonly="true" placeholder="書名" name="title">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input class="form-control" type="text" value="ISBN：12345" readonly="true" placeholder="ISBN" name="isbn">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input class="form-control" type="text" value="價格：125元" readonly="true" placeholder="價格" name="price">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input class="form-control" type="text" value="地點：利瑪竇" readonly="true" placeholder="地點" name="place">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>請選擇交易時間</label><br>
-                                                    <div>
-                                                        <label class="radio-inline"> <!--阿兵改成radio button 讓直覺看起來就只能選一時段，但還須修改-->
-                                                        <input type="radio" name="time_1" value="星期一 10:09">星期一 10:09
-                                                    </label>
-                                                        <label class="radio-inline"> <!--阿兵改成radio button 讓直覺看起來就只能選一時段，但還須修改-->
-                                                        <input type="radio" name="time_2" value="星期二 14:58">星期二 14:58
-                                                    </label>    </div>
-                                                </div>
-                                                <div align="center">
-                                                    <div>
-                                                        <input type="submit" value="Submit" class="btn btn-primary">
+                                <!--彈跳連結-->
+                                <a class='btn btn-outline-dark mt-auto' href='#' data-bs-toggle='modal' data-bs-target='#popinv-{$row['item_id']}'>購買邀請</a>
+                                <!--彈出來的視窗-->
+                                <div class='modal fade' id='popinv-{$row['item_id']}'>
+                                    <div class='modal-dialog'>
+                                        <div class='modal-content'>
+                                            <div class='modal-header'>
+                                                <h3 class='modal-title'>購買邀請</h3>
+                                                <button class='btn btn-outline-secondary' data-bs-dismiss='modal'>返回</button>
+                                            </div>
+                                            <div class='modal-body'>
+                                                <form enctype='multipart/form-data' method='POST' action='bidlink.php'>
+                                                <input type=hidden name='item_id' value='", $row['item_id'],"'>
+                                                    <div class='form-group'>
+                                                        <input class='form-control' type='text' value='書名：", $row['item_name'],"' readonly='true' placeholder='書名' name='title'>
                                                     </div>
-                                                </div> 
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
+                                                    <div class='form-group'>
+                                                        <input class='form-control' type='text' value='ISBN：", $row['item_isbn'],"' readonly='true' placeholder='ISBN' name='isbn'>
+                                                    </div>
+
+
+                                                    
+                                                    
+                                                    <div class='form-group'>
+                                                        <input class='form-control' type='text' value='地點：", $row['iloc_name'],"' readonly='true' placeholder='地點' name='place'>
+                                                    </div>
+                                                    <div class='form-group'>
+                                                        
+                                                        <div class='form-group'>
+                                                    <label>欲付價格：<input type='number' name='price' step='5' min='0' max='9999.99' value='" . $row['item_price'] . "'></label>
+                                                    </div>
+                                                        <label>請選擇交易時間</label>
+                                                        
+                                                        <br>
+                                                        <div>";
+                                                            $item_id = $row['item_id'];
+                                                            $sql2 = "SELECT * FROM itime WHERE item_id='$item_id'";
+                                                            $result2 = mysqli_query($link, $sql2);
+                                                            $itime = array();
+                                                            $count=1;
+                                                            while($row2 = mysqli_fetch_assoc($result2)) {
+                                                                $name = 'time_'.$count;
+                                                                $count=$count+1;
+                                                            echo "
+                                                            <label class='checkbox-inline'> 
+                                                            <input type='checkbox' name='".$name."' value='".$row2['itime_name']."'>".$row2['itime_name']."
+                                                        </label>";}
+                                                    echo"    </div>
+                                                    </div>
+                                                    <div align='center'>
+                                                        <div>
+                                                            <input type='submit' value='Submit' class='btn btn-primary'>
+                                                        </div>
+                                                    </div> 
+                                                </form>
+                                            </div>
+                                            <div class='modal-footer'>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>                                    
-                        </div>
-                    </div>
-                </div>
-            </div>
-                    <div class="col mb-5">
-                    <div class="card h-100">
-                    <div class="text-center">
-                        <!-- Product name-->
-                        <h4 class="fw-bolder"><a href="bookinfo.php?item_id=ITEM35510">上傳</a></h4>
-                    </div>
-                    <!-- Product image-->
-                    <div id="myCarouse2" class="carousel slide" data-ride="carouse1">
-                        <ol class="carousel-indicators">
-                            <li data-target="#myCarouse2" data-slide-to="0" class="active"></li>
-                            <li data-target="#myCarouse2" data-slide-to="1"></li>
-                            <li data-target="#myCarouse2" data-slide-to="2"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                            <img class="d-block w-100" src="image/001.jpeg" alt="Slide 1">
-                            <div class="carousel-caption">
-                                <h3></h3>
-                                <p></p>
-                            </div>
-                            </div>
-                            <div class="carousel-item">
-                            <img class="d-block w-100" src="image/007.jpg" alt="Slide 2">
-                            <div class="carousel-caption">
-                                <h3></h3>
-                                <p></p>
-                            </div>
-                            </div>
-                            <div class="carousel-item">
-                            <img class="d-block w-100" src="image/008.jpg" alt="Slide 3">
-                            <div class="carousel-caption">
-                                <h3></h3>
-                                <p></p>
-                            </div>
+                                </div>                                    
                             </div>
                         </div>
-                        <a class="carousel-control-prev" href="#myCarouse2" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#myCarouse2" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
                     </div>
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <!-- Product name-->
-                            <h5 class="card-subtitle mb-3">傳</h5>
-                        </div>
-                    </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-1 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center">
-                            <h4 class="fw-bolder">價格:21元</h4>
-                        </div>
-                    </div>
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center">
-
-                            <!--彈跳連結-->
-                            <a class="btn btn-outline-dark mt-auto" href="#" data-bs-toggle="modal" data-bs-target="#popinv-ITEM35510">購買邀請</a>
-                             <!--彈出來的視窗-->
-                             <div class="modal fade" id="popinv-ITEM35510">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h3 class="modal-title">購買邀請</h3>
-                                            <button class="btn btn-outline-secondary" data-bs-dismiss="modal">返回</button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form enctype="multipart/form-data" method="POST" action="bidlink.php">
-                                            <input type="hidden" name="item_id" value="ITEM35510">
-                                                <div class="form-group">
-                                                    <input class="form-control" type="text" value="書名：上傳" readonly="true" placeholder="書名" name="title">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input class="form-control" type="text" value="ISBN：3343" readonly="true" placeholder="ISBN" name="isbn">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input class="form-control" type="text" value="價格：21元" readonly="true" placeholder="價格" name="price">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input class="form-control" type="text" value="地點：仁園" readonly="true" placeholder="地點" name="place">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>請選擇交易時間</label><br>
-                                                    <div>
-                                                        <label class="radio-inline"> <!--阿兵改成radio button 讓直覺看起來就只能選一時段，但還須修改-->
-                                                        <input type="radio" name="time_1" value="星期一 17:00">星期一 17:00
-                                                    </label>
-                                                        <label class="radio-inline"> <!--阿兵改成radio button 讓直覺看起來就只能選一時段，但還須修改-->
-                                                        <input type="radio" name="time_2" value="星期三 13:30">星期三 13:30
-                                                    </label>
-                                                        <label class="radio-inline"> <!--阿兵改成radio button 讓直覺看起來就只能選一時段，但還須修改-->
-                                                        <input type="radio" name="time_3" value="星期五 18:00">星期五 18:00
-                                                    </label>    </div>
-                                                </div>
-                                                <div align="center">
-                                                    <div>
-                                                        <input type="submit" value="Submit" class="btn btn-primary">
-                                                    </div>
-                                                </div> 
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>                                    
-                        </div>
-                    </div>
-                </div>
-            </div>
+                </div>";
+                    }
+                    ?>
         </section>
         
         

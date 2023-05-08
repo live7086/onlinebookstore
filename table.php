@@ -81,39 +81,40 @@
                               <button class="btn btn-outline-secondary" data-bs-dismiss="modal">返回</button>
                             </div>
                             <?php
+                            session_start();
+                            $user_id=$_SESSION['user_id'];
                             $link = mysqli_connect('localhost','root','12345678','sa');
-                            $sql="SELECT * FROM bid_info, item_info, acccount where user_email='$user_email'";
-                            $result= mysqli_query($link,$sql);
-                            $row=mysqli_fetch_assoc($result);
-
-                            if(empty($searchtxt))
-                            {
-                                $sql  = "SELECT * FROM item_info,iphoto, iloc WHERE item_info.item_id=iphoto.item_id and item_info.item_id=iloc.item_id and item_info.user_id= ".$_SESSION['user_id']." group by item_info.item_id";
-                            }
-                            else
-                            {
-                                $sql  = "SELECT * FROM item_info, iphoto, iloc WHERE iphoto.item_id=item_info.item_id and item_info.item_id=iloc.item_id and item_info.user_id= ".$_SESSION['user_id']." and item_name LIKE '%". $searchtxt. "%'group by item_info.item_id";
-                            }
-
-                            echo "<div class=\"card\">
-                                <div class=\"card-header\">阿緯對你發出了邀請</div>
-                                <div class=\"card-body\">
-                                  <div class=\"row\">
-                                    <div class=\"col-md-6\">
-                                      <label>商品：Principles of FINANCIAL ACCOUNTING(3E)</label><br>
-                                      <label>時間：04:00</label><br>
-                                      <label>地點：濟時樓</label><br>
-                                      <label>價格：800$</label>
+                            $sql = "SELECT * FROM bid_info, item_info, account, btime, iloc where iloc.item_id=bid_info.item_id and btime.bid_id=bid_info.bid_id and account.user_id=item_info.user_id and bid_info.item_id=item_info.item_id and item_info.user_id like ". $user_id. "";
+                            $result = mysqli_query($link, $sql);
+                            while($row = mysqli_fetch_assoc($result)) {
+                            echo "
+                            <div class='card'>";
+                            $bid_id = $row['bid_id'];
+                            $sql2 = "SELECT * FROM bid_info, account WHERE bid_info.user_id=account.user_id and bid_id='$bid_id'";
+                            $result2 = mysqli_query($link, $sql2);
+                            while($row2 = mysqli_fetch_assoc($result2)) {
+                            echo "<div class='card-header'>", $row2['user_name'],"對你發出了邀請</div>
+                            ";}
+                            echo"
+                            
+                                <div class='card-body'>
+                                  <div class='row'>
+                                    <div class='col-md-6'>
+                                      <label>商品：", $row['item_name'],"</label><br>
+                                      <label>時間：", $row['btime_name'],"</label><br>
+                                      <label>地點：濟時嘍</label><br>
+                                      <label>價格:", $row['bid_price'],"</label>
                                     </div>
-                                    <div class=\"col-md-12\">
+                                    <div class='col-md-12'>
                                       <div>
-                                        <button type=\"button\" class=\"btn btn-primary\">接受</button>
-                                        <button type=\"button\" class=\"btn btn-secondary\">拒絕</button>
+                                        <button type='button' class='btn btn-primary'>接受</button>
+                                        <button type='button' class='btn btn-secondary'>拒絕</button>
                                       </div>
                                     </div>
                                   </div>
                                 </div>
-                            </div>";
+                                
+                            </div>";}
                             ?>
                           </div>
                         </div>

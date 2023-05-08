@@ -233,6 +233,7 @@
                         $sql  = "SELECT * FROM item_info, iphoto, iloc, tag WHERE tag.item_id=item_info.item_id and iphoto.item_id=item_info.item_id and item_info.item_id=iloc.item_id and item_name LIKE '%". $searchtxt. "%' and  tag_name LIKE '". $tag. "' group by item_info.item_id";
                     }
                     $result = mysqli_query($link,$sql);
+                    $dbaction='insert';
                     While($row=mysqli_fetch_assoc($result))
                     {
                     echo "
@@ -256,7 +257,7 @@
                         <div class='text-center'>
                             <h4 class='fw-bolder'>價格:", $row['item_price'],"元</h4>
                         </div>
-                        <div class='text-center'><a class='btn btn-outline-dark mt-auto' href='#'>加入最愛</a></div>
+                        <div class='text-center'><a class='btn btn-outline-dark mt-auto' href='favlink.php?item_id=", $row['item_id'],"&user_id=".$user_id."&dbaction=".$dbaction."'>加入最愛</a></div>
                     </div>
                     <div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>
                         <div class='text-center'>
