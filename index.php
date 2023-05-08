@@ -157,7 +157,7 @@
                                     </div>
                                     <div class='col-md-12'>
                                       <div>
-                                        <button type='button' class='btn btn-primary'>接受</button>
+                                        <button type='button' class='btn btn-primary' >接受</button>
                                         <button type='button' class='btn btn-secondary'>拒絕</button>
                                       </div>
                                     </div>

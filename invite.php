@@ -188,9 +188,9 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                               
                             </div>
                             <div class="card-body">
+                            <form action="invitelink.php" method="post">
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
@@ -215,34 +215,41 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
+                                    
+                                        <?php
+                                        $link = mysqli_connect('localhost','root','12345678','sa');
+                                        $sql  = "SELECT * FROM bid_info, item_info, iloc, btime WHERE bid_info.user_id = $_SESSION[user_id] AND item_info.item_id = bid_info.item_id AND bid_info.item_id = iloc.item_id AND btime.bid_id = bid_info.bid_id";
+                                        $result = mysqli_query($link,$sql);
+                                        While($row=mysqli_fetch_assoc($result))
+                                        {
+                                        echo "
                                         <tr>
-                                            <td>Alvis</td>
-                                            <td>星期一 13:00</td>
-                                            <td>濟時樓</td>
-                                            <td>$799</td>
-                                            <td>ITEM1781</td>
-                                            <td>接受</td>
-                                            <td><button type="submit" name="submit">完成面交</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Alvis</td>
-                                            <td>星期五 10:00</td>
-                                            <td>進修部一樓</td>
-                                            <td>$550</td>
-                                            <td>ITEM1792</td>
-                                            <td>不接受</td>
-                                            <td></td>
-                                        </tr>
-                                            <td>弘軒</td>
-                                            <td>星期四 15:00</td>
-                                            <td>風華廣場 </td>
-                                            <td>$499</td>
-                                            <td>ITEM1454</td>
-                                            <td>未回應</td>
+                                            <td>".$row['user_id']."</td>
+                                            <td>".$row['btime_name']."</td>
+                                            <td>".$row['iloc_name']."</td>
+                                            <td>".$row['bid_price']."</td>
+                                            <td>".$row['item_id']."</td>";
+
+                                            if($row['statement']=="accepted"){
+                                                echo "  <td>接受</td>
+                                                        <td>$row[bid_id]
+                                                        <input type=hidden name='bid_id' value='".$row['bid_id']."'>
+                                                            <input type='submit' name=\"submit\" class=\"btn-success\" value=\"完成面交\">
+                                                        </td>
+                                                        </tr>";
+                                            }else if($row['statement']=="rejected"){
+                                                echo "  <td>不接受</td></tr>
+                                                ";
+                                            }else{
+                                                echo "  <td>尚未回應</td></tr>
+                                                ";
+                                            }
+                                            }
+                                        ?>
                                         
                                     </tbody>
-                                   
                                 </table>
+                                </form>
                             </div>
                         </div>
                     </div>
