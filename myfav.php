@@ -190,6 +190,7 @@
                 $sql  = "SELECT * FROM item_info,iphoto, iloc, fav WHERE fav.user_id=$user_id and fav.item_id=item_info.item_id and item_info.item_id=iphoto.item_id and item_info.item_id=iloc.item_id group by item_info.item_id";
                 $result = mysqli_query($link,$sql);
                     While($row=mysqli_fetch_assoc($result))
+                    $iphoto_name = '.\imageUpload\\'. $row['iphoto_name']. '';
                         {
                         echo "
                         <div class='col mb-5'>
@@ -199,7 +200,7 @@
                             <h4 class='fw-bolder'><a href='bookinfo.php?item_id=", $row['item_id'],"'>", $row['item_name'],"</a></h4>
                         </div>
                         <!-- Product image-->
-                        <img class='card-img-top' src='", $row['iphoto_name'],"'  width='50%'  height='50%' alt='...' />
+                        <img class='card-img-top' src=".$iphoto_name."  width='50%'  height='50%' alt='...' />
                         <!-- Product details-->
                         <div class='card-body p-4'>
                             <div class='text-center'>

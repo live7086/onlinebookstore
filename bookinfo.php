@@ -227,7 +227,13 @@
                                       </div>";
                                       }
                                       ?>
-                                      <?php echo"
+                                      <?php
+                                      
+                                    $link = mysqli_connect('localhost','root','12345678','sa');
+                                    $sql="SELECT * FROM item_info ,iphoto WHERE iphoto.item_id=item_info.item_id and item_info.item_id LIKE '". $item_id. "'";
+                                    $result = mysqli_query($link,$sql);
+                                    $row=mysqli_fetch_assoc($result);
+                                      echo"
                                       </div>
                                       <a class='carousel-control-prev' href='#myCarouse2' role='button' data-slide='prev'>
                                             <span class='carousel-control-prev-icon' aria-hidden='true'></span>
