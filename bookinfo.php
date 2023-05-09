@@ -391,20 +391,23 @@
 
 
 
-                $sql = "SELECT t2.item_id, i.item_name
+                $sql = "SELECT t2.item_id, i.item_name, iphoto.iphoto_name
                 FROM tag t1
                 JOIN tag t2 ON t1.tag_name = t2.tag_name AND t1.item_id <> t2.item_id
                 JOIN item_info i ON t2.item_id = i.item_id
+                LEFT JOIN iphoto ON i.item_id = iphoto.item_id
                 WHERE t1.item_id = '$item_id' 
                 GROUP BY t2.item_id
                 HAVING COUNT(DISTINCT t1.tag_name) = 3
                 LIMIT 3
+                
                 ";
 
                 $result = mysqli_query($link, $sql);
 
                 if (mysqli_num_rows($result) > 0) {
                     while ($row = mysqli_fetch_assoc($result)) {
+                        $recommended_item_ids[] = $row['item_id'];
                         echo  "<div class='col mb-1'>       
                         <div class='card-header text-center'>
                             <h4 class='fw-bolder'><a href='bookinfo.php?item_id=", $row['item_id'],"'>", $row['item_name'],"</a></h4>
@@ -418,37 +421,7 @@
                                     <li data-target='#myCarouse3' data-slide-to='1'></li>
                                     <li data-target='#myCarouse3' data-slide-to='2'></li>
                                 </ol>
-                                <div class='carousel-inner'>
-                                    <div class='carousel-item active'>
-                                    <img class='d-block w-100' src='image/001.jpeg'  alt='Slide 1'>
-                                    <div class='carousel-caption'>
-                                        <h3></h3>
-                                        <p></p> <!--福利-->
-                                    </div>
-                                    </div>
-                                    <div class='carousel-item'>
-                                    <img class='d-block w-100' src='image/008.jpg'  alt='Slide 2'>
-                                    <div class='carousel-caption'>
-                                        <h3></h3>
-                                        <p></p><!--福利-->
-                                    </div>
-                                    </div>
-                                    <div class='carousel-item'>
-                                    <img class='d-block w-100' src='image/007.jpg'  alt='Slide 3'>
-                                    <div class='carousel-caption'>
-                                        <h3></h3>
-                                        <p></p><!--福利-->
-                                    </div>
-                                    </div>
-                                </div>
-                                <a class='carousel-control-prev' href='#myCarouse3' role='button' data-slide='prev'>
-                                    <span class='carousel-control-prev-icon' aria-hidden='true'></span>
-                                    <span class='sr-only'>Previous</span>
-                                </a>
-                                <a class='carousel-control-next' href='#myCarouse3' role='button' data-slide='next'>
-                                    <span class='carousel-control-next-icon' aria-hidden='true'></span>
-                                    <span class='sr-only'>Next</span>
-                                </a>
+                                <img class='card-img-top' src='.\imageUpload\\", $row['iphoto_name'],"'  width='50%'  height='50%' alt='...' />
                                 </div>
                                 
                             </div>
@@ -459,18 +432,20 @@
                 }
 
                 if (count($recommended_item_ids) < 3) {
-                    $sql = "SELECT t2.item_id, i.item_name
+                    $sql = "SELECT t2.item_id, i.item_name, iphoto.iphoto_name
                     FROM tag t1
                     JOIN tag t2 ON t1.tag_name = t2.tag_name AND t1.item_id <> t2.item_id
                     JOIN item_info i ON t2.item_id = i.item_id
+                    LEFT JOIN iphoto ON i.item_id = iphoto.item_id
                     WHERE t1.item_id = '$item_id' 
                     GROUP BY t2.item_id
                     HAVING COUNT(DISTINCT t1.tag_name) = 2
-                    LIMIT " . (3 - count($recommended_item_ids));
+                    LIMIT  " . (3 - count($recommended_item_ids));
 
                     $result = mysqli_query($link, $sql);
 
                     while ($row = mysqli_fetch_assoc($result)) {
+                        $recommended_item_ids[] = $row['item_id'];
                         echo  "<div class='col mb-1'>       
                         <div class='card-header text-center'>
                             <h4 class='fw-bolder'><a href='bookinfo.php?item_id=", $row['item_id'],"'>", $row['item_name'],"</a></h4>
@@ -484,37 +459,7 @@
                                     <li data-target='#myCarouse3' data-slide-to='1'></li>
                                     <li data-target='#myCarouse3' data-slide-to='2'></li>
                                 </ol>
-                                <div class='carousel-inner'>
-                                    <div class='carousel-item active'>
-                                    <img class='d-block w-100' src='image/001.jpeg'  alt='Slide 1'>
-                                    <div class='carousel-caption'>
-                                        <h3></h3>
-                                        <p></p> <!--福利-->
-                                    </div>
-                                    </div>
-                                    <div class='carousel-item'>
-                                    <img class='d-block w-100' src='image/008.jpg'  alt='Slide 2'>
-                                    <div class='carousel-caption'>
-                                        <h3></h3>
-                                        <p></p><!--福利-->
-                                    </div>
-                                    </div>
-                                    <div class='carousel-item'>
-                                    <img class='d-block w-100' src='image/007.jpg'  alt='Slide 3'>
-                                    <div class='carousel-caption'>
-                                        <h3></h3>
-                                        <p></p><!--福利-->
-                                    </div>
-                                    </div>
-                                </div>
-                                <a class='carousel-control-prev' href='#myCarouse3' role='button' data-slide='prev'>
-                                    <span class='carousel-control-prev-icon' aria-hidden='true'></span>
-                                    <span class='sr-only'>Previous</span>
-                                </a>
-                                <a class='carousel-control-next' href='#myCarouse3' role='button' data-slide='next'>
-                                    <span class='carousel-control-next-icon' aria-hidden='true'></span>
-                                    <span class='sr-only'>Next</span>
-                                </a>
+                                <img class='card-img-top' src='.\imageUpload\\", $row['iphoto_name'],"'  width='50%'  height='50%' alt='...' />
                                 </div>
                                 
                             </div>
@@ -526,10 +471,11 @@
 
 
                 if (count($recommended_item_ids) < 3) {
-                    $sql = "SELECT t2.item_id, i.item_name
+                    $sql = "SELECT t2.item_id, i.item_name, iphoto.iphoto_name
                     FROM tag t1
                     JOIN tag t2 ON t1.tag_name = t2.tag_name AND t1.item_id <> t2.item_id
                     JOIN item_info i ON t2.item_id = i.item_id
+                    LEFT JOIN iphoto ON i.item_id = iphoto.item_id
                     WHERE t1.item_id = '$item_id' 
                     GROUP BY t2.item_id
                     HAVING COUNT(DISTINCT t1.tag_name) = 1
@@ -539,6 +485,7 @@
 
 
                     while ($row = mysqli_fetch_assoc($result)) {
+                        $recommended_item_ids[] = $row['item_id'];
                         echo  "<div class='col mb-1'>       
                         <div class='card-header text-center'>
                             <h4 class='fw-bolder'><a href='bookinfo.php?item_id=", $row['item_id'],"'>", $row['item_name'],"</a></h4>
@@ -552,37 +499,7 @@
                                     <li data-target='#myCarouse3' data-slide-to='1'></li>
                                     <li data-target='#myCarouse3' data-slide-to='2'></li>
                                 </ol>
-                                <div class='carousel-inner'>
-                                    <div class='carousel-item active'>
-                                    <img class='d-block w-100' src='image/001.jpeg'  alt='Slide 1'>
-                                    <div class='carousel-caption'>
-                                        <h3></h3>
-                                        <p></p> <!--福利-->
-                                    </div>
-                                    </div>
-                                    <div class='carousel-item'>
-                                    <img class='d-block w-100' src='image/008.jpg'  alt='Slide 2'>
-                                    <div class='carousel-caption'>
-                                        <h3></h3>
-                                        <p></p><!--福利-->
-                                    </div>
-                                    </div>
-                                    <div class='carousel-item'>
-                                    <img class='d-block w-100' src='image/007.jpg'  alt='Slide 3'>
-                                    <div class='carousel-caption'>
-                                        <h3></h3>
-                                        <p></p><!--福利-->
-                                    </div>
-                                    </div>
-                                </div>
-                                <a class='carousel-control-prev' href='#myCarouse3' role='button' data-slide='prev'>
-                                    <span class='carousel-control-prev-icon' aria-hidden='true'></span>
-                                    <span class='sr-only'>Previous</span>
-                                </a>
-                                <a class='carousel-control-next' href='#myCarouse3' role='button' data-slide='next'>
-                                    <span class='carousel-control-next-icon' aria-hidden='true'></span>
-                                    <span class='sr-only'>Next</span>
-                                </a>
+                                <img class='card-img-top' src='.\imageUpload\\", $row['iphoto_name'],"'  width='50%'  height='50%' alt='...' />
                                 </div>
                                 
                             </div>

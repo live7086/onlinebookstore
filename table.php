@@ -246,7 +246,7 @@
                                                 <a href=\"#\" type=\"button\" data-bs-toggle=\"modal\" data-bs-target=\"#iinfo\">".$row['item_id']."</a>
                                             </td>
                                             <td>還不能退貨</td>
-                                            
+                                        </tr>
                                             <div class=\"modal fade\" id=\"iinfo\">
                                         <div class=\"modal-dialog\">
                                         <div class=\"modal-content\">
@@ -254,12 +254,9 @@
                                             <h3>商品資訊</h3>
                                                 <button class=\"btn btn-outline-secondary\" data-bs-dismiss=\"modal\">返回</button>
                                             </div>
-
                                             <div class=\"card h-100\">                                                            
-                                                        <div class=\"modal-header\">";
-                                                        echo"
-                                                        <img src=$iphoto_name width =450 height=300>";
-                                                        echo"
+                                                        <div class=\"modal-header\">
+                                                        <img src=$row[iphoto_name] width =450 height=300>
                                                         </div>
                                                         <div class='modal-body'>
                                                         <h4>書名：$row[item_name]</h5>
@@ -275,15 +272,6 @@
                                             </div>
                                             </div>
                                             </div>
-
-
-
-                                                
-
-
-
-
-
                                         <div class=\"modal fade\" id=\"binfo\">
                                         <div class=\"modal-dialog\">
                                         <div class=\"modal-content\">
