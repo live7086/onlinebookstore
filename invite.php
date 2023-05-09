@@ -85,7 +85,7 @@
                             session_start();
                             $user_id=$_SESSION['user_id'];
                             $link = mysqli_connect('localhost','root','12345678','sa');
-                            $sql = "SELECT * FROM bid_info, item_info, account, btime, iloc where iloc.item_id=bid_info.item_id and btime.bid_id=bid_info.bid_id and account.user_id=item_info.user_id and bid_info.item_id=item_info.item_id and item_info.user_id like ". $user_id. "";
+                            $sql = "SELECT * FROM bid_info, item_info, account, btime, iloc where iloc.item_id=bid_info.item_id and btime.bid_id=bid_info.bid_id and account.user_id=item_info.user_id and bid_info.item_id=item_info.item_id and bid_info.statement = '' and item_info.user_id =$user_id";
                             $result = mysqli_query($link, $sql);
                             while($row = mysqli_fetch_assoc($result)) {
                             echo "
@@ -103,13 +103,13 @@
                                     <div class='col-md-6'>
                                       <label>商品：", $row['item_name'],"</label><br>
                                       <label>時間：", $row['btime_name'],"</label><br>
-                                      <label>地點：濟時嘍</label><br>
-                                      <label>價格:", $row['bid_price'],"</label>
+                                      <label>地點：",$row['iloc_name'],"</label><br>
+                                      <label>價格：", $row['bid_price'],"</label>
                                     </div>
                                     <div class='col-md-12'>
                                       <div>
-                                        <button type='button' class='btn btn-primary'>接受</button>
-                                        <button type='button' class='btn btn-secondary'>拒絕</button>
+                                        <a href= bidstatement.php?statement=accepted&item_id=".$row['item_id']."&bid_id=".$row["bid_id"]." class='btn btn-primary'>接受</a>
+                                        <a href= bidstatement.php?statement=rejected&item_id=".$row['item_id']."&bid_id=".$row["bid_id"]." class='btn btn-secondary'>拒絕</a>
                                       </div>
                                     </div>
                                   </div>
@@ -146,31 +146,7 @@
             
               
         </nav>
-        <!-- 
-        <div class="container px-4 px-lg-5">
-              <input type="text" placeholder="請輸入關鍵字...">
-              <button type="submit">搜尋</button>
-        </div>
-        </div>
-       -->
-        
-       <!--
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            
-           
-           
-            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4" justify-content:center>
-                <li class="nav-item dropdown">
 
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="pinfo_1.php">我的賣場</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">我的最愛</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">面交紀錄</a></li>
-
-                        
-                    
-                </li>
-            </ul>
-        </nav>-->
         <header class="bg-dark py-5">
             <div class="container px-4 px-lg-5 my-1">
                 <div class="text-center text-white">
@@ -217,29 +193,44 @@
                                     
                                         <?php
                                         $link = mysqli_connect('localhost','root','12345678','sa');
-                                        $sql  = "SELECT * FROM bid_info, item_info, iloc, btime WHERE bid_info.user_id = $_SESSION[user_id] AND item_info.item_id = bid_info.item_id AND bid_info.item_id = iloc.item_id AND btime.bid_id = bid_info.bid_id";
+                                        $sql  = "SELECT *, item_info.user_id AS seller, bid_info.user_id AS buyer,bid_info.statement AS statement FROM bid_info, item_info, iloc, btime WHERE bid_info.user_id = $_SESSION[user_id] AND item_info.item_id = bid_info.item_id AND bid_info.item_id = iloc.item_id AND btime.bid_id = bid_info.bid_id";
                                         $result = mysqli_query($link,$sql);
                                         While($row=mysqli_fetch_assoc($result))
                                         {
+
+                                        $buyer =$row['buyer'];
+                                        $seller = $row['seller'];
+                                        $item_id = $row['item_id'];
+                                        //seller name
+                                        $sqlseller = "SELECT * FROM account WHERE user_id = '$seller'";
+                                        $resultseller = mysqli_query($link,$sqlseller);
+                                        $rowseller=mysqli_fetch_assoc($resultseller);
+                                        //buyer name
+                                        $sqlbuyer = "SELECT * FROM account WHERE user_id = '$buyer'";
+                                        $resultbuyer = mysqli_query($link,$sqlbuyer);
+                                        $rowbuyer=mysqli_fetch_assoc($resultbuyer);
                                         echo "
                                         <tr>
-                                            <td>".$row['user_id']."</td>
+                                            <td>".$rowseller['user_name']."</td>
                                             <td>".$row['btime_name']."</td>
                                             <td>".$row['iloc_name']."</td>
                                             <td>".$row['bid_price']."</td>
-                                            <td>".$row['item_id']."</td>";
-
+                                            <td>".$row['item_name']."</td>";
                                             if($row['statement']=="accepted"){
                                                 echo "  <td>接受</td>
                                                         <td>
-                                                            <a href =invitelink.php?bid_id=".$row['bid_id']." class=btn-dangerous >完成面交</a>
+                                                            <a href =invitelink.php?statement=completed&item_id=".$row["item_id"]."&bid_id=".$row["bid_id"]." class=btn-dangerous >完成面交</a>
                                                         </td>
                                                         </tr>";
                                             }else if($row['statement']=="rejected"){
-                                                echo "  <td>不接受</td></tr>
+                                                echo "  <td>不接受</td><td></td></tr>
                                                 ";
-                                            }else{
-                                                echo "  <td>尚未回應</td></tr>
+                                            }else if($row['statement']=="completed"){
+                                                echo "  <td>已完成</td><td></td></tr>
+                                                ";
+                                            }
+                                            else{
+                                                echo "  <td>尚未回應</td><td></td></tr>
                                                 ";
                                             }
                                             }

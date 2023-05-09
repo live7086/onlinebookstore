@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 function generateItemId($conn, $item_info) {
     // 定義最大重試次數

@@ -215,7 +215,7 @@
                                         $result = mysqli_query($link,$sql);
                                         While($row=mysqli_fetch_assoc($result))
                                         {
-                                     
+                                        
                                         $buyer =$row['buyer'];
                                         $seller = $row['seller'];
                                         $item_id = $row['item_id'];
