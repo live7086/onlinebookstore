@@ -162,7 +162,7 @@
                 $user_id=$_SESSION['user_id'];
                 $link = mysqli_connect('localhost','root','12345678','sa');
                 $dbaction='delete';
-                $sql  = "SELECT * FROM item_info,iphoto, iloc, fav WHERE fav.user_id=$user_id and fav.item_id=item_info.item_id and item_info.item_id=iphoto.item_id and item_info.item_id=iloc.item_id group by item_info.item_id";
+                $sql  = "SELECT * FROM item_info,iphoto, iloc, fav WHERE fav.user_id=$user_id and fav.item_id=item_info.item_id and item_info.item_id=iphoto.item_id and item_info.statement='' and item_info.item_id=iloc.item_id group by item_info.item_id";
                 $result = mysqli_query($link,$sql);
 
                     While($row=mysqli_fetch_assoc($result))

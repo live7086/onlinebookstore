@@ -220,15 +220,15 @@
                     $link = mysqli_connect('localhost','root','12345678','sa');
                     if(empty($searchtxt) && empty($tag))
                     {
-                        $sql  = "SELECT * FROM item_info,iphoto, iloc WHERE item_info.item_id=iphoto.item_id and item_info.item_id=iloc.item_id group by item_info.item_id";
+                        $sql  = "SELECT * FROM item_info,iphoto, iloc WHERE item_info.item_id=iphoto.item_id and item_info.item_id=iloc.item_id and item_info.statement='' group by item_info.item_id";
                     }
                     else if(empty($tag))
                     {
-                        $sql  = "SELECT * FROM item_info, iphoto, iloc WHERE iphoto.item_id=item_info.item_id and item_info.item_id=iloc.item_id and item_name LIKE '%". $searchtxt. "%'group by item_info.item_id";
+                        $sql  = "SELECT * FROM item_info, iphoto, iloc WHERE iphoto.item_id=item_info.item_id and item_info.item_id=iloc.item_id and item_info.statement='' and item_name LIKE '%". $searchtxt. "%'group by item_info.item_id";
                     }
                     else
                     {
-                        $sql  = "SELECT * FROM item_info, iphoto, iloc, tag WHERE tag.item_id=item_info.item_id and iphoto.item_id=item_info.item_id and item_info.item_id=iloc.item_id and item_name LIKE '%". $searchtxt. "%' and  tag_name LIKE '". $tag. "' group by item_info.item_id";
+                        $sql  = "SELECT * FROM item_info, iphoto, iloc, tag WHERE tag.item_id=item_info.item_id and iphoto.item_id=item_info.item_id and item_info.statement='' and item_info.item_id=iloc.item_id and item_name LIKE '%". $searchtxt. "%' and  tag_name LIKE '". $tag. "' group by item_info.item_id";
                     }
                     $result = mysqli_query($link,$sql);
                     $dbaction='insert';

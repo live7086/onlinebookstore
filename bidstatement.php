@@ -9,7 +9,10 @@ $link = mysqli_connect('localhost','root','12345678','sa');
 $sql  = "UPDATE bid_info SET statement = '$statement' WHERE item_id = '$item_id' AND bid_id = '$bid_id' ";
 mysqli_query($link,$sql);
 //更新item_info狀態
-$sql  = "UPDATE item_info SET statement = '$statement' WHERE item_id = '$item_id' ";
-mysqli_query($link,$sql);
+if($statement=="accepted"){
+    $sql  = "UPDATE item_info SET statement = 'sold' WHERE item_id = '$item_id' ";
+    mysqli_query($link,$sql);
+    }
+
 header("Location:invite.php");
 ?>
