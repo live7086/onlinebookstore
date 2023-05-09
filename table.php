@@ -215,12 +215,10 @@
                                         $result = mysqli_query($link,$sql);
                                         While($row=mysqli_fetch_assoc($result))
                                         {
-                                        $_SESSION['buyer'] = $row['buyer'];
-                                        $buyer = $_SESSION['buyer'];
-                                        $_SESSION['seller'] = $row['seller'];
-                                        $seller = $_SESSION['seller'];
-                                        $_SESSION['item_id'] = $row['item_id'];
-                                        $item_id = $_SESSION['item_id'];
+                                     
+                                        $buyer =$row['buyer'];
+                                        $seller = $row['seller'];
+                                        $item_id = $row['item_id'];
                                         //seller name
                                         $sqlseller = "SELECT * FROM account WHERE user_id = '$seller'";
                                         $resultseller = mysqli_query($link,$sqlseller);
@@ -237,17 +235,17 @@
                                         echo "
                                         <tr>
                                             <td>".$row['trade_id']."</td>
-                                            <td><a href=\"#\" type=\"button\" data-bs-toggle=\"modal\" data-bs-target=\"#binfo\">$rowbuyer[user_name]</a></td>
-                                            <td><a href=\"#\" type=\"button\" data-bs-toggle=\"modal\" data-bs-target=\"#sinfo\">$rowseller[user_name]</a></td>
+                                            <td><a href=\"#\" type=\"button\" data-bs-toggle=\"modal\" data-bs-target='#binfo-{$row['item_id']}'>$rowbuyer[user_name]</a></td>
+                                            <td><a href=\"#\" type=\"button\" data-bs-toggle=\"modal\" data-bs-target='#sinfo-{$row['item_id']}'>$rowseller[user_name]</a></td>
                                             <td>".$row['trade_time']."</td>
                                             <td>".$row['trade_location']."</td>
                                             <td>".$row['trade_price']."</td>
                                             <td>
-                                                <a href=\"#\" type=\"button\" data-bs-toggle=\"modal\" data-bs-target=\"#iinfo\">".$row['item_id']."</a>
+                                                <a href=\"#\" type=\"button\" data-bs-toggle=\"modal\" data-bs-target='#iinfo-{$row['item_id']}'>".$row['item_id']."</a>
                                             </td>
                                             <td>還不能退貨</td>
                                         </tr>
-                                            <div class=\"modal fade\" id=\"iinfo\">
+                                            <div class=\"modal fade\" id='iinfo-{$row['item_id']}'>
                                         <div class=\"modal-dialog\">
                                         <div class=\"modal-content\">
                                             <div class=\"modal-header\">
@@ -256,10 +254,10 @@
                                             </div>
                                             <div class=\"card h-100\">                                                            
                                                         <div class=\"modal-header\">
-                                                        <img src=$row[iphoto_name] width =450 height=300>
+                                                        <img src=".$iphoto_name." width =450 height=300>
                                                         </div>
                                                         <div class='modal-body'>
-                                                        <h4>書名：$row[item_name]</h5>
+                                                        <h4>書名：".$row['item_name']."</h5>
                                                         <h5>ISBN碼：$row[item_isbn]</h5>
                                                         <h5>商品資訊：$row[item_info]</h5>
                                                         </div>
@@ -272,7 +270,7 @@
                                             </div>
                                             </div>
                                             </div>
-                                        <div class=\"modal fade\" id=\"binfo\">
+                                        <div class=\"modal fade\" id='binfo-{$row['item_id']}'>
                                         <div class=\"modal-dialog\">
                                         <div class=\"modal-content\">
                                             <div class=\"modal-header\">
@@ -286,7 +284,7 @@
                                                 <div class=\"row\">
                                                 <div class=\"col-md-12\">
                                                     
-                                                <h5 class=\"fw-bolder\">姓名：$rowbuyer[user_name]</h5>
+                                                <h5 class=\"fw-bolder\">姓名：".$rowbuyer['user_name']."</h5>
                                                 <h5 class=\"fw-bolder\">系所：$rowbuyer[user_dept]</h5>
                                                 <h5 class=\"fw-bolder\">電話：$rowbuyer[user_phone]</h5>
                                                 <h5 class=\"fw-bolder\">Email：$rowbuyer[user_email]</h5>
@@ -305,7 +303,7 @@
 
 
 
-                                        <div class=\"modal fade\" id=\"sinfo\">
+                                        <div class=\"modal fade\" id='sinfo-{$row['item_id']}'>
                                         <div class=\"modal-dialog\">
                                         <div class=\"modal-content\">
                                             <div class=\"modal-header\">
