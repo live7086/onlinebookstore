@@ -23,6 +23,9 @@
 	    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 	    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <style>
+
+        </style>
     </head>
     <body>
         <!-- Navigation-->
@@ -114,20 +117,19 @@
                      <!--彈跳連結-->
                      <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#popinfo"><img src="image/ringringring.png" height="60" width="60"></a>
                     
-                     <!--彈出來的視窗-->
-                     <div class="modal fade" id="popinfo">
+                                         <!--彈出來的視窗-->
+                                         <div class="modal fade" id="popinfo">
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
                               <h3>通知</h3>
-                                <button class="btn btn-outline-secondary" data-bs-dismiss="modal">返回</button>
+                              <button class="btn btn-outline-secondary" data-bs-dismiss="modal">返回</button>
                             </div>
-                            
                             <?php
                             session_start();
                             $user_id=$_SESSION['user_id'];
                             $link = mysqli_connect('localhost','root','12345678','sa');
-                            $sql = "SELECT * FROM bid_info, item_info, account, btime, iloc where iloc.item_id=bid_info.item_id and btime.bid_id=bid_info.bid_id and account.user_id=item_info.user_id and bid_info.item_id=item_info.item_id and item_info.user_id like ". $user_id. "";
+                            $sql = "SELECT * FROM bid_info, item_info, account, btime, iloc where iloc.item_id=bid_info.item_id and btime.bid_id=bid_info.bid_id and account.user_id=item_info.user_id and bid_info.item_id=item_info.item_id and bid_info.statement = '' and item_info.user_id =$user_id";
                             $result = mysqli_query($link, $sql);
                             while($row = mysqli_fetch_assoc($result)) {
                             echo "
@@ -139,18 +141,19 @@
                             echo "<div class='card-header'>", $row2['user_name'],"對你發出了邀請</div>
                             ";}
                             echo"
+                            
                                 <div class='card-body'>
                                   <div class='row'>
                                     <div class='col-md-6'>
                                       <label>商品：", $row['item_name'],"</label><br>
                                       <label>時間：", $row['btime_name'],"</label><br>
-                                      <label>地點：", $row['iloc_name'],"</label><br>
-                                      <label>價格：", $row['item_price'],"</label>
+                                      <label>地點：",$row['iloc_name'],"</label><br>
+                                      <label>價格：", $row['bid_price'],"</label>
                                     </div>
                                     <div class='col-md-12'>
                                       <div>
-                                        <button type='button' class='btn btn-primary'>接受</button>
-                                        <button type='button' class='btn btn-secondary'>拒絕</button>
+                                        <a href= bidstatement.php?statement=accepted&item_id=".$row['item_id']."&bid_id=".$row["bid_id"]." class='btn btn-primary'>接受</a>
+                                        <a href= bidstatement.php?statement=rejected&item_id=".$row['item_id']."&bid_id=".$row["bid_id"]." class='btn btn-secondary'>拒絕</a>
                                       </div>
                                     </div>
                                   </div>
@@ -374,7 +377,7 @@
                 <br/>
                 <br/>
                 <br/>
-                <h1 align="center">你可能會喜歡
+                <h1 align="center">你可能會喜歡</h1>
             </div>
             <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
@@ -459,7 +462,7 @@
                                     <li data-target='#myCarouse3' data-slide-to='1'></li>
                                     <li data-target='#myCarouse3' data-slide-to='2'></li>
                                 </ol>
-                                <img class='card-img-top' src='.\imageUpload\\", $row['iphoto_name'],"'  width='50%'  height='50%' alt='...' />
+                                <img class='card-img-top' src='.\imageUpload\\", $row['iphoto_name'],"'  width=100px  height='50%' alt='...' />
                                 </div>
                                 
                             </div>

@@ -73,8 +73,8 @@
                     <!--彈跳連結-->
                     <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#popinfo"><img src="image/ringringring.png" height="60" width="60"></a>
                     
-                     <!--彈出來的視窗-->
-                     <div class="modal fade" id="popinfo">
+                                          <!--彈出來的視窗-->
+                                          <div class="modal fade" id="popinfo">
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
@@ -85,7 +85,7 @@
                             session_start();
                             $user_id=$_SESSION['user_id'];
                             $link = mysqli_connect('localhost','root','12345678','sa');
-                            $sql = "SELECT * FROM bid_info, item_info, account, btime, iloc where iloc.item_id=bid_info.item_id and btime.bid_id=bid_info.bid_id and account.user_id=item_info.user_id and bid_info.item_id=item_info.item_id and item_info.user_id like ". $user_id. "";
+                            $sql = "SELECT * FROM bid_info, item_info, account, btime, iloc where iloc.item_id=bid_info.item_id and btime.bid_id=bid_info.bid_id and account.user_id=item_info.user_id and bid_info.item_id=item_info.item_id and bid_info.statement = '' and item_info.user_id =$user_id";
                             $result = mysqli_query($link, $sql);
                             while($row = mysqli_fetch_assoc($result)) {
                             echo "
@@ -103,13 +103,13 @@
                                     <div class='col-md-6'>
                                       <label>商品：", $row['item_name'],"</label><br>
                                       <label>時間：", $row['btime_name'],"</label><br>
-                                      <label>地點：濟時嘍</label><br>
-                                      <label>價格:", $row['bid_price'],"</label>
+                                      <label>地點：",$row['iloc_name'],"</label><br>
+                                      <label>價格：", $row['bid_price'],"</label>
                                     </div>
                                     <div class='col-md-12'>
                                       <div>
-                                        <button type='button' class='btn btn-primary'>接受</button>
-                                        <button type='button' class='btn btn-secondary'>拒絕</button>
+                                        <a href= bidstatement.php?statement=accepted&item_id=".$row['item_id']."&bid_id=".$row["bid_id"]." class='btn btn-primary'>接受</a>
+                                        <a href= bidstatement.php?statement=rejected&item_id=".$row['item_id']."&bid_id=".$row["bid_id"]." class='btn btn-secondary'>拒絕</a>
                                       </div>
                                     </div>
                                   </div>
@@ -120,7 +120,6 @@
                           </div>
                         </div>
                       </div>
-                      
                     
                       <?php
                             session_start();
@@ -146,31 +145,7 @@
             
               
         </nav>
-        <!-- 
-        <div class="container px-4 px-lg-5">
-              <input type="text" placeholder="請輸入關鍵字...">
-              <button type="submit">搜尋</button>
-        </div>
-        </div>
-       -->
-        
-       <!--
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            
-           
-           
-            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4" justify-content:center>
-                <li class="nav-item dropdown">
 
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="pinfo_1.php">我的賣場</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">我的最愛</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">面交紀錄</a></li>
-
-                        
-                    
-                </li>
-            </ul>
-        </nav>-->
         <header class="bg-dark py-5">
             <div class="container px-4 px-lg-5 my-1">
                 <div class="text-center text-white">
@@ -189,9 +164,10 @@
                 $dbaction='delete';
                 $sql  = "SELECT * FROM item_info,iphoto, iloc, fav WHERE fav.user_id=$user_id and fav.item_id=item_info.item_id and item_info.item_id=iphoto.item_id and item_info.item_id=iloc.item_id group by item_info.item_id";
                 $result = mysqli_query($link,$sql);
+
                     While($row=mysqli_fetch_assoc($result))
-                    $iphoto_name = '.\imageUpload\\'. $row['iphoto_name']. '';
                         {
+                        $iphoto_name = '.\imageUpload\\'. $row['iphoto_name']. '';
                         echo "
                         <div class='col mb-5'>
                         <div class='card h-100'>
