@@ -400,6 +400,7 @@
                 JOIN item_info i ON t2.item_id = i.item_id
                 LEFT JOIN iphoto ON i.item_id = iphoto.item_id
                 WHERE t1.item_id = '$item_id'
+                AND i.statement = ''
                 GROUP BY t2.item_id
                 HAVING COUNT(DISTINCT t1.tag_name) = 3
                 LIMIT 3
@@ -441,9 +442,10 @@
                     JOIN item_info i ON t2.item_id = i.item_id
                     LEFT JOIN iphoto ON i.item_id = iphoto.item_id
                     WHERE t1.item_id = '$item_id'
+                    AND i.statement = ''
                     GROUP BY t2.item_id
                     HAVING COUNT(DISTINCT t1.tag_name) = 2
-                    LIMIT  " . (3 - count($recommended_item_ids));
+                    LIMIT " . (3 - count($recommended_item_ids));
 
                     $result = mysqli_query($link, $sql);
 
@@ -480,6 +482,7 @@
                     JOIN item_info i ON t2.item_id = i.item_id
                     LEFT JOIN iphoto ON i.item_id = iphoto.item_id
                     WHERE t1.item_id = '$item_id'
+                    AND i.statement = ''
                     GROUP BY t2.item_id
                     HAVING COUNT(DISTINCT t1.tag_name) = 1
                     LIMIT  " . (3 - count($recommended_item_ids));
