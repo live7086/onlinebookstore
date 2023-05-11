@@ -21,6 +21,41 @@
          <script src="js/scripts.js"></script>
           
     </head>
+    <style>
+    .row-cols-4 {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .row-cols-4 > .col {
+        flex-basis: calc(25% - 1rem); /* 調整商品寬度 */
+        margin-bottom: 1rem;
+    }
+   
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .wrapper {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .content {
+        flex: 1;
+    }
+    nav.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+}
+</style>
     <body>
     <?php
     $searchtxt = $_GET['searchtxt'];
@@ -54,43 +89,47 @@
                     
                     <!--彈出來的視窗-->
                     <div class="modal fade" id="popinfo2">
-                       <div class="modal-dialog">
-                         <div class="modal-content">
-                           <div class="modal-header">
-                             <h3>標籤搜尋</h3>
-                               <button class="btn btn-outline-secondary" data-bs-dismiss="modal">返回</button>
-                           </div>
-                           <li class="nav-item">
-                                <div style="display: flex; flex-wrap: wrap;">
-                                    <form method=get action="index.php">
-                                    <div class="input-group">
-                                        <div>
-                                        <div><input class="form-control" placeholder="請輸入書名..." type="text" name="searchtxt" value="<?php echo $searchtxt; ?>"></div>
-                                        <br>
-                                        </div>
-                                        <div>
-                                        <div>
-                                            <select class="form-select" id="user_dept1" name="tag" required>
-                                            <option value="" disabled selected>請選擇標籤</option>
-                                            <?php
-                                                $link = mysqli_connect('localhost','root','12345678','sa');
-                                                $sql = "SELECT * FROM tagop ";
-                                                $result = mysqli_query($link, $sql);
-                                                while($row = mysqli_fetch_assoc($result)) {
-                                                echo "<option value='", $row['tagop_id'],"'>", $row['tagop_name'],"</option>";}
-                                            ?>
-                                            </select>
-                                        </div>
-                                        <br>
-                                        </div>
-                                        
-                                        <div>
-                                        <button class="btn btn-outline-primary" type="submit">搜尋</button>
-                                        </div>
-                                    </div>
-                                    </form>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>標籤搜尋</h3>
+                <button class="btn btn-outline-secondary" data-bs-dismiss="modal">返回</button>
+            </div>
+            <li class="nav-item">
+                <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; text-align: center;">
+                    <form method="get" action="index.php">
+                        <div class="input-group">
+                            <div>
+                                <div><input class="form-control" placeholder="請輸入書名..." type="text" name="searchtxt" value="<?php echo $searchtxt; ?>"></div>
+                                <br>
+                            </div>
+                            <div>
+                                <div>
+                                    <select class="form-select" id="user_dept1" name="tag" required>
+                                        <option value="" disabled selected>請選擇標籤</option>
+                                        <?php
+                                            $link = mysqli_connect('localhost', 'root', '12345678', 'sa');
+                                            $sql = "SELECT * FROM tagop ";
+                                            $result = mysqli_query($link, $sql);
+                                            while ($row = mysqli_fetch_assoc($result)) {
+                                                echo "<option value='", $row['tagop_id'], "'>", $row['tagop_name'], "</option>";
+                                            }
+                                        ?>
+                                    </select>
                                 </div>
-                                </li>
+                                <br>
+                            </div>
+                        </div>
+                        <div>
+                            <button class="btn btn-outline-primary" type="submit">搜尋</button>
+                        </div>
+                    </form>
+                </div>
+            </li>
+        </div>
+    </div>
+</div>
+
 
 
 
@@ -201,17 +240,20 @@
         </div>
        -->
         <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdbNz0HqVt7UUceEb9vk4zcyp7wMgzvXFOVg&usqp=CAU" alt="Shop Image">
+        <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-4 row-cols-md-1 row-cols-xl-2 justify-content-center">
+                    <img src="https://marketplace.canva.com/EAE9QjX6rhA/1/0/1600w/canva-blue-pink-gradient-fashion-banner-cVzLo3B1IHE.jpg" width=50% height=50% alt="Shop Image">
                 </div>
             </div>
         </header>
         
         <!-- Section-->
+        <div class="wrapper">
+        <div class="content">
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-1 row-cols-xl-2 justify-content-center">
+                <div class="row gx-4 gx-lg-5 row-cols-4 row-cols-md-1 row-cols-xl-2 justify-content-center">
                     
 
                     <?php
@@ -330,9 +372,12 @@
                     ?>
         </section>
         <!-- Footer-->
+        </div>
         <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p></div>
-        </footer>
-        
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p>
+        </div>
+    </footer>
+</div>
     </body>
 </html>
