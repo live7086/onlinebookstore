@@ -238,7 +238,7 @@
         </div>
        -->
         <header class="py-5">
-                    <img src=".\image\banner.png" width="100%">
+                    <img src=".\image\banner.png" width="100%" height= "550px">
         </header>
         
         <!-- Section-->
