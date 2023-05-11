@@ -48,13 +48,11 @@
     .content {
         flex: 1;
     }
-    nav.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 9999;
-}
+    
+    footer {
+    flex-shrink: 0;
+    }
+    
 </style>
     <body>
     <?php
@@ -342,9 +340,9 @@
                                                             $name = 'time_'.$count;
                                                             $count=$count+1;
                                                         echo "
-                                                        <label class='checkbox-inline'> 
-                                                        <input type='checkbox' name='".$name."' value='".$row2['itime_name']."'>".$row2['itime_name']."
-                                                    </label>";}
+                                                        <label class='radio-inline'> 
+                                                        <input type='radio' name='itime' value='".$row2['itime_name']."' required>".$row2['itime_name']."
+                                                        </label>";}
                                                 echo"    </div>
                                                 </div>
                                                 <div align='center'>

@@ -27,6 +27,35 @@
 
         </style>
     </head>
+    <style>
+        .card-img-top {
+            max-width: %;
+            height: auto;
+        }
+        .col.mb-2 {
+            max-width: 800px;
+            max-height: 800px;
+        }
+        html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        }
+
+        .wrapper {
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content {
+            flex: 1;
+        }
+        
+        footer {
+        flex-shrink: 0;
+        }
+    </style>
     <body>
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -190,6 +219,8 @@
             </div>
         </nav>
         <!-- Section-->
+        <div class="wrapper">
+        <div class="content">
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-1 gx-lg-1 row-cols-1 row-cols-md-1 row-cols-xl-1 justify-content-center">
@@ -202,7 +233,7 @@
                           if ($row=mysqli_fetch_assoc($result))
                           {
                             echo"
-                            <div class='col mb-5'>
+                            <div class='col mb-3 col-sm-8'> 
                             <div class='card h-100'>
                                 <div class='card-header text-center'>
                                     <h4 class='card-title'>商品完整資訊</h4>
@@ -225,10 +256,9 @@
                                           }
                                       $i++;
                                       $iphoto_name = '.\imageUpload\\'. $row['iphoto_name']. '';
-                                      echo $iphoto_name;
                                       echo"
                                       <div class='carousel-item $active ''>
-                                        <img class='d-block w-100' src=".$iphoto_name." alt='Slide 2' width=800 height=483>
+                                        <img class='d-block w-100' style='object-fit: contain;' src=".$iphoto_name." alt='Slide 2' width=800 height=483>
                                       </div>";
                                       }
                                       ?>
@@ -372,7 +402,7 @@
             </div>
             <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-1 gx-lg-1 row-cols-1 row-cols-md-1 row-cols-xl-1 justify-content-center">
+                <div class="row gx-4 gx-lg-5 row-cols-4 row-cols-md-1 row-cols-xl-2 justify-content-center">
                 <?php
 
 
@@ -403,26 +433,19 @@
                 if (mysqli_num_rows($result) > 0) {
                     while ($row = mysqli_fetch_assoc($result)) {
                         $recommended_item_ids[] = $row['item_id'];
-                        echo  "<div class='col mb-1'>       
+                        echo  "<div class='col mb-3 col-sm-4'>       
                         <div class='card-header text-center'>
                             <h4 class='fw-bolder'><a href='bookinfo.php?item_id=", $row['item_id'],"'>", $row['item_name'],"</a></h4>
                         </div>
                         <div class='card'>
                             <div class='card-body'>
                                 <div class='row'>
-                                <div id='myCarouse3' class='carousel slide' data-ride='carousel' >
-                                    <ol class='carousel-indicators'>
-                                    <li data-target='#myCarouse3' data-slide-to='0' class='active'></li>
-                                    <li data-target='#myCarouse3' data-slide-to='1'></li>
-                                    <li data-target='#myCarouse3' data-slide-to='2'></li>
-                                </ol>
-                                <img class='card-img-top' src='.\imageUpload\\", $row['iphoto_name'],"'  width='50%'  height='50%' alt='...' />
+                                    <img class='card-img-top' src='.\imageUpload\\", $row['iphoto_name'],"' width=292 height=191 alt='...' />
                                 </div>
-                                
                             </div>
                         </div>
                     </div>
-                </div>";
+                    ";
                     }
                 }
 
@@ -442,26 +465,19 @@
 
                     while ($row = mysqli_fetch_assoc($result)) {
                         $recommended_item_ids[] = $row['item_id'];
-                        echo  "<div class='col mb-1'>       
+                        echo  "<div class='col mb-3 col-sm-4'>       
                         <div class='card-header text-center'>
                             <h4 class='fw-bolder'><a href='bookinfo.php?item_id=", $row['item_id'],"'>", $row['item_name'],"</a></h4>
                         </div>
                         <div class='card'>
                             <div class='card-body'>
                                 <div class='row'>
-                                <div id='myCarouse3' class='carousel slide' data-ride='carousel' >
-                                    <ol class='carousel-indicators'>
-                                    <li data-target='#myCarouse3' data-slide-to='0' class='active'></li>
-                                    <li data-target='#myCarouse3' data-slide-to='1'></li>
-                                    <li data-target='#myCarouse3' data-slide-to='2'></li>
-                                </ol>
-                                <img class='card-img-top' src='.\imageUpload\\", $row['iphoto_name'],"'  width=100px  height='50%' alt='...' />
+                                    <img class='card-img-top' src='.\imageUpload\\", $row['iphoto_name'],"' width=292 height=191 alt='...' />
                                 </div>
-                                
                             </div>
                         </div>
                     </div>
-                </div>";
+                    ";
                     }
                 }
 
@@ -483,26 +499,18 @@
 
                     while ($row = mysqli_fetch_assoc($result)) {
                         $recommended_item_ids[] = $row['item_id'];
-                        echo  "<div class='col mb-1'>       
+                        echo  "<div class='col mb-3 col-sm-4'>       
                         <div class='card-header text-center'>
                             <h4 class='fw-bolder'><a href='bookinfo.php?item_id=", $row['item_id'],"'>", $row['item_name'],"</a></h4>
                         </div>
                         <div class='card'>
                             <div class='card-body'>
                                 <div class='row'>
-                                <div id='myCarouse3' class='carousel slide' data-ride='carousel' >
-                                    <ol class='carousel-indicators'>
-                                    <li data-target='#myCarouse3' data-slide-to='0' class='active'></li>
-                                    <li data-target='#myCarouse3' data-slide-to='1'></li>
-                                    <li data-target='#myCarouse3' data-slide-to='2'></li>
-                                </ol>
-                                <img class='card-img-top' src='.\imageUpload\\", $row['iphoto_name'],"'  width='50%'  height='50%' alt='...' />
+                                    <img class='card-img-top' src='.\imageUpload\\", $row['iphoto_name'],"' width=292 height=191 alt='...' />
                                 </div>
-                                
                             </div>
                         </div>
-                    </div>
-                </div>";
+                    </div>";
                     }
                 }
                 mysqli_close($link);
@@ -511,9 +519,12 @@
                                 
         </section>                        
         <!-- Footer-->
+        </div>
         <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p></div>
-        </footer>
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p>
+        </div>
+    </footer>
       
     </body>
 </html>

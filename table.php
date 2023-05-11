@@ -28,6 +28,18 @@
          <script src="js/datatables-simple-demo.js"></script>
           
     </head>
+    <style>
+        .fixed-footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #343a40;
+        color: #fff;
+        padding: 20px 0;
+        text-align: center;
+    }
+    </style>
     <?php
     $searchtxt = $_GET['searchtxt'];
     ?>
@@ -167,12 +179,19 @@
                 </li>
             </ul>
         </nav>-->
+        <header class="bg-dark py-5">
+            <div class="container px-4 px-lg-5 my-1">
+                <div class="text-center text-white">
+                    <h1>面交紀錄表</h1>
+                </div>
+            </div>
+        </header>
         <div id="layoutSidenav">
             
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">面交紀錄表</h1>
+                        
                         
                         <div class="card mb-4">
                             <div class="card-header">
@@ -399,8 +418,10 @@
                 </main>
         
         
-        <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p></div>
+        <footer class="fixed-footer">
+        <div class="container">
+            <p class="m-0">Copyright &copy; Your Website 2022</p>
+        </div>
         </footer>
         <script></script>
         </form>

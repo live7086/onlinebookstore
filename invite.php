@@ -28,6 +28,18 @@
          <script src="js/datatables-simple-demo.js"></script>
           
     </head>
+    <style>
+        .fixed-footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #343a40;
+        color: #fff;
+        padding: 20px 0;
+        text-align: center;
+    }
+    </style>
     <?php
     $searchtxt = $_GET['searchtxt'];
     ?>
@@ -128,8 +140,8 @@
                             if(!empty($user_id)){
                                 echo
                                 "
-                                <a class=\"btn btn-success mt-2\" href=\"pinfo_1.php\">
-                                我的賣場
+                                <a class=\"btn mt-2\"  href=\"pinfo_1.php\">
+                                $user_id
                                 </a>
                                 <a class=\"btn btn-dangerous mt-2\" href=\"logout.php\">
                                 登出
@@ -244,10 +256,13 @@
                 </main>
         
         
-        <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p></div>
-        </footer>
+   
         <script></script>
         </form>
+        <footer class="fixed-footer">
+        <div class="container">
+            <p class="m-0">Copyright &copy; Your Website 2022</p>
+        </div>
+        </footer>
     </body>
 </html>

@@ -28,6 +28,39 @@
          <script src="js/datatables-simple-demo.js"></script>
           
     </head>
+    <style>
+    .row-cols-4 {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .row-cols-4 > .col {
+        flex-basis: calc(25% - 1rem); /* 調整商品寬度 */
+        margin-bottom: 1rem;
+    }
+   
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .wrapper {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .content {
+        flex: 1;
+    }
+    
+    footer {
+    flex-shrink: 0;
+    }
+    
+    </style>
     <?php
     $searchtxt = $_GET['searchtxt'];
     ?>
@@ -127,8 +160,8 @@
                             if(!empty($user_id)){
                                 echo
                                 "
-                                <a class=\"btn btn-success mt-2\" href=\"pinfo_1.php\">
-                                我的賣場
+                                <a class=\"btn mt-2\"  href=\"pinfo_1.php\">
+                                $user_id
                                 </a>
                                 <a class=\"btn btn-dangerous mt-2\" href=\"logout.php\">
                                 登出
@@ -153,9 +186,11 @@
                 </div>
             </div>
         </header>
+        <div class="wrapper">
+        <div class="content">
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-1 row-cols-xl-2 justify-content-center">
+                <div class="row gx-4 gx-lg-5 row-cols-4 row-cols-md-1 row-cols-xl-2 justify-content-center">
                 <?php
 
                 session_start();
@@ -264,9 +299,12 @@
         </section>
         
         
+        </div>
         <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p></div>
-        </footer>
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p>
+        </div>
+    </footer>
         <script></script>
         </form>
     </body>

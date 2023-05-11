@@ -21,6 +21,41 @@
          <script src="js/scripts.js"></script>
           
     </head>
+    <style>
+        .empty-div {
+            width: 90%;
+        }
+        .row-cols-4 {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .row-cols-4 > .col {
+        flex-basis: calc(25% - 1rem); /* 調整商品寬度 */
+        margin-bottom: 1rem;
+    }
+   
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .wrapper {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .content {
+        flex: 1;
+    }
+    
+    footer {
+    flex-shrink: 0;
+    }
+    </style>
     <?php
     $searchtxt = $_GET['searchtxt'];
     ?>
@@ -281,37 +316,27 @@
                             </div>
                         </div>
                     </div>
-                    
+                    <div class="d-flex justify-content-end">
+                    <div class="empty-div"></div>
+                    <div class="col mb-4" style="width: 10%">
+                        <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#popul">
+                            <img src="image/upload.png" class="img-fluid" width="90%" height="90%">
+                        </a>
+                        <!-- Product details-->
+                            <h4 class="fw-bolder">上傳商品</h4>
+                    </div>
+                </div>
                 </div>
             </div>
         </header>
-                                    </form>
         
         <!-- Section-->
+        <div class="wrapper">
+        <div class="content">
         <form action="itemlink.php" method="post">
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-1 row-cols-xl-2 justify-content-center">
-
-
-                <div class="col mb-5">
-                        <div class="card h-100" align="center">
-                            
-                        <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#popul"><img src="image/upload.png"  width="70%" height="100%"></a>
-                            <!-- Product details-->
-                            
-                                <div class="text-center">
-                                    
-                                    <h4 class="fw-bolder">上傳商品</h4>
-                                    
-                                </div>
-                            
-                           
-                        </div>
-                    </div>
-
-
-
+                <div class="row gx-4 gx-lg-5 row-cols-4 row-cols-md-1 row-cols-xl-2 justify-content-center">
 
 
 
@@ -463,9 +488,12 @@
                     ?>
         </section>
         <!-- Footer-->
+        </div>
         <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p></div>
-        </footer>
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p>
+        </div>
+    </footer>
         <script></script>
         </form>
     </body>
