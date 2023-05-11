@@ -288,85 +288,76 @@
                                     <div class='text-center'>
                                         <h4 class='fw-bolder'>出售價格：", $row['item_price'],"＄</h4>
                                     </div>
-                                    <div class='text-center'><a class='btn btn-outline-dark mt-auto' href='#'>加入最愛</a></div>
-                                </div>
-                                <div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>
-                                    <div class='text-center'>
-                                        <!--彈跳連結-->
-                                        <a class='btn btn-outline-dark mt-auto' href='#' data-bs-toggle='modal' data-bs-target='#popinv'>購買邀請</a>
-                                         <!--彈出來的視窗 弘軒改這邊-->
-                                         <div class='modal fade' id='popinv'>
-                                          <div class='modal-dialog'>
-                                              <div class='modal-content'>
-                                                  <div class='modal-header'>
-                                                      <h3 class='modal-title'>購買邀請</h3>
-                                                      <button class='btn btn-outline-secondary' data-bs-dismiss='modal'>返回</button>
-                                                  </div>
-                                                  <div class='modal-body'>
-                                                      <form enctype='multipart/form-data'>
-                                                          <div class='form-group'>
-                                                              <input class='form-control' type='text' value='書名：Principles of FINANCIAL ACCOUNTING(3E)' readonly='true' placeholder='書名' name='title'>
-                                                          </div>
-                                                          <div class='form-group'>
-                                                              <input class='form-control' type='text' value='ISBN：9789814962605' readonly='true' placeholder='ISBN' name='isbn'>
-                                                          </div>
-                                                          <div class='form-group'>
-                                                          <label>欲付價格：<input type='number' name='price' step='5' min='0' max='9999.99' value='" . $row['item_price'] . "'></label>
-                                                          </div>
-                                                          <div class='form-group'>
-                                                              <label>請選擇交易時間</label><br>
-                                                              <div>
-                                                                  <label class='checkbox-inline'>
-                                                                      <input type='checkbox' name='time[]' value='morning'>06:00
-                                                                  </label>
-                                                                  <label class='checkbox-inline'>
-                                                                      <input type='checkbox' name='time[]' value='afternoon'>05:00
-                                                                  </label>
-                                                                  <label class='checkbox-inline'>
-                                                                      <input type='checkbox' name='time[]' value='evening'>04:00
-                                                                  </label>
-                                                                  <br>
-                                                                  <label class='checkbox-inline'>
-                                                                      <input type='checkbox' name='time[]' value='morning'>17:00
-                                                                  </label>
-                                                                  <label class='checkbox-inline'>
-                                                                      <input type='checkbox' name='time[]' value='afternoon'>16:00
-                                                                  </label>
-                                                                  <label class='checkbox-inline'>
-                                                                      <input type='checkbox' name='time[]' value='evening'>18:00
-                                                                  </label>
-                                                                  <br>
-                                                              </div>
-                                                          </div>
-                                                          <div class='form-group'>
-                                                              <label>請選擇交易地點</label><br>
-                                                              <label class='checkbox-inline'>
-                                                                  <input type='checkbox' name='location[]' value='BS'>BS
-                                                              </label>
-                                                              <label class='checkbox-inline'>
-                                                                  <input type='checkbox' name='location[]' value='SF'>SF
-                                                              </label>
-                                                              <label class='checkbox-inline'>
-                                                                  <input type='checkbox' name='location[]' value='LM'>LM
-                                                              </label>
-                                                          </div>
-                                                          <div align='center'>
-                                                              <div>
-                                                                  <button type='button' class='btn btn-primary'>送出購買邀請</button>
-                                                              </div>
-                                                          </div> 
-                                                      </form>
-                                                  </div>
-                                                  <div class='modal-footer'>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>  
+                                    <div class='text-center'><a class='btn btn-outline-dark mt-auto' href='favlink.php?item_id=", $row['item_id'],"&user_id=".$user_id."&dbaction=".$dbaction."'>加入最愛</a></div>
+                    </div>
+                    <div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>
+                        <div class='text-center'>
+
+                            <!--彈跳連結-->
+                            <a class='btn btn-outline-dark mt-auto' href='#' data-bs-toggle='modal' data-bs-target='#popinv-{$row['item_id']}'>購買邀請</a>
+                             <!--彈出來的視窗-->
+                             <div class='modal fade' id='popinv-{$row['item_id']}'>
+                                <div class='modal-dialog'>
+                                    <div class='modal-content'>
+                                        <div class='modal-header'>
+                                            <h3 class='modal-title'>購買邀請</h3>
+                                            <button class='btn btn-outline-secondary' data-bs-dismiss='modal'>返回</button>
+                                        </div>
+                                        <div class='modal-body'>
+                                            <form enctype='multipart/form-data' method='POST' action='bidlink.php'>
+                                            <input type=hidden name='item_id' value='", $row['item_id'],"'>
+                                                <div class='form-group'>
+                                                    <input class='form-control' type='text' value='書名：", $row['item_name'],"' readonly='true' placeholder='書名' name='title'>
+                                                </div>
+                                                <div class='form-group'>
+                                                    <input class='form-control' type='text' value='ISBN：", $row['item_isbn'],"' readonly='true' placeholder='ISBN' name='isbn'>
+                                                </div>
+
+
+                                                
+                                                
+                                                <div class='form-group'>
+                                                    <input class='form-control' type='text' value='地點：", $row['iloc_name'],"' readonly='true' placeholder='地點' name='place'>
+                                                </div>
+                                                <div class='form-group'>
+                                                    
+                                                    <div class='form-group'>
+                                                <label>欲付價格：<input type='number' name='price' step='5' min='0' max='9999.99' value='" . $row['item_price'] . "'></label>
+                                                </div>
+                                                    <label>請選擇交易時間</label>
+                                                    
+                                                    <br>
+                                                    <div>";
+                                                        $item_id = $row['item_id'];
+                                                        $sql2 = "SELECT * FROM itime WHERE item_id='$item_id'";
+                                                        $result2 = mysqli_query($link, $sql2);
+                                                        $itime = array();
+                                                        $count=1;
+                                                        while($row2 = mysqli_fetch_assoc($result2)) {
+                                                            $name = 'time_'.$count;
+                                                            $count=$count+1;
+                                                        echo "
+                                                        <label class='checkbox-inline'> 
+                                                        <input type='checkbox' name='".$name."' value='".$row2['itime_name']."'>".$row2['itime_name']."
+                                                    </label>";}
+                                                echo"    </div>
+                                                </div>
+                                                <div align='center'>
+                                                    <div>
+                                                        <input type='submit' value='Submit' class='btn btn-primary'>
+                                                    </div>
+                                                </div> 
+                                            </form>
+                                        </div>
+                                        <div class='modal-footer'>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>                                    
                         </div>
+                    </div>
+                </div>
+            </div>
                         ";
                           }
                       ?>
