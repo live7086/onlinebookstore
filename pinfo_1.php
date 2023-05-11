@@ -422,6 +422,44 @@
                 </div>
             </div>";
                     }
+
+                    $sql3  = "SELECT * FROM item_info,iphoto, iloc WHERE item_info.item_id=iphoto.item_id and item_info.item_id=iloc.item_id and item_info.user_id = $user_id and item_info.statement='sold' group by item_info.item_id";
+                    $result3 = mysqli_query($link,$sql3);
+
+                    While($row3=mysqli_fetch_assoc($result3))
+                    {
+                    $iphoto_name = '.\imageUpload\\'. $row3['iphoto_name']. '';
+                    echo "
+                    <div class='col mb-5'>
+                    <div class='card h-100'>
+                    <div class='text-center'>
+                        <!-- Product name-->
+                        <h4 class='fw-bolder'><a href='bookinfo.php?item_id=", $row3['item_id'],"'>", $row3['item_name'],"</a></h4>
+                    </div>
+                    <!-- Product image-->
+                    <img class='card-img-top' src=".$iphoto_name."  width='50%'  height='50%' alt='...' />
+                    <!-- Product details-->
+                    <div class='card-body p-4'>
+                        <div class='text-center'>
+                            <!-- Product name-->
+                            <h5 class='card-subtitle mb-3'>", $row3['item_info'],"</h5>
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div class='card-footer p-1 pt-0 border-top-0 bg-transparent'>
+                        <div class='text-center'>
+                            <h4 class='fw-bolder'>商品已下架</h4>
+                        </div>
+                                        <div class='modal-footer'>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                                    
+                        </div>
+                    </div>
+                </div>
+            </div>";
+                    }
                     ?>
         </section>
         <!-- Footer-->
