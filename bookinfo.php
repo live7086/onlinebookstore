@@ -201,11 +201,11 @@
                             if(!empty($user_id)){
                                 echo
                                 "
-                                <a class=\"btn btn-success mt-2\" href=\"pinfo_1.php\">
-                                我的賣場
+                                <a class=\"btn mt-2\"  href=\"pinfo_1.php\">
+                                $user_id
                                 </a>
                                 <a class=\"btn btn-dangerous mt-2\" href=\"logout.php\">
-                                登出    
+                                登出
                                 </a>";
                             }else{
                                 echo
@@ -367,9 +367,9 @@
                                                             $name = 'time_'.$count;
                                                             $count=$count+1;
                                                         echo "
-                                                        <label class='checkbox-inline'> 
-                                                        <input type='checkbox' name='".$name."' value='".$row2['itime_name']."'>".$row2['itime_name']."
-                                                    </label>";}
+                                                        <label class='radio-inline'> 
+                                                        <input type='radio' name='itime' value='".$row2['itime_name']."' required>".$row2['itime_name']."
+                                                        </label>";}
                                                 echo"    </div>
                                                 </div>
                                                 <div align='center'>
