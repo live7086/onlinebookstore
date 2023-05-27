@@ -169,7 +169,7 @@
                             session_start();
                             $user_id=$_SESSION['user_id'];
                             $link = mysqli_connect('localhost','root','12345678','sa');
-                            $sql = "SELECT * FROM bid_info, item_info, account, btime, iloc where iloc.item_id=bid_info.item_id and btime.bid_id=bid_info.bid_id and account.user_id=item_info.user_id and bid_info.item_id=item_info.item_id and bid_info.statement = '' and item_info.user_id =$user_id";
+                            $sql = "SELECT * FROM bid_info, item_info, account, btime, iloc where iloc.item_id=bid_info.item_id and btime.bid_id=bid_info.bid_id and account.user_id=item_info.user_id and bid_info.item_id=item_info.item_id and bid_info.statement = '' and item_info.user_id ='$user_id'";
                             $result = mysqli_query($link, $sql);
                             while($row = mysqli_fetch_assoc($result)) {
                             echo "
@@ -341,7 +341,7 @@
                                                             $count=$count+1;
                                                         echo "
                                                         <label class='radio-inline'> 
-                                                        <input type='radio' name='itime' value='".$row2['itime_name']."' required>".$row2['itime_name']."
+                                                        <input type='radio' name='".$name."' value='".$row2['itime_name']."'>".$row2['itime_name']."
                                                         </label>";}
                                                 echo"    </div>
                                                 </div>

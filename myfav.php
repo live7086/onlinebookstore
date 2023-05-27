@@ -274,7 +274,7 @@
                                                                 $count=$count+1;
                                                             echo "
                                                             <label class='radio-inline'> 
-                                                        <input type='radio' name='itime' value='".$row2['itime_name']."' required>".$row2['itime_name']."
+                                                        <input type='radio' name='".$name."' value='".$row2['itime_name']."'>".$row2['itime_name']."
                                                         </label>";}
                                                     echo"    </div>
                                                     </div>
