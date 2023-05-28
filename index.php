@@ -59,6 +59,12 @@
     <?php
     $searchtxt = $_GET['searchtxt'];
     $tag = $_GET['tag'];
+    $link = mysqli_connect('localhost', 'root', '12345678', 'sa');
+    $sql = "SELECT * FROM tagop where tagop_id='$tag'";
+    $result = mysqli_query($link, $sql);
+    while ($row = mysqli_fetch_assoc($result)) {
+        $tagop_name= $row['tagop_name'];
+    }
     ?>
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -104,17 +110,22 @@
                             </div>
                             <div>
                                 <div>
-                                    <select class="form-select" id="user_dept1" name="tag" required>
+                                <select class="form-select" id="user_dept1" name="tag" required>
+                                    <?php if(empty($tag)): ?>
                                         <option value="" disabled selected>請選擇標籤</option>
-                                        <?php
-                                            $link = mysqli_connect('localhost', 'root', '12345678', 'sa');
-                                            $sql = "SELECT * FROM tagop ";
-                                            $result = mysqli_query($link, $sql);
-                                            while ($row = mysqli_fetch_assoc($result)) {
-                                                echo "<option value='", $row['tagop_id'], "'>", $row['tagop_name'], "</option>";
-                                            }
-                                        ?>
-                                    </select>
+                                    <?php else: ?>
+                                        <option value="<?php echo $tag; ?>" selected><?php echo $tagop_name; ?></option>
+                                    <?php endif; ?>
+                                    <?php
+                                        $link = mysqli_connect('localhost', 'root', '12345678', 'sa');
+                                        $sql = "SELECT * FROM tagop";
+                                        $result = mysqli_query($link, $sql);
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            echo "<option value='", $row['tagop_id'], "'>", $row['tagop_name'], "</option>";
+                                        }
+                                    ?>
+                                </select>
+
                                 </div>
                                 <br>
                             </div>
