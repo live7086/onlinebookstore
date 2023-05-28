@@ -259,6 +259,9 @@
                                             }else if($row['statement']=="completed"){
                                                 echo "  <td>已完成</td><td></td></tr>
                                                 ";
+                                            }else if ($row['statement']=="failed"){
+                                                echo "  <td>該筆交易已失敗</td><td></td></tr>
+                                                "; 
                                             }
                                             else{
                                                 echo "  <td>尚未回應</td><td></td></tr>

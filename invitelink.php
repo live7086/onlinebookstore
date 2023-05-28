@@ -52,11 +52,8 @@
             //寫入trade_record
             $sql1 = "INSERT INTO trade_record (trade_id, trade_time, trade_location, trade_price, item_id, bid_id) VALUES ('$trade_id','$trade_time','$trade_location','$trade_price','$item_id','$bid_id')";
             $result = mysqli_query($link,$sql1);
-            header("Location:table.php");
-        }else{
-            echo "已確認面交失敗";
         }
-
+        header("Location:table.php");
         
 
 
