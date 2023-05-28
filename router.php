@@ -94,6 +94,13 @@
         $item_id=$_GET['item_id'];
         echo $item_id;
     }
+    else if($router=="intro"){
+        $user_intro=$_GET['user_intro'];
+        $user_id=$_SESSION['user_id'];
+        $sql="update account set user_intro='$user_intro' WHERE user_id='$user_id'";
+        $result= mysqli_query($link,$sql);
+        header("Location:index.php?user_id=".$user_id."&error=");
+    }
 
 
 
