@@ -72,7 +72,7 @@
                 $user_id=$_SESSION['user_id'];
                 $sql=" INSERT INTO account (user_id, user_password, user_email, user_dept, user_credit, user_phone, user_turnover, user_name, user_intro) VALUES ('$user_id','$user_password','$user_email','$user_dept',0,'$user_phone',0,'$user_name','0')";
                 $result= mysqli_query($link,$sql);
-                header("Location:index.php?user_id=".$user_id."&error=");
+                header("Location:intro.php?");
             }else{
                 echo "錯誤";
             }
