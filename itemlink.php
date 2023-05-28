@@ -100,6 +100,17 @@ function generateItemId($link, $item_info) {
           header("Location:pinfo_1.php?message=新增失敗$iloc_name,$item_info,$item_price");
         }
   }
+  else if($dbaction=="user_update"){
+    $user_name= $_POST['user_name'];
+    $user_dept= $_POST['user_dept'];
+    $user_phone= $_POST['user_phone'];
+    $user_email= $_POST['user_email'];
+    $user_intro= $_POST['user_intro'];
+    $sql  = "UPDATE account SET user_name='$user_name', user_dept='$user_dept', user_phone='$user_phone', user_email='$user_email' , user_intro='$user_intro' where user_id='$user_id'";
+    if(mysqli_query($link,$sql)){
+      header("Location:pinfo_1.php");
+    };
+}
   else
   {
   $item_id = $_POST['item_id'];

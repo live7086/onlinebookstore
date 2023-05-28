@@ -188,13 +188,18 @@
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-left text-black">
                     <!--彈跳連結-->
-                    <h3 class="fw-bolder">個人資訊</h3>
+                    <h3 class="fw-bolder"><a href="#" type="button" data-bs-toggle="modal" data-bs-target="#update">個人資訊</a></h3>
                     <hr>
                     <?php
                         $link = mysqli_connect('localhost','root','12345678','sa');
                         $sql = "SELECT * FROM account where user_id LIKE '". $user_id. "'";
                         $result = mysqli_query($link, $sql);
                         while($row = mysqli_fetch_assoc($result)) {
+                        $user_name= $row['user_name'];
+                        $user_dept= $row['user_dept'];
+                        $user_phone= $row['user_phone'];
+                        $user_email= $row['user_email'];
+                        $user_intro= $row['user_intro'];
                         echo "<h4 class='fw-bolder'>姓名：", $row['user_name'],"</h4>
                     <h4 class='fw-bolder'>系所：", $row['user_dept'],"</h4>
                     <h4 class='fw-bolder'>電話：", $row['user_phone'],"</h4>
@@ -202,7 +207,43 @@
                     <h4 class='fw-bolder'>自介：", $row['user_intro'],"</h4>";}
                     ?>
                     
-
+                    <!--彈出來的視窗-->
+                    <div class="modal fade" id="update">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3>個人資訊</h3>
+                                    <button class="btn btn-outline-secondary" data-bs-dismiss="modal">返回</button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="itemlink.php" enctype="multipart/form-data" method='post' action="itemlink.php" onsubmit="return onSubmitForm()">
+                                    <input type=hidden name='dbaction' value='user_update'>
+                                    <div class="form-group">
+                                        <label for="title">姓名</label>
+                                        <input class="form-control" type="text" name="user_name" id="title" value="<?php echo $user_name;?>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="isbn">系所</label>
+                                        <input class="form-control" type="text" name="user_dept" id="isbn" value="<?php echo $user_dept;?>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="price">電話</label>
+                                        <input class="form-control" type="text" name="user_phone" id="price" value="<?php echo $user_phone;?>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="info">Email</label>
+                                        <input class="form-control" type="email" name="user_email" id="info" value="<?php echo $user_email;?>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="place">自介</label>
+                                        <input class="form-control" type="text" name="user_intro" id="place" value="<?php echo $user_intro;?>">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">修改</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!--彈出來的視窗-->
                     <div class="modal fade" id="popul">
                         <div class="modal-dialog">
@@ -328,6 +369,7 @@
                 </div>
                 </div>
             </div>
+            
         </header>
         
         <!-- Section-->
