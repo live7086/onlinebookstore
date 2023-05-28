@@ -26,6 +26,24 @@
          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
          <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
          <script src="js/datatables-simple-demo.js"></script>
+         <script>
+            function showConfirmation(event) {
+            event.preventDefault(); // 防止連結的預設行為（即跳轉）
+
+            var result = confirm("你確定要執行這個操作嗎？");
+            if (result) {
+                // 如果使用者點擊了確認按鈕
+                alert("操作已確認！");
+                // 這裡可以加入你想執行的程式碼
+
+                // 執行連結的跳轉
+                window.location.href = event.target.href;
+            } else {
+                // 如果使用者點擊了取消按鈕
+                alert("操作已取消！");
+            }
+            }
+        </script>
           
     </head>
     <style>
@@ -231,7 +249,8 @@
                                             if($row['statement']=="accepted"){
                                                 echo "  <td>接受</td>
                                                         <td>
-                                                            <a href =invitelink.php?statement=completed&item_id=".$row["item_id"]."&bid_id=".$row["bid_id"]." class=btn-dangerous >完成面交</a>
+                                                            <a href =invitelink.php?statement=completed&item_id=".$row["item_id"]."&bid_id=".$row["bid_id"]." class=\"btn btn-primary\">完成面交</a>
+                                                            <a href =invitelink.php?statement=failed&item_id=".$row["item_id"]."&bid_id=".$row["bid_id"]." class=\"btn btn-danger\" onclick=\"showConfirmation(event)\">面交失敗</a>
                                                         </td>
                                                         </tr>";
                                             }else if($row['statement']=="rejected"){

@@ -9,6 +9,7 @@
         $result= mysqli_query($link,$sql);
             if($row=mysqli_fetch_assoc($result)){
                 $_SESSION['user_id']=$row['user_id'];
+                $_SESSION['test'] = $row['user_id'];
                 header("Location:index.php?error=");
             }else{
                 header("Location:login.php?error=error");

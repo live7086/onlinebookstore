@@ -9,7 +9,8 @@
 <body>
     <?php
     session_start();
-    echo $_SESSION[test];
+    $_SESSION['test'] = "4104";
     ?>
+    <a href="test.php">go</a>
 </body>
 </html>

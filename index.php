@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<?php session_start();?>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -167,6 +168,7 @@
                             </div>
                             <?php
                             session_start();
+                            echo $_SESSION['user_id'];
                             $user_id=$_SESSION['user_id'];
                             $link = mysqli_connect('localhost','root','12345678','sa');
                             $sql = "SELECT * FROM bid_info, item_info, account, btime, iloc where iloc.item_id=bid_info.item_id and btime.bid_id=bid_info.bid_id and account.user_id=item_info.user_id and bid_info.item_id=item_info.item_id and bid_info.statement = '' and item_info.user_id ='$user_id'";
@@ -212,7 +214,6 @@
                             if(!empty($user_id)){
                                 echo
                                 "
-                                
                                 <a class=\"btn mt-2\"  href=\"pinfo_1.php\">
                                 $user_id
                                 </a>

@@ -33,23 +33,31 @@
         $item_id = $_GET['item_id'];
         $sql2  = "UPDATE bid_info SET statement = '$statement' WHERE item_id = '$item_id'";
         mysqli_query($link,$sql2);
+        //如果面交成功>statement=completed
+        if($statement=="completed"){
         //挑選要插入trade_record的資料
-        $bid_id = $_GET['bid_id'];
+            $bid_id = $_GET['bid_id'];
 
-        $sql  = "SELECT * FROM bid_info, item_info, iloc, btime WHERE bid_info.user_id = $_SESSION[user_id] AND item_info.item_id = bid_info.item_id AND bid_info.item_id = iloc.item_id AND btime.bid_id = '$bid_id' AND bid_info.bid_id = '$bid_id'";
-        $result = mysqli_query($link,$sql);
-        $row=mysqli_fetch_assoc($result);
-        //要插入trade_record的變數
-        $trade_id = generateItemId($link, $trade_record);
-        $trade_time = $row['btime_name'];
-        $trade_location = $row['iloc_name'];
-        $trade_price = $row['bid_price'];
-        $item_id = $row['item_id'];
-        $bid_id = $row['bid_id'];
+            $sql  = "SELECT * FROM bid_info, item_info, iloc, btime WHERE bid_info.user_id = $_SESSION[user_id] AND item_info.item_id = bid_info.item_id AND bid_info.item_id = iloc.item_id AND btime.bid_id = '$bid_id' AND bid_info.bid_id = '$bid_id'";
+            $result = mysqli_query($link,$sql);
+            $row=mysqli_fetch_assoc($result);
+            //要插入trade_record的變數
+            $trade_id = generateItemId($link, $trade_record);
+            $trade_time = $row['btime_name'];
+            $trade_location = $row['iloc_name'];
+            $trade_price = $row['bid_price'];
+            $item_id = $row['item_id'];
+            $bid_id = $row['bid_id'];
 
-        //寫入trade_record
-        $sql1 = "INSERT INTO trade_record (trade_id, trade_time, trade_location, trade_price, item_id, bid_id) VALUES ('$trade_id','$trade_time','$trade_location','$trade_price','$item_id','$bid_id')";
-        $result = mysqli_query($link,$sql1);
-        header("Location:table.php");
+            //寫入trade_record
+            $sql1 = "INSERT INTO trade_record (trade_id, trade_time, trade_location, trade_price, item_id, bid_id) VALUES ('$trade_id','$trade_time','$trade_location','$trade_price','$item_id','$bid_id')";
+            $result = mysqli_query($link,$sql1);
+            header("Location:table.php");
+        }else{
+            echo "已確認面交失敗";
+        }
+
+        
+
 
 ?>
