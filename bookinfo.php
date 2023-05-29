@@ -13,6 +13,7 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
         <link href="css/styles2.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
           <!-- Bootstrap core JS-->
@@ -278,45 +279,65 @@
                                             <span class='carousel-control-next-icon' aria-hidden='true'></span>
                                             <span class='sr-only'>Next</span>
                                         </a>
+                                        </div>
+                                <div class='row'>
+                                    <div class='col-md-5'>
+                                        <br/>
+                                        <br/>
+                                        <h5 class='card-subtitle mb-3'>書名：", $row['item_name'],"</h5>
+                                        <p class='card-text'>ISBN碼:", $row['item_isbn'],"</p>
+                                        <p class='card-text'>", $row['item_info'],"</p>
+                                        
+                                        <!-- 標籤 -->
+                                        <div class='card-text'style='font-size: 40px;'>
+                                            <ul class='list-unstyled'>
+                                                ";
+                                                    $item_id = $row['item_id'];
+                                                    $link = mysqli_connect('localhost','root','12345678','sa');
+                                                    $sql2 = "SELECT * FROM tag, tagop WHERE tagop_id=tag_name and tag.item_id='$item_id'";
+                                                    $result2 = mysqli_query($link, $sql2);
+                                                    $count=1;
+
+                                                    while($row2 = mysqli_fetch_assoc($result2))
+                                                    {
+                                                    $name = 'time-'.$count;
+                                                    $count=$count+1;
+                                                    echo "
+                                                    <li><span class='badge bg-primary'>".$row2['tagop_name']."</span></li>
+                                                    ";
+                                                    
+                                                    }
+                                                    echo "
+                                            </ul>
+                                        </div>
                                     </div>
                                     <div class='col-md-5'>
-                                    <br/>
-                                    <br/>
-                                    <h5 class='card-subtitle mb-3'>書名：", $row['item_name'],"</h5>
-                                    <p class='card-text'>ISBN碼:", $row['item_isbn'],"</p>
-                                    <p class='card-text'>", $row['item_info'],"</p>
-                                    
-                                    <!-- 標籤 -->
-                                    <div class='card-text'style='font-size: 40px;'>
-                                        <ul class='list-unstyled'>
-                                            ";
-                                                $item_id = $row['item_id'];
-                                                $link = mysqli_connect('localhost','root','12345678','sa');
-                                                $sql2 = "SELECT * FROM tag, tagop WHERE tagop_id=tag_name and tag.item_id='$item_id'";
-                                                $result2 = mysqli_query($link, $sql2);
-                                                $count=1;
-
-                                                while($row2 = mysqli_fetch_assoc($result2))
-                                                {
-                                                $name = 'time-'.$count;
-                                                $count=$count+1;
-                                                echo "
-                                                <li><span class='badge bg-primary'>".$row2['tagop_name']."</span></li>
-                                                ";
-                                                
-                                                }
-                                                echo "
-                                        </ul>
+                                        <div class='card-text'style='font-size: 40px;'>
+                                                <ul class='list-unstyled'>
+                                                <div class=\"rating-box\">
+                                                <br/>
+                                                <h5 class=\"rating-boxH1\">賣家評價</h5>
+                                                <div class=\"rating\">
+                                                <span class=\"fa fa-star-o\"></span>
+                                                <span class=\"fa fa-star-o\"></span>
+                                                <span class=\"fa fa-star-o\"></span>
+                                                <span class=\"fa fa-star-o\"></span>
+                                                <span class=\"fa fa-star-o\"></span>
+                                                </div>
+                                                <h4 id=\"rating-value\"></h1>
+                                                </div>
+                                                <script src=\"rating.js\"></script>
+                                                </ul>
+                                            </div>
                                     </div>
                                 </div>
-                                
                                       </div>
                                     </div>
                                   </div>
                                 <!-- Product actions-->
                                 <div class='card-footer p-1 pt-0 border-top-0 bg-transparent'>
                                     <div class='text-center'>
-                                        <h4 class='fw-bolder'>出售價格：", $row['item_price'],"＄</h4>
+                                        <h4 class='fw-bolder'>出售價格：＄", $row['item_price'],"</h4>
                                     </div>
                                     <div class='text-center'><a class='btn btn-outline-dark mt-auto' href='favlink.php?item_id=", $row['item_id'],"&user_id=".$user_id."&dbaction=".$dbaction."'>加入最愛</a></div>
                     </div>
@@ -525,6 +546,40 @@
             <p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p>
         </div>
     </footer>
-      
+    <script>
+                const stars=document.querySelector(".rating").children;
+                let ratingValue
+                let index //目前選到的星星
+                document.getElementById("rating-value").innerHTML = "請給分"
+                for(let i=0;i<stars.length;i++){
+                stars[i].addEventListener("mouseover",function(){
+                //  console.log(i)
+                document.getElementById("rating-value").innerHTML = "正在打分數"
+                for(let j=0;j<stars.length;j++){
+                stars[j].classList.remove("fa-star")//reset 所有星星
+                stars[j].classList.add("fa-star-o")
+                }
+                for(let j=0;j<=i;j++){
+                stars[j].classList.remove("fa-star-o") //先移除空心的星星
+                stars[j].classList.add("fa-star") //添加新的星星 如果i=j表示選中的
+                }
+                })
+                stars[i].addEventListener("click",function(){
+                ratingValue=i+1
+                index=i
+                document.getElementById("rating-value").innerHTML = "你打的分數是 "+ratingValue
+                })
+                stars[i].addEventListener("mouseout",function(){
+                for(let j=0;j<stars.length;j++){
+                stars[j].classList.remove("fa-star")//reset 所有星星
+                stars[j].classList.add("fa-star-o")
+                }
+                for(let j=0;j<=index;j++){
+                stars[j].classList.remove("fa-star-o")
+                stars[j].classList.add("fa-star")
+                }
+                })
+                }
+          </script>
     </body>
 </html>
