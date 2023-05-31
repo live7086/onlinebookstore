@@ -249,8 +249,8 @@
                                             if($row['statement']=="accepted"){
                                                 echo "  <td>接受</td>
                                                         <td>
-                                                            <a href =invitelink.php?statement=completed&item_id=".$row["item_id"]."&bid_id=".$row["bid_id"]." class=\"btn btn-primary\">完成面交</a>
-                                                            <a href =invitelink.php?statement=failed&item_id=".$row["item_id"]."&bid_id=".$row["bid_id"]." class=\"btn btn-danger\" onclick=\"showConfirmation(event)\">面交失敗</a>
+                                                            <a href =test.php?statement=completed&item_id=".$row["item_id"]."&bid_id=".$row["bid_id"]." class=\"btn btn-primary\">完成面交</a>
+                                                            <a href =test.php?statement=failed&item_id=".$row["item_id"]."&bid_id=".$row["bid_id"]." class=\"btn btn-danger\" onclick=\"showConfirmation(event)\">面交失敗</a>
                                                         </td>
                                                         </tr>";
                                             }else if($row['statement']=="rejected"){
@@ -261,7 +261,7 @@
                                                 ";
                                             }else if ($row['statement']=="failed"){
                                                 echo "  <td>該筆交易已失敗</td><td></td></tr>
-                                                "; 
+                                                ";
                                             }
                                             else{
                                                 echo "  <td>尚未回應</td><td></td></tr>
