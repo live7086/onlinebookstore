@@ -324,27 +324,27 @@
                                     <div class='col-md-5'>
                                         <div class='card-text'style='font-size: 40px;'>
                                                 <ul class='list-unstyled'>
-                                                <div class=\"rating-box\">
-                                                <br/>
-                                                <h5 class=\"rating-boxH1 mb-3 fw-bold\">賣家評價</h5>
-                                                <div class=\"rating\">";
-                                                                          
-                                                $sqlrate="SELECT * FROM account ,item_info WHERE account.user_id = item_info.user_id and item_info.item_id='$item_id'";
-                                                $resultrate = mysqli_query($link,$sqlrate);
-                                                while ($rowrate = mysqli_fetch_assoc($resultrate)){
-                                                    $credit = $rowrate['user_credit'];
-                                                    $left = 5-$credit;
-                                                for ($i=0; $i < $credit; $i++) { 
-                                                    echo "<span class=\"fa fa-star\">&nbsp</span>";
-                                                }
-                                                for($i=0; $i < $left ; $i++){
-                                                    echo "<span class=\"fa fa-star-o\">&nbsp</span>";
-                                                }
-                                                break;}
-                                                echo "
-                                                </div>
-                                                <h4 id=\"rating-value\"></h1>
-                                                </div>
+                                                    <div class=\"rating-box\">
+                                                    <br/>
+                                                    <h5 class=\"rating-boxH1 mb-3 fw-bold\">賣家評價</h5>
+                                                    <div class=\"rating\">";
+                                                                            
+                                                    $sqlrate="SELECT * FROM account ,item_info WHERE account.user_id = item_info.user_id and item_info.item_id='$item_id'";
+                                                    $resultrate = mysqli_query($link,$sqlrate);
+                                                    while ($rowrate = mysqli_fetch_assoc($resultrate)){
+                                                        $credit = $rowrate['user_credit'];
+                                                        $left = 5-$credit;
+                                                    for ($i=0; $i < $credit; $i++) { 
+                                                        echo "<span class=\"fa fa-star\">&nbsp</span>";
+                                                    }
+                                                    for($i=0; $i < $left ; $i++){
+                                                        echo "<span class=\"fa fa-star-o\">&nbsp</span>";
+                                                    }
+                                                    break;}
+                                                    echo "
+                                                    </div>
+                                                    <h4 id=\"rating-value\"></h1>
+                                                    </div>
                                                 <script src=\"rating.js\"></script>
                                                 </ul>
                                             </div>

@@ -205,9 +205,9 @@
                                             <th>買家選擇時間</th>
                                             <th>買家選擇地點</th>
                                             <th>買家提出價錢</th>
-                                            <th>商品編號</th>
-                                            <th>我方回覆</th>
-                                            <th>是否完成面交</th><!--賣方須回覆 接受 才會跳出此功能-->
+                                            <th>商品名稱</th>
+                                            <th>訂單狀況</th>
+                                            <th>評價</th><!--賣方須回覆 接受 才會跳出此功能-->
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -216,9 +216,9 @@
                                             <th>買家選擇時間</th>
                                             <th>買家選擇地點</th>
                                             <th>買家提出價錢</th>
-                                            <th>商品編號</th>
-                                            <th>我方回覆</th>
-                                            <th>是否完成面交</th>
+                                            <th>商品名稱</th>
+                                            <th>訂單狀況</th>
+                                            <th>評價</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -243,24 +243,36 @@
                                         $rowbuyer=mysqli_fetch_assoc($resultbuyer);
                                         echo "
                                         <tr>
-                                            <td>".$rowseller['user_name']."</td>
+                                            <td>".$rowbuyer['user_name']."</td>
                                             <td>".$row['btime_name']."</td>
                                             <td>".$row['iloc_name']."</td>
                                             <td>".$row['bid_price']."</td>
                                             <td>".$row['item_name']."</td>";
                                             if($row['statement']=="accepted"){
                                                 echo "  <td>接受</td>
-                                                        <td>
-                                                            <a href =test.php?statement=completed&item_id=".$row["item_id"]."&bid_id=".$row["bid_id"]." class=\"btn btn-primary\">完成面交</a>
-                                                            <a href =test.php?statement=failed&item_id=".$row["item_id"]."&bid_id=".$row["bid_id"]." class=\"btn btn-danger\" onclick=\"showConfirmation(event)\">面交失敗</a>
-                                                        </td>
+                                                        <td>請等待買家完成面交</td>
                                                         </tr>";
                                             }else if($row['statement']=="rejected"){
                                                 echo "  <td>不接受</td><td></td></tr>
                                                 ";
                                             }else if($row['statement']=="completed"){
-                                                echo "  <td>已完成</td><td></td></tr>
-                                                ";
+                                                echo    "  <td>已完成</td>
+                                                            <td>";
+                                                        if($row['rating']){
+                                                            $credit = $row['rating'];
+                                                            $left = 5-$credit;
+                                                            for ($i=0; $i < $credit; $i++) { 
+                                                            echo "<span class=\"fa fa-star\">&nbsp</span>";
+                                                            }
+                                                            for($i=0; $i < $left ; $i++){
+                                                            echo "<span class=\"fa \">&nbsp</span>";
+                                                            }
+                                                        }else{
+                                                            echo "買家尚未評價";
+                                                        }
+                                                echo    "   </td>
+                                                            </tr>
+                                                        ";
                                             }else if ($row['statement']=="failed"){
                                                 echo "  <td>該筆交易已失敗</td><td></td></tr>
                                                 ";

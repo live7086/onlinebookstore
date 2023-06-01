@@ -205,7 +205,7 @@
                                             <th>我方選擇時間</th>
                                             <th>我方選擇地點</th>
                                             <th>我方提出價錢</th>
-                                            <th>商品編號</th>
+                                            <th>商品名稱</th>
                                             <th>賣方回覆</th>
                                             <th>是否完成面交</th><!--賣方須回覆 接受 才會跳出此功能-->
                                         </tr>
@@ -216,7 +216,7 @@
                                             <th>我方選擇時間</th>
                                             <th>我方選擇地點</th>
                                             <th>我方提出價錢</th>
-                                            <th>商品編號</th>
+                                            <th>商品名稱</th>
                                             <th>賣方回覆</th>
                                             <th>是否完成面交</th>
                                         </tr>
@@ -251,8 +251,8 @@
                                             if($row['statement']=="accepted"){
                                                 echo "  <td>接受</td>
                                                         <td>
-                                                            <a href =test.php?statement=completed&item_id=".$row["item_id"]."&bid_id=".$row["bid_id"]." class=\"btn btn-primary\">完成面交</a>
-                                                            <a href =test.php?statement=failed&item_id=".$row["item_id"]."&bid_id=".$row["bid_id"]." class=\"btn btn-danger\" onclick=\"showConfirmation(event)\">面交失敗</a>
+                                                            <a href =rating.php?statement=completed&item_id=".$row["item_id"]."&bid_id=".$row["bid_id"]." class=\"btn btn-primary\">完成面交</a>
+                                                            <a href =rating.php?statement=failed&item_id=".$row["item_id"]."&bid_id=".$row["bid_id"]." class=\"btn btn-danger\" onclick=\"showConfirmation(event)\">面交失敗</a>
                                                         </td>
                                                         </tr>";
                                             }else if($row['statement']=="rejected"){

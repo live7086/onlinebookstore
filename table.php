@@ -209,7 +209,7 @@
                                             <th>地點</th>
                                             <th>價錢</th>
                                             <th>商品編號</th>
-                                            <th>退貨</th>
+                                            <th>訂單評分</th>
                                         
                                         
                                         </tr>
@@ -223,7 +223,7 @@
                                             <th>地點</th>
                                             <th>價錢</th>
                                             <th>商品編號</th>
-                                            <th>退貨</th>
+                                            <th>訂單評分</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -261,7 +261,16 @@
                                             <td>
                                                 <a href=\"#\" type=\"button\" data-bs-toggle=\"modal\" data-bs-target='#iinfo-{$row['item_id']}'>".$row['item_id']."</a>
                                             </td>
-                                            <td>還不能退貨</td>
+                                                <td>";
+                                                $credit = $row['rating'];
+                                                $left = 5-$credit;
+                                                for ($i=0; $i < $credit; $i++) { 
+                                                echo "<span class=\"fa fa-star\">&nbsp</span>";
+                                                }
+                                                for($i=0; $i < $left ; $i++){
+                                                echo "<span class=\"fa\">&nbsp</span>";
+                                                }
+                                        echo "  </td>
                                         </tr>
                                             <div class=\"modal fade\" id='iinfo-{$row['item_id']}'>
                                         <div class=\"modal-dialog\">

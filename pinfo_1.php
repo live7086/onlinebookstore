@@ -192,7 +192,7 @@
         </div>
        -->
        
-        <header class="bg-light-gray py-5">
+        <header class="py-5" style="background-color: #C9D4C8;">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-left text-black">
                     <!--彈跳連結-->

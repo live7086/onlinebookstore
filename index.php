@@ -53,6 +53,7 @@
     footer {
     flex-shrink: 0;
     }
+
     
 </style>
     <body>
@@ -248,7 +249,7 @@
         </div>
         </div>
        -->
-        <header class="py-5">
+        <header>
                     <img src=".\image\banner.png" width="100%" height= "550px">
         </header>
         
@@ -379,7 +380,7 @@
         </div>
         <footer class="py-5 bg-dark">
         <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p>
+            <p class="m-0 text-center text-white">Onlinebookstore &copy;Secondhand Heist</p>
         </div>
     </footer>
 </div>
