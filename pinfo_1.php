@@ -203,7 +203,6 @@
                         $user_intro= $row['user_intro'];
                         $user_credit= $row['user_credit'];
                         $left = 5-$user_credit;
-                        echo $user_credit;  
                         echo "
                         <h4 class='fw-bolder'>姓名：", $row['user_name'],"</h4>
                         <h4 class='fw-bolder'>系所：", $row['user_dept'],"</h4>
@@ -387,122 +386,115 @@
             
         </header>
         
-        <!-- Section-->
-        <div class="wrapper">
-        <div class="content">
+<!-- Section-->
+<div class="wrapper">
+    <div class="content">
         <form action="itemlink.php" method="post">
-        <section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-4 row-cols-md-1 row-cols-xl-2 justify-content-center">
+            <section class="py-5">
+                <div class="container px-4 px-lg-5 mt-5">
+                    <div class="row gx-4 gx-lg-5 row-cols-4 row-cols-md-1 row-cols-xl-2 justify-content-center">
+                        <?php
+                        $link = mysqli_connect('localhost', 'root', '12345678', 'sa');
+                        $sql = "SELECT * FROM item_info,iphoto, iloc WHERE item_info.item_id=iphoto.item_id and item_info.item_id=iloc.item_id and item_info.user_id = $user_id and item_info.statement='' group by item_info.item_id";
+                        $result = mysqli_query($link, $sql);
 
-
-
-                <?php
-                    $link = mysqli_connect('localhost','root','12345678','sa');
-                    $sql  = "SELECT * FROM item_info,iphoto, iloc WHERE item_info.item_id=iphoto.item_id and item_info.item_id=iloc.item_id and item_info.user_id = $user_id and item_info.statement='' group by item_info.item_id";
-                    $result = mysqli_query($link,$sql);
-
-                    While($row=mysqli_fetch_assoc($result))
-                    {
-                    $iphoto_name = '.\imageUpload\\'. $row['iphoto_name']. '';
-                    echo "
-                    <div class='col mb-5'>
-                    <div class='card h-100'>
-                    <div class='text-center'>
-                        <!-- Product name-->
-                        <h4 class='fw-bolder'><a href='bookinfo.php?item_id=", $row['item_id'],"'>", $row['item_name'],"</a></h4>
-                    </div>
-                    <!-- Product image-->
-                    <img class='card-img-top' src=".$iphoto_name."  width='50%'  height='50%' alt='...' />
-                    <!-- Product details-->
-                    <div class='card-body p-4'>
-                        <div class='text-center'>
-                            <!-- Product name-->
-                            <h5 class='card-subtitle mb-3'>", $row['item_info'],"</h5>
-                        </div>
-                    </div>
-                    <!-- Product actions-->
-                    <div class='card-footer p-1 pt-0 border-top-0 bg-transparent'>
-                        <div class='text-center'>
-                            <h4 class='fw-bolder'>價格:", $row['item_price'],"元</h4>
-                        </div>
-                        <div class='text-center'><a class='btn btn-outline-dark mt-auto' href='router.php?router=remove&item_id=".$row['item_id']."'>下架商品</a></div>
-                    </div>
-                    <div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>
-                        <div class='text-center'>
-                            <!--彈跳連結-->
-                            <a class='btn btn-outline-dark mt-auto' href='router.php?router=itemupdate&item_id=".$row['item_id']."' data-bs-toggle='modal' data-bs-target='#popinv-{$row['item_id']}'>修改</a>
-                            <!--彈出來的視窗 弘軒改這邊-->
-                            <div class='modal fade' id='popinv-{$row['item_id']}'>
-                                <div class='modal-dialog'>
-                                    <div class='modal-content'>
-                                        <div class='modal-header'>
-                                            <h3 class='modal-title'>修改</h3>
-                                            <button class='btn btn-outline-secondary' data-bs-dismiss='modal'>返回</button>
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $iphoto_name = '.\imageUpload\\' . $row['iphoto_name'] . '';
+                            echo "
+                            <div class='col mb-5'>
+                                <div class='card h-100'>
+                                    <div class='text-center'>
+                                        <!-- Product name-->
+                                        <h4 class='fw-bolder'><a href='bookinfo.php?item_id=" . $row['item_id'] . "'>" . $row['item_name'] . "</a></h4>
+                                    </div>
+                                    <!-- Product image-->
+                                    <img class='card-img-top' src=" . $iphoto_name . "  width='50%'  height='50%' alt='...' />
+                                    <!-- Product details-->
+                                    <div class='card-body p-4'>
+                                        <div class='text-center'>
+                                            <!-- Product name-->
+                                            <h5 class='card-subtitle mb-3'>" . $row['item_info'] . "</h5>
                                         </div>
-                                        <div class=\"modal-body\">
-                                    <form enctype=\"multipart/form-data\" method='post' action=\"itemlink.php\" onsubmit=\"return onSubmitForm()\">
-                                    <input type=hidden name='dbaction' value='itemupdate'>
-                                    <input type=hidden name='item_id' value='".$row['item_id']."'>
-                                    <div class='form-inline'>
-                                        <input class='form-control-sm mb-2 mr-sm-2' type='text' value='書名' readonly='true' placeholder='書名'>
-                                        <input class='form-control-sm mb-2 mr-sm-2' value='", $row['item_name'],"' placeholder='書名' name='title'>
                                     </div>
-                                    <div class='form-group'>
-                                        <input class='form-control-sm mb-2 mr-sm-2' type='text' value='ISBN' readonly='true' placeholder='IBSN'>
-                                        <input class='form-control-sm mb-2 mr-sm-2' type='text' value='", $row['item_isbn'],"'  placeholder='ISBN' name='isbn'>
-                                    </div>
-                                    <div class='form-group'>
-                                        <input class='form-control-sm mb-2 mr-sm-2' type='text' value='價格：' readonly='true' placeholder='IBSN'>
-                                        <input class='form-control-sm mb-2 mr-sm-2' type='text' value='", $row['item_price'],"' placeholder='價格' name='price'>
-                                    </div>
-                                    <div class=form-group>
-                                        <input class='form-control mb-2 mr-sm-2' type='text' value='書本介紹：'readonly='true' placeholder=\"書本介紹\" >
-                                        <textarea name='info' cols='30' rows='10' class= 'form-control mb-2 mr-sm-2'>". $row['item_info']."</textarea>
-                                        
-                                    </div>
-                                    <div class=form-group>
-                                        <input class='form-control-sm mb-2 mr-sm-2' type='text' value='面交地點：'readonly='true'id=\"time-period-1\" placeholder=\"詳細面交地點\">
-                                        <input class='form-control-sm mb-2 mr-sm-2' type='text' value='", $row['iloc_name'],"'  placeholder='詳細面交地點' name='place'>
-                                    </div>
-                                    ";
-                                    $item_id = $row['item_id'];
-                                    $link = mysqli_connect('localhost','root','12345678','sa');
-                                    $sql2 = "SELECT * FROM itime WHERE item_id='$item_id'";
-                                    $result2 = mysqli_query($link, $sql2);
-                                    $itime = array();
-                                    $count=1;
-
-                                    while($row2 = mysqli_fetch_assoc($result2))
-                                    {
-                                    $name = 'time-'.$count;
-                                    $count=$count+1;
-                                    echo "
-                                    <input class='form-control-sm mb-2 mr-sm-2' type='text' id=\"time-period-1\" readonly='true' value=\"面交時間段".($count-1)."\">
-                                    <input class='form-control-sm mb-2 mr-sm-2' type='text' id=\"time-period-1\" name=".$name." value='".$row2['itime_name']."'>
-                                    ";
-                                    
-                                    }
-                                    echo "
-                                        <div class=\"form-group\">
-                                            <label for=\"imageUpload\">
-                                                <img src=\"https://www.lifewire.com/thmb/eCn_BQgPpd0l-6FhgYCA8ebbOn0=/650x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/cloud-upload-a30f385a928e44e199a62210d578375a.jpg\" width=\"10%\" height=\"10%\" alt=\"Upload Image\" id=\"imagePreview\">
-                                            </label>
-                                            <input type=\"file\" class=\"form-control-file\" id=\"imageUpload\" name=\"image\" >
-                                            <p id=\"noImageMsg\">尚未上傳檔案</p>
+                                    <!-- Product actions-->
+                                    <div class='card-footer p-1 pt-0 border-top-0 bg-transparent'>
+                                        <div class='text-center'>
+                                            <h4 class='fw-bolder'>價格:" . $row['item_price'] . "元</h4>
                                         </div>
-                                        <input class=\"btn btn-primary\" type=\"submit\" value=\"送出修改\" >
-                                    </form>
-                                </div>
-                                        <div class='modal-footer'>
+                                        <div class='text-center'><a class='btn btn-outline-dark mt-auto' href='router.php?router=remove&item_id=" . $row['item_id'] . "'>下架商品</a></div>
+                                    </div>
+                                    <div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>
+                                        <div class='text-center'>
+                                            <!--彈跳連結-->
+                                            <a class='btn btn-outline-dark mt-auto' href='router.php?router=itemupdate&item_id=" . $row['item_id'] . "' data-bs-toggle='modal' data-bs-target='#popinv-{$row['item_id']}'>修改</a>
+                                            <!--彈出來的視窗 弘軒改這邊-->
+                                            <div class='modal fade' id='popinv-{$row['item_id']}'>
+                                                <div class='modal-dialog'>
+                                                    <div class='modal-content'>
+                                                        <div class='modal-header'>
+                                                            <h3 class='modal-title'>修改</h3>
+                                                            <button class='btn btn-outline-secondary' data-bs-dismiss='modal'>返回</button>
+                                                        </div>
+                                                        <div class=\"modal-body\">
+                                                            <form enctype=\"multipart/form-data\" method='post' action=\"itemlink.php\" onsubmit=\"return onSubmitForm()\">
+                                                                <input type=hidden name='dbaction' value='itemupdate'>
+                                                                <input type=hidden name='item_id' value='" . $row['item_id'] . "'>
+                                                                <div class='form-inline'>
+                                                                    <input class='form-control-sm mb-2 mr-sm-2' type='text' value='書名' readonly='true' placeholder='書名'>
+                                                                    <input class='form-control-sm mb-2 mr-sm-2' value='" . $row['item_name'] . "' placeholder='書名' name='title'>
+                                                                </div>
+                                                                <div class='form-group'>
+                                                                    <input class='form-control-sm mb-2 mr-sm-2' type='text' value='ISBN' readonly='true' placeholder='IBSN'>
+                                                                    <input class='form-control-sm mb-2 mr-sm-2' type='text' value='" . $row['item_isbn'] . "'  placeholder='ISBN' name='isbn'>
+                                                                </div>
+                                                                <div class='form-group'>
+                                                                    <input class='form-control-sm mb-2 mr-sm-2' type='text' value='價格：' readonly='true' placeholder='IBSN'>
+                                                                    <input class='form-control-sm mb-2 mr-sm-2' type='text' value='" . $row['item_price'] . "' placeholder='價格' name='price'>
+                                                                </div>
+                                                                <div class=form-group>
+                                                                    <input class='form-control mb-2 mr-sm-2' type='text' value='書本介紹：'readonly='true' placeholder=\"書本介紹\" >
+                                                                    <textarea name='info' cols='30' rows='10' class= 'form-control mb-2 mr-sm-2'>" . $row['item_info'] . "</textarea>
+                                                                </div>
+                                                                <div class=form-group>
+                                                                    <input class='form-control-sm mb-2 mr-sm-2' type='text' value='面交地點：'readonly='true'id=\"time-period-1\" placeholder=\"詳細面交地點\">
+                                                                    <input class='form-control-sm mb-2 mr-sm-2' type='text' value='" . $row['iloc_name'] . "'  placeholder='詳細面交地點' name='place'>
+                                                                </div>";
+
+                                                                $item_id = $row['item_id'];
+                                                                $link = mysqli_connect('localhost', 'root', '12345678', 'sa');
+                                                                $sql2 = "SELECT * FROM itime WHERE item_id='$item_id'";
+                                                                $result2 = mysqli_query($link, $sql2);
+                                                                $itime = array();
+                                                                $count = 1;
+
+                                                                while ($row2 = mysqli_fetch_assoc($result2)) {
+                                                                    $name = 'time-' . $count;
+                                                                    $count = $count + 1;
+                                                                    echo "
+                                                                        <input class='form-control-sm mb-2 mr-sm-2' type='text' id=\"time-period-1\" readonly='true' value=\"面交時間段" . ($count - 1) . "\">
+                                                                        <input class='form-control-sm mb-2 mr-sm-2' type='text' id=\"time-period-1\" name=" . $name . " value='" . $row2['itime_name'] . "'>
+                                                                    ";
+                                                                }
+
+                                                                echo "
+                                                                <div class=\"form-group\">
+                                                                    <label for=\"imageUpload\">
+                                                                        <img src=\"https://www.lifewire.com/thmb/eCn_BQgPpd0l-6FhgYCA8ebbOn0=/650x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/cloud-upload-a30f385a928e44e199a62210d578375a.jpg\" width=\"10%\" height=\"10%\" alt=\"Upload Image\" id=\"imagePreview\">
+                                                                    </label>
+                                                                    <input type=\"file\" class=\"form-control-file\" id=\"imageUpload\" name=\"image\" >
+                                                                    <p id=\"noImageMsg\">尚未上傳檔案</p>
+                                                                </div>
+                                                                <input class=\"btn btn-primary\" type=\"submit\" value=\"送出修改\" >
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>                                    
                                         </div>
                                     </div>
                                 </div>
-                            </div>                                    
-                        </div>
-                    </div>
-                </div>
-            </div>";
+                            </div>
+                        ";
                     }
 
                     $sql3  = "SELECT * FROM item_info,iphoto, iloc WHERE item_info.item_id=iphoto.item_id and item_info.item_id=iloc.item_id and item_info.user_id = $user_id and item_info.statement='sold' group by item_info.item_id";
@@ -510,40 +502,41 @@
 
                     While($row3=mysqli_fetch_assoc($result3))
                     {
-                    $iphoto_name = '.\imageUpload\\'. $row3['iphoto_name']. '';
-                    echo "
-                    <div class='col mb-5'>
-                    <div class='card h-100'>
-                    <div class='text-center'>
-                        <!-- Product name-->
-                        <h4 class='fw-bolder'><a href='bookinfo.php?item_id=", $row3['item_id'],"'>", $row3['item_name'],"</a></h4>
-                    </div>
-                    <!-- Product image-->
-                    <img class='card-img-top' src=".$iphoto_name."  width='50%'  height='50%' alt='...' />
-                    <!-- Product details-->
-                    <div class='card-body p-4'>
-                        <div class='text-center'>
-                            <!-- Product name-->
-                            <h5 class='card-subtitle mb-3'>", $row3['item_info'],"</h5>
-                        </div>
-                    </div>
-                    <!-- Product actions-->
-                    <div class='card-footer p-1 pt-0 border-top-0 bg-transparent'>
-                        <div class='text-center'>
-                            <h4 class='fw-bolder'>商品已下架</h4>
-                        </div>
+                        $iphoto_name = '.\imageUpload\\'. $row3['iphoto_name']. '';
+                        echo "
+                            <div class='col mb-5'>
+                                <div class='card h-100'>
+                                    <div class='text-center'>
+                                        <!-- Product name-->
+                                        <h4 class='fw-bolder'><a href='bookinfo.php?item_id=" . $row3['item_id'] . "'>" . $row3['item_name'] . "</a></h4>
+                                    </div>
+                                    <!-- Product image-->
+                                    <img class='card-img-top' src=" . $iphoto_name . "  width='50%'  height='50%' alt='...' />
+                                    <!-- Product details-->
+                                    <div class='card-body p-4'>
+                                        <div class='text-center'>
+                                            <!-- Product name-->
+                                            <h5 class='card-subtitle mb-3'>" . $row3['item_info'] . "</h5>
+                                        </div>
+                                    </div>
+                                    <!-- Product actions-->
+                                    <div class='card-footer p-1 pt-0 border-top-0 bg-transparent'>
+                                        <div class='text-center'>
+                                            <h4 class='fw-bolder'>商品已下架</h4>
+                                        </div>
                                         <div class='modal-footer'>
                                         </div>
                                     </div>
                                 </div>
-                            </div>                                    
-                        </div>
-                    </div>
-                </div>
-            </div>";
-                    }
-                    ?>
-        </section>
+                            </div>
+
+";
+                }
+                ?>
+                </section>
+
+
+
         <!-- Footer-->
         </div>
         <footer class="py-5 bg-dark">
@@ -555,3 +548,5 @@
         </form>
     </body>
 </html>
+
+

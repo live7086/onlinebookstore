@@ -229,7 +229,7 @@
                                     <tbody>
                                         <?php
                                         $link = mysqli_connect('localhost','root','12345678','sa');
-                                        $sql  = "SELECT *, item_info.user_id AS seller, bid_info.user_id AS buyer FROM trade_record, item_info, bid_info WHERE trade_record.bid_id=bid_info.bid_id AND trade_record.item_id = item_info.item_id ";
+                                        $sql  = "SELECT *, item_info.user_id AS seller, bid_info.user_id AS buyer FROM trade_record, item_info, bid_info WHERE trade_record.bid_id=bid_info.bid_id AND trade_record.item_id = item_info.item_id AND bid_info.user_id = $_SESSION[user_id] ";
                                         $result = mysqli_query($link,$sql);
                                         While($row=mysqli_fetch_assoc($result))
                                         {
@@ -353,7 +353,7 @@
 
 
 
-                                        <div class="modal fade" id="return">
+                                        <!--<div class="modal fade" id="return">
                                         <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -401,7 +401,7 @@
                                                 }
                                                 </script>
                                             </form>
-                                            </div>
+                                            </div>-->
 
                                             
                                         </div>

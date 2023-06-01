@@ -319,7 +319,7 @@
                                                 <h5 class=\"rating-boxH1\">賣家評價</h5>
                                                 <div class=\"rating\">";
                                                                           
-                                                $sqlrate="SELECT * FROM account ,item_info WHERE account.user_id = item_info.user_id ";
+                                                $sqlrate="SELECT * FROM account ,item_info WHERE account.user_id = item_info.user_id and item_info.item_id='$item_id'";
                                                 $resultrate = mysqli_query($link,$sqlrate);
                                                 while ($rowrate = mysqli_fetch_assoc($resultrate)){
                                                     $credit = $rowrate['user_credit'];
