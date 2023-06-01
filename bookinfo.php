@@ -312,8 +312,8 @@
                                                     {
                                                     $name = 'time-'.$count;
                                                     $count=$count+1;
-                                                    echo "
-                                                    <li><span class='badge bg-primary'>".$row2['tagop_name']."</span></li>
+                                                    echo "<div class='col'>
+                                                    <a href='index.php?tag=".$row2['tag_name']."' class='btn btn-primary'>".$row2['tagop_name']."</a></div>
                                                     ";
                                                     
                                                     }
