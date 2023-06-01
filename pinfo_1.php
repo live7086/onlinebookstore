@@ -13,6 +13,7 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
         <link href="css/styles2.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
          <!-- Bootstrap core JS-->
@@ -200,12 +201,26 @@
                         $user_phone= $row['user_phone'];
                         $user_email= $row['user_email'];
                         $user_intro= $row['user_intro'];
-                        echo "<h4 class='fw-bolder'>姓名：", $row['user_name'],"</h4>
-                    <h4 class='fw-bolder'>系所：", $row['user_dept'],"</h4>
-                    <h4 class='fw-bolder'>電話：", $row['user_phone'],"</h4>
-                    <h4 class='fw-bolder'>Email：", $row['user_email'],"</h4>
-                    <h4 class='fw-bolder'>自介：", $row['user_intro'],"</h4>";}
-                    ?>
+                        $user_credit= $row['user_credit'];
+                        $left = 5-$user_credit;
+                        echo $user_credit;  
+                        echo "
+                        <h4 class='fw-bolder'>姓名：", $row['user_name'],"</h4>
+                        <h4 class='fw-bolder'>系所：", $row['user_dept'],"</h4>
+                        <h4 class='fw-bolder'>電話：", $row['user_phone'],"</h4>
+                        <h4 class='fw-bolder'>Email：", $row['user_email'],"</h4>
+                        <h4 class='fw-bolder'>自介：", $row['user_intro'],"</h4>";
+                        
+                        echo "<h4 class='fw-bolder'>您的評價為</h4>";
+
+                        for ($i=0; $i < $user_credit; $i++) { 
+                            echo "<span class=\"fa fa-star\">&nbsp</span>";
+                        }
+                        for($i=0; $i < $left ; $i++){
+                            echo "<span class=\"fa fa-star-o\">&nbsp</span>";
+                        }
+                        break;}
+                        ?>
                     
                     <!--彈出來的視窗-->
                     <div class="modal fade" id="update">

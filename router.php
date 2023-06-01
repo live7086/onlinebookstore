@@ -30,10 +30,15 @@
             
             echo "<script>alert('該帳號已註冊');
             window.location.href = \"index.php\";</script>";
-        
+            $_SESSION['user_id']="";
 
 
-        }else{
+        }else if (strpos($user_email,"@m365.fju.edu.tw")==false){
+            echo "<script>alert('請使用輔仁帳號註冊');
+            window.location.href = \"register.php\";</script>";
+            $_SESSION['user_id']="";
+        }
+        else{
             $_SESSION['otp']=rand(10000,99999);
             // 創建 PHPMailer 實例
             $mail = new PHPMailer(true);
@@ -44,7 +49,7 @@
                 $mail->Host = 'smtp.gmail.com';
                 $mail->SMTPAuth = true;
                 $mail->Username = 'luzzyyo@gmail.com'; // 替換成您的 Gmail 帳戶
-                $mail->Password = 'xwhkuamjkdaeoitx'; // 替換成您的應用程式密碼
+                $mail->Password = 'danmphcwdyikwhru'; // 替換成您的應用程式密碼
             
                 // 設置發件人和收件人的電子郵件地址，郵件主題和內容
                 $mail->setFrom('luzzyyo@gmail.com', 'Your Name');
@@ -77,7 +82,35 @@
                 echo "錯誤";
             }
 
-    }else if($router=="remove"){
+    }else if($router=="resent"){
+        $_SESSION['otp']=rand(10000,99999);
+            // 創建 PHPMailer 實例
+            $mail = new PHPMailer(true);
+            
+            try {
+                // 設置 SMTP 連接參數
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'luzzyyo@gmail.com'; // 替換成您的 Gmail 帳戶
+                $mail->Password = 'danmphcwdyikwhru'; // 替換成您的應用程式密碼
+            
+                // 設置發件人和收件人的電子郵件地址，郵件主題和內容
+                $mail->setFrom('luzzyyo@gmail.com', 'Your Name');
+                $mail->addAddress(''.$user_email.'', 'Recipient Name');
+                $mail->Subject = 'Verification OTP';
+                $mail->Body = 'Your OTP is '.$_SESSION['otp'].'';
+            
+                // 發送郵件
+                $mail->send();
+                echo 'Message has been sent';
+            } catch (Exception $e) {
+                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            }
+            
+                header("Location:verify.php?user_email=".$user_email);
+        }
+    else if($router=="remove"){
         $item_id=$_GET['item_id'];
         //依序進行刪除
         $sqllocation="DELETE FROM iloc WHERE item_id='".$item_id."'";

@@ -21,7 +21,7 @@
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">信箱驗證</h3></div>
                                     <div class="card-body">
-                                        <div class="small mb-3 text-muted">我們已經寄出一封5位數字的驗證碼到<?php echo $user_email=$_GET['user_email'] ?>了</div>
+                                        <div class="small mb-3 text-muted">我們已經寄出一封5位數字的驗證碼到<?php echo $user_email=$_SESSION['user_email'] ?>了</div>
                                         <form>
                                                 <input type=hidden name=router value=verified>
                                                 <div class="form-floating mb-3">
@@ -32,7 +32,7 @@
                                                 </div>
                                             
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                <a class="small" href="resent.php">重新寄送驗證碼</a>
+                                                <a class="small" href="router.php?router=resent">重新寄送驗證碼</a>
                                                 <a class="small" href="index.php">返回登入頁面</a>
                                                 <button type="submit" class="btn btn-primary">驗證</button>
                                             </div>
