@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Shop Homepage - Start Bootstrap Template</title>
+        <title>個人資訊</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Bootstrap icons-->
@@ -56,6 +56,13 @@
     footer {
     flex-shrink: 0;
     }
+    .black-button {
+    color: black;
+    }
+    .bg-light-gray {
+    background-color: #d0d0d0; /* 使用适当的浅灰色值 */
+    }
+
     </style>
     <?php
     $searchtxt = $_GET['searchtxt'];
@@ -185,11 +192,11 @@
         </div>
        -->
        
-        <header class="bg-secondary py-5">
+        <header class="bg-light-gray py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-left text-black">
                     <!--彈跳連結-->
-                    <h3 class="fw-bolder"><a href="#" type="button" data-bs-toggle="modal" data-bs-target="#update">個人資訊</a></h3>
+                    <h3 class="fw-bolder"><a href="#" type="button" data-bs-toggle="modal" data-bs-target="#update" class="black-button">個人資訊</a></h3>
                     <hr>
                     <?php
                         $link = mysqli_connect('localhost','root','12345678','sa');

@@ -11,6 +11,6 @@
     session_start();
     $_SESSION['test'] = "4104";
     ?>
-    <a href="test.php">go</a>
+    <a href="rating.php">go</a>
 </body>
 </html>

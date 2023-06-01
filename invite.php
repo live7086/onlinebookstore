@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Shop Homepage - Start Bootstrap Template</title>
+        <title>我的訂單</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Bootstrap icons-->
@@ -249,8 +249,8 @@
                                             if($row['statement']=="accepted"){
                                                 echo "  <td>接受</td>
                                                         <td>
-                                                            <a href =test.php?statement=completed&item_id=".$row["item_id"]."&bid_id=".$row["bid_id"]." class=\"btn btn-primary\">完成面交</a>
-                                                            <a href =test.php?statement=failed&item_id=".$row["item_id"]."&bid_id=".$row["bid_id"]." class=\"btn btn-danger\" onclick=\"showConfirmation(event)\">面交失敗</a>
+                                                            <a href =rating.php?statement=completed&item_id=".$row["item_id"]."&bid_id=".$row["bid_id"]." class=\"btn btn-primary\">完成面交</a>
+                                                            <a href =rating.php?statement=failed&item_id=".$row["item_id"]."&bid_id=".$row["bid_id"]." class=\"btn btn-danger\" onclick=\"showConfirmation(event)\">面交失敗</a>
                                                         </td>
                                                         </tr>";
                                             }else if($row['statement']=="rejected"){
