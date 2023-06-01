@@ -56,6 +56,17 @@
         footer {
         flex-shrink: 0;
         }
+        .card-subtitle {
+        font-size: 1.2rem; /* 調整字體大小 */
+        color: #333; /* 調整字體顏色 */
+        }
+        .badge {
+        font-size: 1.5rem; /* 調整字體大小 */
+        }
+        .card-text.mb-3.fw-bold {
+        font-size: 1.3rem; /* 調整字體大小 */
+        }
+
     </style>
     <body>
         <!-- Navigation-->
@@ -237,7 +248,7 @@
                             <div class='col mb-3 col-sm-8'> 
                             <div class='card h-100'>
                                 <div class='card-header text-center'>
-                                    <h4 class='card-title'>商品完整資訊</h4>
+                                    <h4 class='card-title  mb-3 fw-bold'>", $row['item_name'],"</h4>
                                 </div>
                                 <div class='card'>
                                     <div class='card-body'>
@@ -284,9 +295,8 @@
                                     <div class='col-md-5'>
                                         <br/>
                                         <br/>
-                                        <h5 class='card-subtitle mb-3'>書名：", $row['item_name'],"</h5>
-                                        <p class='card-text'>ISBN碼:", $row['item_isbn'],"</p>
-                                        <p class='card-text'>", $row['item_info'],"</p>
+                                        <p class='card-text mb-3 fw-bold'>ISBN碼:<br>", $row['item_isbn'],"</p>
+                                        <p class='card-text mb-3 fw-bold'>書本介紹:<br>", $row['item_info'],"</p>
                                         
                                         <!-- 標籤 -->
                                         <div class='card-text'style='font-size: 40px;'>
@@ -316,7 +326,7 @@
                                                 <ul class='list-unstyled'>
                                                 <div class=\"rating-box\">
                                                 <br/>
-                                                <h5 class=\"rating-boxH1\">賣家評價</h5>
+                                                <h5 class=\"rating-boxH1 mb-3 fw-bold\">賣家評價</h5>
                                                 <div class=\"rating\">";
                                                                           
                                                 $sqlrate="SELECT * FROM account ,item_info WHERE account.user_id = item_info.user_id and item_info.item_id='$item_id'";
