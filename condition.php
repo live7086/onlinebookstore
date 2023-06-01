@@ -182,7 +182,7 @@
         <header class="bg-dark py-5">
             <div class="container px-4 px-lg-5 my-1">
                 <div class="text-center text-white">
-                    <h1>我想要賣的商品狀況如何</h1>
+                    <h1>商品販售狀況</h1>
                 </div>
             </div>
         </header>

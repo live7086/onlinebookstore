@@ -57,7 +57,8 @@
                         
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="pinfo_1.php">我的賣場</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="myfav.php">我的最愛</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="invite.php">我的訂單</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="invite.php">我的出價</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="condition.php">販售狀況</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="table.php">面交紀錄</a></li>
                     
                       
