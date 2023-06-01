@@ -183,7 +183,7 @@
         <header class=" py-5" style="background-color: #C9D4C8;">
             <div class="container px-4 px-lg-5 my-1">
                 <div class="text-center text-white">
-                    <h1>我的最愛</h1>
+                    <h1 style="color:black">我的最愛</h1>
                 </div>
             </div>
         </header>
@@ -303,7 +303,7 @@
         </div>
         <footer class="py-4" style="background-color: #8C9B8E;">
         <div class="container">
-            <p class="m-0 text-center text-white">Onlinebookstore &copy;Secondhand Heist</p>
+            <p class="m-0 text-center " style="color:black">Onlinebookstore &copy;Secondhand Heist</p>
         </div>
     </footer>
         <script></script>

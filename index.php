@@ -351,10 +351,22 @@
                                                         while($row2 = mysqli_fetch_assoc($result2)) {
                                                             $name = 'time_'.$count;
                                                             $count=$count+1;
-                                                        echo "
-                                                        <label class='radio-inline'> 
-                                                        <input type='radio' name='".$name."' value='".$row2['itime_name']."'>".$row2['itime_name']."
-                                                        </label>";}
+                                                            echo "
+                                                            <label class='radio-inline'> 
+                                                            <input type='checkbox' name='".$name."' value='".$row2['itime_name']."' onclick=\"handleCheckboxClick(this, '".$name."')\" >".$row2['itime_name']."
+                                                            </label>
+                                                            <script>
+                                                            function handleCheckboxClick(checkbox, name) {
+                                                              var checkboxes = document.getElementsByName(name);
+                                                              checkboxes.forEach(function(cb) {
+                                                                if (cb !== checkbox) {
+                                                                  cb.checked = false;
+                                                                }
+                                                              });
+                                                            }
+                                                            </script>
+                                                            ";
+                                                            }
                                                 echo"    </div>
                                                 </div>
                                                 <div align='center'>
@@ -378,9 +390,9 @@
         </section>
         <!-- Footer-->
         </div>
-        <footer class="py-5 bg-dark">
+        <footer class="py-5" style="background-color: #C9D4C8;">
         <div class="container">
-            <p class="m-0 text-center text-white">Onlinebookstore &copy;Secondhand Heist</p>
+            <p class="m-0 text-center" style="color:black">Onlinebookstore &copy;Secondhand Heist</p>
         </div>
     </footer>
 </div>

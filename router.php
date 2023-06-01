@@ -112,16 +112,10 @@
         }
     else if($router=="remove"){
         $item_id=$_GET['item_id'];
-        //依序進行刪除
-        $sqllocation="DELETE FROM iloc WHERE item_id='".$item_id."'";
-        $sqltime="DELETE FROM itime WHERE item_id='".$item_id."'";
-        $sqlphoto="DELETE FROM iphoto WHERE item_id='".$item_id."'";
-        $sqlinfo="DELETE FROM item_info WHERE item_id='".$item_id."'";
+        
+        $sql  = "UPDATE item_info SET statement = 'sold' WHERE item_id = '$item_id' ";
+        mysqli_query($link,$sql);
 
-        $result=mysqli_query($link,$sqllocation);
-        $result=mysqli_query($link,$sqltime);
-        $result=mysqli_query($link,$sqlphoto);
-        $result=mysqli_query($link,$sqlinfo);
         header("Location:pinfo_1.php");
     }else if($router=="itemupdate"){
         $item_id=$_GET['item_id'];

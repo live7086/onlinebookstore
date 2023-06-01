@@ -552,7 +552,7 @@
         </div>
         <footer class="py-4" style="background-color: #8C9B8E;">
         <div class="container">
-            <p class="m-0 text-center text-white">Onlinebookstore &copy;Secondhand Heist</p>
+            <p class="m-0 text-center" style="color:black">Onlinebookstore &copy;Secondhand Heist</p>
         </div>
     </footer>
         <script></script>
