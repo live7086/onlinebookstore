@@ -428,9 +428,9 @@
                 </main>
         
         
-        <footer class="fixed-footer">
+        <footer class="fixed-footer" style="background-color: #8C9B8E;">
         <div class="container">
-            <p class="m-0">Copyright &copy; Your Website 2022</p>
+            <p class="m-0">Onlinebookstore &copy;Secondhand Heist</p>
         </div>
         </footer>
         <script></script>

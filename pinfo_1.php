@@ -550,9 +550,9 @@
 
         <!-- Footer-->
         </div>
-        <footer class="py-5 bg-dark">
+        <footer class="py-4" style="background-color: #8C9B8E;">
         <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p>
+            <p class="m-0 text-center text-white">Onlinebookstore &copy;Secondhand Heist</p>
         </div>
     </footer>
         <script></script>
