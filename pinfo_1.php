@@ -23,16 +23,13 @@
           
     </head>
     <style>
-    .fa {
-        font-size: 30px; /* 設定星星的大小為30像素 */
-    }
-    .empty-div {
-        width: 90%;
-    }
-    .row-cols-4 {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+        .empty-div {
+            width: 90%;
+        }
+        .row-cols-4 {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
     }
 
     .row-cols-4 > .col {
@@ -84,8 +81,7 @@
                         
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="pinfo_1.php">我的賣場</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="myfav.php">我的最愛</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="invite.php">我的出價</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="condition.php">販售狀況</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="invite.php">我的訂單</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="table.php">面交紀錄</a></li>
                         <li class="nav-item">
                             
@@ -196,7 +192,7 @@
         </div>
        -->
        
-        <header class="py-5" style="background-color: #C9D4C8;">
+        <header class="bg-light-gray py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-left text-black">
                     <!--彈跳連結-->
@@ -222,7 +218,7 @@
                         <h4 class='fw-bolder'>自介：", $row['user_intro'],"</h4>";
                         
                         echo "<h4 class='fw-bolder'>您的評價為</h4>";
-                        
+
                         for ($i=0; $i < $user_credit; $i++) { 
                             echo "<span class=\"fa fa-star\">&nbsp</span>";
                         }
@@ -550,9 +546,9 @@
 
         <!-- Footer-->
         </div>
-        <footer class="py-4" style="background-color: #8C9B8E;">
+        <footer class="py-5 bg-dark">
         <div class="container">
-            <p class="m-0 text-center text-white">Onlinebookstore &copy;Secondhand Heist</p>
+            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p>
         </div>
     </footer>
         <script></script>

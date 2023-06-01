@@ -77,9 +77,8 @@
                         <!--<li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">書籍</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">雜誌</a></li>-->
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="pinfo_1.php">我的賣場</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="myfav.php">我的最愛</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="invite.php">我的出價</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="condition.php">販售狀況</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">我的最愛</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="invite.php">我的訂單</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="table.php">面交紀錄</a></li>
                         
                     
@@ -180,7 +179,7 @@
               
         </nav>
 
-        <header class=" py-5" style="background-color: #C9D4C8;">
+        <header class="bg-dark py-5">
             <div class="container px-4 px-lg-5 my-1">
                 <div class="text-center text-white">
                     <h1>我的最愛</h1>
@@ -301,9 +300,9 @@
         
         
         </div>
-        <footer class="py-4" style="background-color: #8C9B8E;">
+        <footer class="py-5 bg-dark">
         <div class="container">
-            <p class="m-0 text-center text-white">Onlinebookstore &copy;Secondhand Heist</p>
+            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p>
         </div>
     </footer>
         <script></script>

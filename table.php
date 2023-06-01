@@ -57,8 +57,7 @@
                         
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="pinfo_1.php">我的賣場</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="myfav.php">我的最愛</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="invite.php">我的出價</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="condition.php">販售狀況</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="invite.php">我的訂單</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="table.php">面交紀錄</a></li>
                     
                       
@@ -210,7 +209,7 @@
                                             <th>地點</th>
                                             <th>價錢</th>
                                             <th>商品編號</th>
-                                            <th>訂單評分</th>
+                                            <th>退貨</th>
                                         
                                         
                                         </tr>
@@ -224,7 +223,7 @@
                                             <th>地點</th>
                                             <th>價錢</th>
                                             <th>商品編號</th>
-                                            <th>訂單評分</th>
+                                            <th>退貨</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -262,16 +261,7 @@
                                             <td>
                                                 <a href=\"#\" type=\"button\" data-bs-toggle=\"modal\" data-bs-target='#iinfo-{$row['item_id']}'>".$row['item_id']."</a>
                                             </td>
-                                                <td>";
-                                                $credit = $row['rating'];
-                                                $left = 5-$credit;
-                                                for ($i=0; $i < $credit; $i++) { 
-                                                echo "<span class=\"fa fa-star\">&nbsp</span>";
-                                                }
-                                                for($i=0; $i < $left ; $i++){
-                                                echo "<span class=\"fa\">&nbsp</span>";
-                                                }
-                                        echo "  </td>
+                                            <td>還不能退貨</td>
                                         </tr>
                                             <div class=\"modal fade\" id='iinfo-{$row['item_id']}'>
                                         <div class=\"modal-dialog\">
@@ -428,9 +418,9 @@
                 </main>
         
         
-        <footer class="fixed-footer" style="background-color: #8C9B8E;">
+        <footer class="fixed-footer">
         <div class="container">
-            <p class="m-0">Onlinebookstore &copy;Secondhand Heist</p>
+            <p class="m-0">Copyright &copy; Your Website 2022</p>
         </div>
         </footer>
         <script></script>
