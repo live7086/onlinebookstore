@@ -358,7 +358,7 @@
                                                 </div>
                                                 <div align='center'>
                                                     <div>
-                                                        <input type='submit' value='Submit' class='btn btn-primary'>
+                                                        <input type='submit' value='送出' class='btn btn-primary'>
                                                     </div>
                                                 </div> 
                                             </form>

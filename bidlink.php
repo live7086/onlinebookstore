@@ -1,5 +1,7 @@
 <?php
 
+
+if($_SESSION['user_id']){
 session_start();
 function generateItemId($conn, $item_info) {
     // 定義最大重試次數
@@ -60,4 +62,17 @@ function generateItemId($conn, $item_info) {
 	  {
 	    header("Location:index.php?message=新增失敗$btime_1,$btime_2,$btime_3, $bid_price, $user_id, $item_id");
 	  }
+  }else{
+    echo "<script>// 延遲時間（以毫秒為單位）
+    var delayInMilliseconds = 10; // 1秒
+    
+    // 設置延遲並在延遲結束後執行跳轉程式碼
+    setTimeout(function() {
+      // 這裡是要跳轉的頁面的 URL
+      window.location.href = 'index.php';
+    }, delayInMilliseconds);
+    
+    // 彈出警示對話框
+    alert(\"請先登入\");</script>";
+}
       ?>

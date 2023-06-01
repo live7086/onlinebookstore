@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>我的訂單</title>
+        <title>Shop Homepage - Start Bootstrap Template</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Bootstrap icons-->
@@ -75,8 +75,10 @@
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">雜誌</a></li>-->
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="pinfo_1.php">我的賣場</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="myfav.php">我的最愛</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="invite.php">我的訂單</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="invite.php">我的出價</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="condition.php">販售狀況</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="table.php">面交紀錄</a></li>
+
                         
                     
                       
@@ -180,7 +182,7 @@
         <header class="bg-dark py-5">
             <div class="container px-4 px-lg-5 my-1">
                 <div class="text-center text-white">
-                    <h1>我的訂單</h1>
+                    <h1>我的出價</h1>
                 </div>
             </div>
         </header>
@@ -249,8 +251,8 @@
                                             if($row['statement']=="accepted"){
                                                 echo "  <td>接受</td>
                                                         <td>
-                                                            <a href =rating.php?statement=completed&item_id=".$row["item_id"]."&bid_id=".$row["bid_id"]." class=\"btn btn-primary\">完成面交</a>
-                                                            <a href =rating.php?statement=failed&item_id=".$row["item_id"]."&bid_id=".$row["bid_id"]." class=\"btn btn-danger\" onclick=\"showConfirmation(event)\">面交失敗</a>
+                                                            <a href =test.php?statement=completed&item_id=".$row["item_id"]."&bid_id=".$row["bid_id"]." class=\"btn btn-primary\">完成面交</a>
+                                                            <a href =test.php?statement=failed&item_id=".$row["item_id"]."&bid_id=".$row["bid_id"]." class=\"btn btn-danger\" onclick=\"showConfirmation(event)\">面交失敗</a>
                                                         </td>
                                                         </tr>";
                                             }else if($row['statement']=="rejected"){
