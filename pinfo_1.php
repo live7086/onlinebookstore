@@ -303,7 +303,7 @@
                                             <input class="form-control" type="text" id="time-period-3" placeholder="面交時間段(星期幾 小時:分鐘)"name="time-3">
                                         </div>
                                         
-                                        <select class="form-select" id="user_dept" name="tag_1" required>
+                                        <select class="form-select" id="user_dept" name="tag_1" >
                                             <option value="" disabled selected >請選擇標籤</option>
                                             <?php
                                                 $link = mysqli_connect('localhost','root','12345678','sa');
@@ -314,7 +314,7 @@
                                             ?>
                                         </select>
 
-                                        <select class="form-select" id="user_dept" name="tag_2" required>
+                                        <select class="form-select" id="user_dept" name="tag_2" >
                                             <option value="" disabled selected >請選擇標籤</option>
                                             <?php
                                                 $link = mysqli_connect('localhost','root','12345678','sa');
@@ -325,7 +325,7 @@
                                             ?>
                                         </select>
 
-                                        <select class="form-select" id="user_dept" name="tag_3" required>
+                                        <select class="form-select" id="user_dept" name="tag_3" >
                                             <option value="" disabled selected >請選擇標籤</option>
                                             <?php
                                                 $link = mysqli_connect('localhost','root','12345678','sa');
